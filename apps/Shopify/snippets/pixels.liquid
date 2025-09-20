@@ -1,0 +1,15 @@
+{% comment %} Drop-in pixel loader; set IDs in theme settings or hardcode below. {% endcomment %}
+{% assign tiktok_pixel_id = settings.tiktok_pixel_id | default: '' %}
+{% assign meta_pixel_id = settings.meta_pixel_id | default: '' %}
+{% assign ga4_id = settings.ga4_id | default: '' %}
+<!-- TikTok Pixel -->
+{% if tiktok_pixel_id != '' %}<script>!function(w,d,t){w.TiktokAnalyticsObject=t;var tt=w[t]=w[t]||[];tt.methods=['page','track','identify'];tt.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<tt.methods.length;i++)tt.setAndDefer(tt,tt.methods[i]);tt.load=function(e){var i='https://analytics.tiktok.com/i18n/pixel/events.js';var n=d.createElement('script');n.async=!0,n.src=i+'?sdkid='+e+'&lib='+t;var a=d.getElementsByTagName('script')[0];a.parentNode.insertBefore(n,a)};tt.load('{{ tiktok_pixel_id }}');tt.page();}(window,document,'ttq');</script>{% endif %}
+<!-- Meta Pixel -->
+{% if meta_pixel_id != '' %}<script>!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','{{ meta_pixel_id }}');fbq('track','PageView');</script>{% endif %}
+<!-- GA4 -->
+{% if ga4_id != '' %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4_id }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ ga4_id }}');</script>{% endif %}
