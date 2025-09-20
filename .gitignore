@@ -1,0 +1,17 @@
+
+# Node / build
+node_modules/
+dist/
+.cache/
+.next/
+out/
+*.log
+
+# Python / OS
+__pycache__/
+.DS_Store
+
+# Secrets
+.env
+*.env
+private/
