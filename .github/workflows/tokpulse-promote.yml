@@ -65,3 +65,15 @@ jobs:
           NETLIFY_HOOK_PROD: ${{ secrets.NETLIFY_HOOK_PROD }}
         run: |
           curl -sSf -X POST -d '{}' "$NETLIFY_HOOK_PROD" && echo "Netlify hook fired."
+      - name: Mirror promoted package to packages/current (for Netlify)
+        if: inputs.deploy_prod
+        shell: bash
+        run: |
+          rm -rf packages/current
+          mkdir -p packages
+          cp -R "${{ inputs.package_dir }}" "packages/current"
+          # (optional) also mirror to packages/next for previews
+          # rm -rf packages/next && cp -R "${{ inputs.package_dir }}" packages/next
+          git add packages/current
+          git commit -m "promote: mirror to packages/current" || true
+          git push || true
