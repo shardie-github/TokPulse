@@ -1,0 +1,10 @@
+[build]
+base = "packages/current"
+command = "npm ci && npm run build"
+publish = "dist"
+
+[context.deploy-preview]
+base = "packages/next"
+
+[context.branch-deploy]
+base = "packages/next"
