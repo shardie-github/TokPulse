@@ -1,0 +1,72 @@
+name: TokPulse Run (prefer .current; fallback latest)
+
+on:
+  workflow_dispatch:
+    inputs:
+      node_version:
+        description: "Node.js version"
+        type: string
+        default: "20"
+      install_cmd:
+        description: "Install command"
+        type: string
+        default: "npm ci"
+      build_cmd:
+        description: "Build command"
+        type: string
+        default: "npm run build"
+      test_cmd:
+        description: "Test command (leave blank to skip)"
+        type: string
+        default: ""
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve package path
+        id: path
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f packages/.current ]; then
+            CURRENT="$(cat packages/.current | tr -d '[:space:]')"
+            if [ -d "$CURRENT" ]; then
+              echo "dir=$CURRENT" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          LATEST="$(ls -1dt packages/*/ 2>/dev/null | head -n 1 | sed 's:/$::')"
+          if [ -z "$LATEST" ]; then
+            echo "No packages found. Did you push a ZIP to incoming/ yet?"
+            exit 1
+          fi
+          echo "dir=$LATEST" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+
+      - name: Install
+        working-directory: ${{ steps.path.outputs.dir }}
+        run: ${{ inputs.install_cmd }}
+
+      - name: Build
+        working-directory: ${{ steps.path.outputs.dir }}
+        run: ${{ inputs.build_cmd }}
+
+      - name: Test
+        if: inputs.test_cmd != ''
+        working-directory: ${{ steps.path.outputs.dir }}
+        run: ${{ inputs.test_cmd }}
+
+      - name: Summary
+        shell: bash
+        run: |
+          echo "✅ Ran against: ${{ steps.path.outputs.dir }}"

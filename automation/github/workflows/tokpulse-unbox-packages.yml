@@ -1,0 +1,83 @@
+name: TokPulse Unbox (packages) — Direct Commit
+
+on:
+  push:
+    paths:
+      - 'incoming/*.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tokpulse-unbox-${{ github.ref }}-packages
+  cancel-in-progress: false
+
+jobs:
+  unpack-and-commit:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Find ZIPs changed in this push
+        id: find
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          before="${{ github.event.before }}"
+          after="${{ github.sha }}"
+          declare -a zips=()
+          if [ -n "$before" ]; then
+            while IFS= read -r f; do zips+=("$f"); done < <(git diff --name-only "$before" "$after" -- 'incoming/*.zip' || true)
+          fi
+          if [ "${#zips[@]}" -eq 0 ]; then
+            for f in incoming/*.zip; do [ -e "$f" ] && zips+=("$f"); done
+          fi
+          if [ "${#zips[@]}" -eq 0 ]; then
+            echo "zips=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          {
+            echo "zips<<EOF"
+            printf "%s
+" "${zips[@]}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Unpack each ZIP to packages/<zip-name>/
+        if: steps.find.outputs.zips != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p packages
+          while IFS= read -r zip; do
+            [ -n "$zip" ] || continue
+            [ -e "$zip" ] || continue
+            base="$(basename "$zip" .zip)"
+            dest="packages/$base"
+            echo "Unzipping: $zip  ->  $dest"
+            rm -rf "$dest"
+            mkdir -p "$dest"
+            unzip -q "$zip" -d "$dest"
+          done <<< "${{ steps.find.outputs.zips }}"
+
+      - name: Commit & push extracted files (direct)
+        if: steps.find.outputs.zips != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/
+          if ! git diff --cached --quiet; then
+            git commit -m "tokpulse: unpack ZIP(s) → packages/ (direct)"
+            git push
+          else
+            echo "No changes to commit."
+          fi
