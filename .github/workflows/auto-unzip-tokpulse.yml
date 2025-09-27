@@ -1,31 +1,21 @@
 name: Auto Unzip TokPulse Scaffold
-
 on:
   push:
     branches: [ main ]
     paths:
-      - 'TokPulse_scaffold*.zip'   # triggers when you commit v1 or v2 zip
-
+      - 'TokPulse_scaffold*.zip'
 permissions:
   contents: write
-
 jobs:
   unzip:
     runs-on: ubuntu-latest
-    # Prevent infinite loop when the action commits the unzip result
     if: "!contains(github.event.head_commit.message, '[autounzip]')"
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Install unzip
-        run: sudo apt-get update && sudo apt-get install -y unzip
-
-      - name: Pick latest TokPulse scaffold ZIP
-        id: pick
+      - run: sudo apt-get update && sudo apt-get install -y unzip
+      - id: pick
         shell: bash
         run: |
           set -euo pipefail
@@ -35,11 +25,8 @@ jobs:
             exit 1
           fi
           echo "zip=${ZIP}" >> "$GITHUB_OUTPUT"
-
-      - name: Unzip scaffold into repo root (preserve nested folders)
-        run: |
-          unzip -o "${{ steps.pick.outputs.zip }}" -d .
-
+      - name: Unzip scaffold into repo root
+        run: unzip -o "${{ steps.pick.outputs.zip }}" -d .
       - name: Commit unzipped contents
         shell: bash
         run: |
