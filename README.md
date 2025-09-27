@@ -1,15 +1,34 @@
-# TokPulse Monorepo (Shopify + Wix + CI Packages)
+# Hardonia Unified — MAX Upgrade
 
-**Flow:** push ZIPs to `incoming/` → CI unboxes to `packages/<drop>` → test with **TokPulse Run** → promote with **TokPulse Promote** (writes `packages/.current` + deploy hooks).
+**What you get (10x upgrades):**
+- Shopify-first checkout (Stripe fallback), embeddable widget for Wix/others
+- SQLite-backed leads, events, licenses
+- Admin dashboard (/admin) with MRR/Active/Referrer metrics
+- Nightly backup workflow + data export script
+- Notifications (Discord/Slack) on builds/promotions
+- Rate limiting, Helmet security hardening
+- A/B pricing variants (via PRICING_VARIANTS env)
+- Tests (smoke), CI, artifact packaging
+- One-command seeding (`scripts/seed_db.sh`) and CSV export (`scripts/export_data.sh`)
 
-## Quick Start
-1. Put a build ZIP in `incoming/` and push.  
-2. GitHub → Actions → **TokPulse Run** (runs against `.current` or latest).  
-3. GitHub → Actions → **TokPulse Promote** → set `packages/<drop-name>` and (optionally) trigger deploy hooks.
+## Quickstart (Termux)
+```bash
+cd packages/feedback
+npm install
+# Shopify primary (set BUY_URL); Stripe fallback optional
+export BUY_URL='https://YOUR-SHOPIFY-PAYMENT-LINK'
+# Optional Stripe:
+# export STRIPE_SECRET_KEY='sk_live_...'
+# export STRIPE_PRICE_ID='price_...'
+export ADMIN_PASSWORD='super-secret'
+npm run serve   # API :8787
+npm run dev     # Frontend :5173
+```
 
-## Deploy Hooks (optional)
-- Add `VERCEL_HOOK_PROD` / `NETLIFY_HOOK_PROD` in **Settings → Secrets → Actions**.
+**Admin:** open `/admin`, enter ADMIN_PASSWORD, see live metrics.
 
-## Docs
-- See `/docs/TOKPULSE-NEXT-STEPS.md` for end-to-end CI details.
-- See `/docs/HARDONIA-README.md` for Shopify system overview & history.
+**Backups:** Nightly GitHub Action `nightly-backup.yml` archives data + marketing/ into artifact.
+
+**Data:** `bash scripts/export_data.sh` → CSV of leads.
+
+Wire `DISCORD_WEBHOOK` / `SLACK_WEBHOOK` as repo secrets to get notifications.
