@@ -1,79 +1,27 @@
 name: TokPulse Promote
-
 on:
   workflow_dispatch:
     inputs:
       package_dir:
-        description: "Path like packages/<drop-name>"
+        description: 'Package dir to promote (e.g., packages/feedback)'
         required: true
-        type: string
-      deploy_prod:
-        description: "Trigger deploy hooks after promotion?"
-        required: true
-        type: boolean
-        default: true
-
-permissions:
-  contents: write
-
 jobs:
   promote:
     runs-on: ubuntu-latest
+    permissions: {contents: write}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Validate package_dir
-        id: validate
-        shell: bash
-        run: |
-          set -euo pipefail
-          PD="${{ inputs.package_dir }}"
-          if [[ "$PD" != packages/* ]]; then
-            echo "package_dir must start with 'packages/'" >&2
-            exit 1
-          fi
-          if [ ! -d "$PD" ]; then
-            echo "Path not found: $PD" >&2
-            exit 1
-          fi
-          echo "ok=1" >> "$GITHUB_OUTPUT"
-
-      - name: Write packages/.current
-        if: steps.validate.outputs.ok == '1'
-        shell: bash
+      - uses: actions/checkout@v4
+        with: {token: ${{ secrets.GITHUB_TOKEN }}}
+      - name: Promote
         run: |
           echo "${{ inputs.package_dir }}" > packages/.current
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "tokpulse-bot"
+          git config user.email "bot@users.noreply.github.com"
           git add packages/.current
-          git commit -m "promote: ${{ inputs.package_dir }}" || echo "No changes."
-          git push || true
-
-      - name: Trigger Vercel prod deploy (optional)
-        if: inputs.deploy_prod && env.VERCEL_HOOK_PROD != ''
+          git commit -m "chore: promote -> ${{ inputs.package_dir }}" || echo "No changes"
+          git push
+      - name: Notify
+        run: bash scripts/notify.sh "Promoted to ${{ inputs.package_dir }}"
         env:
-          VERCEL_HOOK_PROD: ${{ secrets.VERCEL_HOOK_PROD }}
-        run: |
-          curl -sSf -X POST "$VERCEL_HOOK_PROD" && echo "Vercel hook fired."
-
-      - name: Trigger Netlify prod build (optional)
-        if: inputs.deploy_prod && env.NETLIFY_HOOK_PROD != ''
-        env:
-          NETLIFY_HOOK_PROD: ${{ secrets.NETLIFY_HOOK_PROD }}
-        run: |
-          curl -sSf -X POST -d '{}' "$NETLIFY_HOOK_PROD" && echo "Netlify hook fired."
-      - name: Mirror promoted package to packages/current (for Netlify)
-        if: inputs.deploy_prod
-        shell: bash
-        run: |
-          rm -rf packages/current
-          mkdir -p packages
-          cp -R "${{ inputs.package_dir }}" "packages/current"
-          # (optional) also mirror to packages/next for previews
-          # rm -rf packages/next && cp -R "${{ inputs.package_dir }}" packages/next
-          git add packages/current
-          git commit -m "promote: mirror to packages/current" || true
-          git push || true
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
