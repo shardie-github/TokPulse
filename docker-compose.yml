@@ -5,20 +5,45 @@ services:
     environment:
       DASHBOARD_PORT: 4173
       REPORT_PATH: /app/data/last-report.json
-    ports: [ "4173:4173" ]
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
     volumes:
       - ./packages/data:/app/data:ro
       - ./packages/dashboard/dist:/app/dist:ro
+    expose: [ "4173" ]
   support:
     build: ./apps/support
     environment:
       SUPPORT_PORT: 3002
       DATA_DIR: /app/var/data
-    ports: [ "3002:3002" ]
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
     volumes:
       - ./var/data:/app/var/data
-  meta:
-    build: ./apps/meta
+    expose: [ "3002" ]
+  billing:
+    build: ./apps/billing
     environment:
-      PORT: 3001
-    ports: [ "3001:3001" ]
+      BILLING_PORT: 3003
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_PRICE_ID: ${STRIPE_PRICE_ID:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://your-domain.example}
+    volumes:
+      - ./private:/app/private
+    expose: [ "3003" ]
+  caddy:
+    image: caddy:alpine
+    ports: [ "80:80", "443:443" ]
+    environment:
+      DOMAIN: ${DOMAIN:-your-domain.example}
+    volumes:
+      - ./ops/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - dashboard
+      - support
+      - billing
+volumes:
+  caddy_data:
+  caddy_config:

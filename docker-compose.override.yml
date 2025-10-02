@@ -1,0 +1,5 @@
+services:
+  dashboard: { restart: unless-stopped }
+  support:   { restart: unless-stopped }
+  billing:   { restart: unless-stopped }
+  caddy:     { restart: unless-stopped }

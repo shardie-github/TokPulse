@@ -13,6 +13,7 @@ const MediaWidget       = React.lazy(() => import('../components/MediaWidget'))
 const Leaderboard       = React.lazy(() => import('../components/Leaderboard'))
 const StreakWidget      = React.lazy(() => import('../components/StreakWidget'))
 const XPBar             = React.lazy(() => import('../components/XPBar'))
+const ProPanel = React.lazy(() => import('../components/ProPanel'));
 const SettingsDrawer    = React.lazy(() => import('../components/SettingsDrawer'))
 const SupportWidget     = React.lazy(() => import('../components/SupportWidget'))
 
@@ -42,7 +43,8 @@ export default function App(){
             <React.Suspense fallback={<div className="card p-4">Loading…</div>}><Leaderboard/></React.Suspense>
             <React.Suspense fallback={<div className="card p-4">Loading…</div>}><StreakWidget/></React.Suspense>
             <React.Suspense fallback={<div className="card p-4">Loading…</div>}><XPBar/></React.Suspense>
-            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><SettingsDrawer/></React.Suspense>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><React.Suspense fallback={<div className="card p-4">Loading…</div>}><ProPanel/></React.Suspense>
+            <SettingsDrawer/></React.Suspense>
           </section>
         </div>
       </main>

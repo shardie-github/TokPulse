@@ -1,0 +1,19 @@
+# Set DOMAIN via env: docker compose will pass it (e.g., your-domain.example)
+{
+  email admin@your-domain.example
+}
+:80, :443 {
+  encode zstd gzip
+  @apiSupport path /api/support/* /healthz
+  @apiBilling path /api/billing/*
+
+  handle @apiSupport {
+    reverse_proxy support:3002
+  }
+  handle @apiBilling {
+    reverse_proxy billing:3003
+  }
+  handle {
+    reverse_proxy dashboard:4173
+  }
+}
