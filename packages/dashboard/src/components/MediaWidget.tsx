@@ -5,8 +5,7 @@ export const MediaWidget = ()=>{
       <div className="font-medium mb-2">Media & Creatives</div>
       <div className="aspect-video rounded-xl overflow-hidden bg-black/5 dark:bg-white/5 flex items-center justify-center">
         <div className="text-xs opacity-70 px-3 text-center">
-          Drop in platform embeds or uploaded preview here.<br/>
-          (e.g., TikTok oEmbed, IG Reel, YouTube preview).
+          Drop platform embeds or uploads here (TikTok/IG/YouTube).
         </div>
       </div>
     </div>

@@ -4,8 +4,10 @@ const Kpi = ({label,value,delta,unit}:{label:string,value:number,delta:number,un
   <div className="card p-4">
     <div className="text-sm text-gray-500">{label}</div>
     <div className="flex items-end gap-2">
-      <div className="text-2xl font-semibold">{unit==='$'? '$'+value.toLocaleString(): unit==='%'? value.toFixed(1)+'%': value.toLocaleString()}</div>
-      <div className={delta>=0?'text-emerald-500':'text-rose-500'}>{delta>=0? '+' : ''}{delta}{unit==='%'?'%':''}</div>
+      <div className="text-2xl font-semibold">
+        {unit==='$' ? '$'+value.toLocaleString() : unit==='%' ? value.toFixed(1)+'%' : value.toLocaleString()}
+      </div>
+      <div className={delta>=0?'text-emerald-500':'text-rose-500'}>{delta>=0?'+':''}{delta}{unit==='%'?'%':''}</div>
     </div>
   </div>
 )

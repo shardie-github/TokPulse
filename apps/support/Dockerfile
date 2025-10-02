@@ -1,7 +1,8 @@
 FROM node:20-alpine
+ENV NODE_ENV=production
 WORKDIR /app
-COPY package.json src/ ./apps/support/
-WORKDIR /app/apps/support
+COPY package.json src/ ./
 RUN npm pkg set type=module && echo '{}' > package-lock.json
-EXPOSE 3002
+USER node
+EXPOSE 3000
 CMD ["node","src/server.js"]

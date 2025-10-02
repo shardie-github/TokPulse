@@ -4,24 +4,24 @@
     {
       "label": "Revenue",
       "value": 9815.61,
-      "delta": 6.1,
+      "delta": 1.1,
       "unit": "$"
     },
     {
       "label": "Orders",
       "value": 102,
-      "delta": 6.5
+      "delta": 1.4
     },
     {
       "label": "Conv. Rate",
       "value": 105.15,
-      "delta": 0.8,
+      "delta": 0.9,
       "unit": "%"
     },
     {
       "label": "Avg. Order",
       "value": 96.23,
-      "delta": 1.1,
+      "delta": 0,
       "unit": "$"
     }
   ],
@@ -57,11 +57,11 @@
   ],
   "feed": [
     {
-      "ts": "2025-10-02T04:55:42.913Z",
+      "ts": "2025-10-02T05:16:36.600Z",
       "channel": "shop",
       "title": "Weekly digest posted",
       "details": "$9815.61"
     }
   ],
-  "ts": "2025-10-02T04:55:42.914Z"
+  "ts": "2025-10-02T05:16:36.601Z"
 }

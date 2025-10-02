@@ -16,6 +16,6 @@ export const Sidebar = () => (
         </button>
       ))}
     </nav>
-    <div className="text-xs text-gray-500 mt-6">v0.1 premium dashboard</div>
+    <div className="text-xs text-gray-500 mt-6">v0.1 premium</div>
   </div>
 )

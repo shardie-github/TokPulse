@@ -2,8 +2,8 @@ import { create } from 'zustand'
 type Channel = 'tiktok'|'meta'|'youtube'|'x'|'instagram'|'shop'
 type KPI = { label:string; value:number; delta:number; unit?:string }
 type Activity = { ts:string; channel:Channel; title:string; details?:string }
-
 type Badge = { id:string; name:string; desc:string; earned:boolean; icon?:string; xp:number }
+
 type State = {
   theme:'light'|'dark',
   kpis: KPI[],

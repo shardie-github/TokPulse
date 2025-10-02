@@ -1,6 +1,6 @@
 import React from 'react'
-import dayjs from 'dayjs'
 import { useStore } from '../state/store'
+function fmt(ts:string){ try{ return new Date(ts).toLocaleString() }catch{ return ts } }
 export const ActivityFeed = ()=>{
   const feed = useStore(s=>s.feed)
   return (
@@ -11,7 +11,7 @@ export const ActivityFeed = ()=>{
           <li key={i} className="flex items-center justify-between">
             <div>
               <div className="font-medium">{a.title}</div>
-              <div className="text-xs text-gray-500">{a.channel} • {dayjs(a.ts).fromNow?.() || a.ts}</div>
+              <div className="text-xs text-gray-500">{a.channel} • {fmt(a.ts)}</div>
             </div>
             {a.details && <div className="text-sm opacity-80">{a.details}</div>}
           </li>
