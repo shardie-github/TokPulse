@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStore } from '../state/store'
 import { Sun, Moon, Bell, Crown } from 'lucide-react'
-import { fetchLicense } from '../lib/license'
+import { fetchLicense } from '../lib/license.ts'
 export const Topbar = () => {
   const theme = useStore(s=>s.theme)
   const setTheme = useStore(s=>s.setTheme)
