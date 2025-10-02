@@ -1,34 +1,21 @@
-# Hardonia Unified — MAX Upgrade
 
-**What you get (10x upgrades):**
-- Shopify-first checkout (Stripe fallback), embeddable widget for Wix/others
-- SQLite-backed leads, events, licenses
-- Admin dashboard (/admin) with MRR/Active/Referrer metrics
-- Nightly backup workflow + data export script
-- Notifications (Discord/Slack) on builds/promotions
-- Rate limiting, Helmet security hardening
-- A/B pricing variants (via PRICING_VARIANTS env)
-- Tests (smoke), CI, artifact packaging
-- One-command seeding (`scripts/seed_db.sh`) and CSV export (`scripts/export_data.sh`)
+# TokPulse + Hardonia — Shareable Repo Snapshot
 
-## Quickstart (Termux)
-```bash
-cd packages/feedback
-npm install
-# Shopify primary (set BUY_URL); Stripe fallback optional
-export BUY_URL='https://YOUR-SHOPIFY-PAYMENT-LINK'
-# Optional Stripe:
-# export STRIPE_SECRET_KEY='sk_live_...'
-# export STRIPE_PRICE_ID='price_...'
-export ADMIN_PASSWORD='super-secret'
-npm run serve   # API :8787
-npm run dev     # Frontend :5173
-```
+This snapshot contains:
+- TokPulse CI package unboxing, runner, and promotion workflows
+- Next steps playbook and Hardonia project README
+- A ready-made repo structure with `incoming/` and `packages/` for ZIP-based drops
+- Netlify config (optional)
 
-**Admin:** open `/admin`, enter ADMIN_PASSWORD, see live metrics.
+## How to use
 
-**Backups:** Nightly GitHub Action `nightly-backup.yml` archives data + marketing/ into artifact.
+1. Create a new GitHub repo and push these files.
+2. Drop any build ZIP into `incoming/` and push — the unbox workflow will extract to `packages/<zipname>/`.
+3. Run the **TokPulse Run** workflow to test from `packages/.current` (or latest if not set).
+4. Use **TokPulse Promote** to flip production to a chosen package and optionally trigger Vercel/Netlify hooks.
 
-**Data:** `bash scripts/export_data.sh` → CSV of leads.
+> For details see `TOKPULSE-NEXT-STEPS.md` and `HARDONIA-README.md`.
 
-Wire `DISCORD_WEBHOOK` / `SLACK_WEBHOOK` as repo secrets to get notifications.
+
+## Demo package
+- Pre-set `packages/.current` → `packages/demo-app` for a green CI build immediately.

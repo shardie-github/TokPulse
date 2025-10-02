@@ -1,27 +1,56 @@
+
 name: TokPulse Promote
+
 on:
   workflow_dispatch:
     inputs:
       package_dir:
-        description: 'Package dir to promote (e.g., packages/feedback)'
+        description: 'packages/<drop-name>'
         required: true
+        type: string
+      deploy_prod:
+        description: 'Trigger Vercel/Netlify hooks (if secrets set)'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
 jobs:
   promote:
     runs-on: ubuntu-latest
-    permissions: {contents: write}
     steps:
       - uses: actions/checkout@v4
-        with: {token: ${{ secrets.GITHUB_TOKEN }}}
-      - name: Promote
+        with: { fetch-depth: 0 }
+      - name: Write packages/.current
         run: |
-          echo "${{ inputs.package_dir }}" > packages/.current
-          git config user.name "tokpulse-bot"
-          git config user.email "bot@users.noreply.github.com"
+          echo "${{ github.event.inputs.package_dir }}" > packages/.current
+          cat packages/.current
+      - name: Commit & push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add packages/.current
-          git commit -m "chore: promote -> ${{ inputs.package_dir }}" || echo "No changes"
-          git push
-      - name: Notify
-        run: bash scripts/notify.sh "Promoted to ${{ inputs.package_dir }}"
+          git commit -m "promote: ${{ github.event.inputs.package_dir }}" || echo "No changes"
+          git push || true
+      - name: Trigger Vercel Prod Hook
+        if: ${{ inputs.deploy_prod == true }}
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          HOOK: ${{ secrets.VERCEL_HOOK_PROD }}
+        run: |
+          if [ -n "${HOOK:-}" ]; then
+            curl -sS -X POST "$HOOK" || true
+          else
+            echo "VERCEL_HOOK_PROD not set; skipping"
+          fi
+      - name: Trigger Netlify Prod Hook
+        if: ${{ inputs.deploy_prod == true }}
+        env:
+          HOOK: ${{ secrets.NETLIFY_HOOK_PROD }}
+        run: |
+          if [ -n "${HOOK:-}" ]; then
+            curl -sS -X POST "$HOOK" || true
+          else
+            echo "NETLIFY_HOOK_PROD not set; skipping"
+          fi
