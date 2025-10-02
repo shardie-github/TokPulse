@@ -1,0 +1,49 @@
+name: Trivy Container & FS Scan
+on:
+  schedule: [ { cron: "0 7 * * 1" } ]
+  workflow_dispatch:
+jobs:
+  fs-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: fs
+          ignore-unfixed: true
+          format: table
+          severity: CRITICAL,HIGH
+  docker-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build images
+        run: |
+          docker build -t tokpulse-dashboard apps/dashboard-server || true
+          docker build -t tokpulse-support   apps/support         || true
+          docker build -t tokpulse-billing   apps/billing         || true
+          docker build -t tokpulse-shopify   apps/shopify         || true
+      - uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: 'tokpulse-dashboard'
+          format: table
+          exit-code: '0'
+          severity: CRITICAL,HIGH
+      - uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: 'tokpulse-support'
+          format: table
+          exit-code: '0'
+          severity: CRITICAL,HIGH
+      - uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: 'tokpulse-billing'
+          format: table
+          exit-code: '0'
+          severity: CRITICAL,HIGH
+      - uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: 'tokpulse-shopify'
+          format: table
+          exit-code: '0'
+          severity: CRITICAL,HIGH

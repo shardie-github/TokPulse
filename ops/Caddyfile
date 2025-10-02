@@ -1,19 +1,23 @@
-# Set DOMAIN via env: docker compose will pass it (e.g., your-domain.example)
 {
   email admin@your-domain.example
 }
 :80, :443 {
   encode zstd gzip
-  @apiSupport path /api/support/* /healthz
-  @apiBilling path /api/billing/*
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "no-referrer"
+    Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://js.stripe.com; connect-src 'self' https://api.stripe.com https://m.stripe.com; frame-src https://js.stripe.com https://hooks.stripe.com"
+  }
 
-  handle @apiSupport {
-    reverse_proxy support:3002
-  }
-  handle @apiBilling {
-    reverse_proxy billing:3003
-  }
-  handle {
-    reverse_proxy dashboard:4173
-  }
+  @apiSupport  path /api/support/* /healthz
+  @apiBilling  path /api/billing/*
+  @apiShopify  path /api/shopify/*
+
+  handle @apiSupport { reverse_proxy support:3002 }
+  handle @apiBilling { reverse_proxy billing:3003 }
+  handle @apiShopify { reverse_proxy shopify:3004 }
+  handle { reverse_proxy dashboard:4173 }
 }

@@ -6,6 +6,10 @@ services:
       DASHBOARD_PORT: 4173
       REPORT_PATH: /app/data/last-report.json
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
+    read_only: true
+    security_opt: [ "no-new-privileges:true" ]
+    cap_drop: [ "ALL" ]
+    tmpfs: [ "/tmp:rw,nosuid,nodev,noexec,size=64m" ]
     volumes:
       - ./packages/data:/app/data:ro
       - ./packages/dashboard/dist:/app/dist:ro
@@ -16,6 +20,10 @@ services:
       SUPPORT_PORT: 3002
       DATA_DIR: /app/var/data
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
+    read_only: true
+    security_opt: [ "no-new-privileges:true" ]
+    cap_drop: [ "ALL" ]
+    tmpfs: [ "/tmp:rw,nosuid,nodev,noexec,size=64m" ]
     volumes:
       - ./var/data:/app/var/data
     expose: [ "3002" ]
@@ -28,9 +36,31 @@ services:
       STRIPE_PRICE_ID: ${STRIPE_PRICE_ID:-}
       STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
       PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://your-domain.example}
+    read_only: true
+    security_opt: [ "no-new-privileges:true" ]
+    cap_drop: [ "ALL" ]
+    tmpfs: [ "/tmp:rw,nosuid,nodev,noexec,size=64m" ]
     volumes:
       - ./private:/app/private
     expose: [ "3003" ]
+  shopify:
+    build: ./apps/shopify
+    environment:
+      SHOPIFY_PORT: 3004
+      SHOPIFY_API_KEY: ${SHOPIFY_API_KEY:-}
+      SHOPIFY_API_SECRET: ${SHOPIFY_API_SECRET:-}
+      SHOPIFY_SCOPES: ${SHOPIFY_SCOPES:-read_products,read_orders}
+      SHOPIFY_APP_URL: ${SHOPIFY_APP_URL:-https://your-domain.example}
+      TOKPULSE_KMS_KEY: ${TOKPULSE_KMS_KEY:-}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+    read_only: true
+    security_opt: [ "no-new-privileges:true" ]
+    cap_drop: [ "ALL" ]
+    tmpfs: [ "/tmp:rw,nosuid,nodev,noexec,size=64m" ]
+    volumes:
+      - ./private:/app/private
+      - ./var/shopify:/app/var/shopify
+    expose: [ "3004" ]
   caddy:
     image: caddy:alpine
     ports: [ "80:80", "443:443" ]
@@ -40,10 +70,7 @@ services:
       - ./ops/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-    depends_on:
-      - dashboard
-      - support
-      - billing
+    depends_on: [ dashboard, support, billing, shopify ]
 volumes:
   caddy_data:
   caddy_config:
