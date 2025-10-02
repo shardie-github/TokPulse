@@ -3,7 +3,6 @@ import url from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import Stripe from 'stripe'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PORT = process.env.BILLING_PORT || 3003
@@ -11,9 +10,9 @@ const SECRET_KEY = process.env.STRIPE_SECRET_KEY || ''
 const PRICE_ID   = process.env.STRIPE_PRICE_ID   || ''
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || ''
 const ORIGIN = process.env.CORS_ORIGIN || '*'
+const SANDBOX = (process.env.SANDBOX || '0') === '1'
 const ROOT = path.join(__dirname, '..', '..', '..')
 const LICENSE = process.env.LICENSE_PATH || path.join(ROOT, 'private', 'license.json')
-const stripe = SECRET_KEY ? new Stripe(SECRET_KEY) : null
 
 function sec(res){
   res.setHeader('X-Content-Type-Options','nosniff')
@@ -30,13 +29,32 @@ function okLicense(expires=null){
   return lic
 }
 
+async function getStripe() {
+  if (!SECRET_KEY) return null
+  try {
+    const mod = await import('stripe'); const Stripe = mod.default || mod
+    return new Stripe(SECRET_KEY)
+  } catch {
+    return null
+  }
+}
+
 const server = http.createServer(async (req,res)=>{
   const parsed = url.parse(req.url, true)
   if (req.method==='OPTIONS'){ sec(res); res.writeHead(204); return res.end() }
-  if (req.method==='GET' && parsed.pathname==='/healthz') return json(res,200,{ok:true,service:'billing'})
+  if (req.method==='GET' && parsed.pathname==='/healthz') return json(res,200,{ok:true,service:'billing',sandbox:SANDBOX})
 
-  // Checkout session (server-side)
+  // SANDBOX: immediate success URL
+  if (req.method==='POST' && parsed.pathname==='/api/billing/checkout' && SANDBOX){
+    let raw=''; req.on('data',c=>raw+=c); req.on('end',()=>{
+      try{ const b = JSON.parse(raw||'{}'); const base = (b.base_url || process.env.PUBLIC_BASE_URL || 'http://localhost:4173'); json(res,200,{url:`${base}/?upgrade=success&sandbox=1`}) }
+      catch{ json(res,200,{url:'http://localhost:4173/?upgrade=success&sandbox=1'}) }
+    }); return
+  }
+
+  // LIVE: real checkout via Stripe (only if Stripe is available)
   if (req.method==='POST' && parsed.pathname==='/api/billing/checkout'){
+    const stripe = await getStripe()
     if (!stripe || !PRICE_ID) return json(res,400,{error:'billing-not-configured'})
     let raw=''; req.on('data',c=>raw+=c); req.on('end', async ()=>{
       try{
@@ -56,8 +74,15 @@ const server = http.createServer(async (req,res)=>{
     }); return
   }
 
-  // Stripe webhook -> set license
+  // SANDBOX: direct activation endpoint for local demos
+  if (req.method==='POST' && parsed.pathname==='/api/billing/sandbox/activate' && SANDBOX){
+    const lic = okLicense(new Date(Date.now()+28*24*3600*1000).toISOString())
+    return json(res,200,{ok:true,license:lic})
+  }
+
+  // LIVE: webhook (verify signature if Stripe present)
   if (req.method==='POST' && parsed.pathname==='/api/billing/webhook'){
+    const stripe = await getStripe()
     if (!stripe || !WEBHOOK_SECRET) return json(res,400,{error:'webhook-not-configured'})
     const chunks=[]; req.on('data',c=>chunks.push(c)); req.on('end', ()=>{
       const buf = Buffer.concat(chunks)
@@ -88,4 +113,4 @@ const server = http.createServer(async (req,res)=>{
 
   json(res,404,{error:'not-found'})
 })
-server.listen(PORT, ()=> console.log(`Billing :${PORT}`))
+server.listen(PORT, ()=> console.log(`Billing :${PORT} (sandbox=${SANDBOX})`))
