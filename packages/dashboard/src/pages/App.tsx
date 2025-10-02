@@ -2,17 +2,19 @@ import React from 'react'
 import { Sidebar } from '../components/Sidebar'
 import { Topbar } from '../components/Topbar'
 import { KPIsGrid } from '../components/KPIsGrid'
-import { ChannelShareChart } from '../components/ChannelShareChart'
-import { FunnelChart } from '../components/FunnelChart'
-import { ActivityFeed } from '../components/ActivityFeed'
-import { MediaWidget } from '../components/MediaWidget'
-import { Leaderboard } from '../components/Leaderboard'
-import { StreakWidget } from '../components/StreakWidget'
-import { XPBar } from '../components/XPBar'
-import { SettingsDrawer } from '../components/SettingsDrawer'
-import { SupportWidget } from '../components/SupportWidget'
 import { fetchReport } from '../lib/data.ts'
 import { useStore } from '../state/store'
+
+// Lazy chunks for heavier widgets
+const ChannelShareChart = React.lazy(() => import('../components/ChannelShareChart'))
+const FunnelChart       = React.lazy(() => import('../components/FunnelChart'))
+const ActivityFeed      = React.lazy(() => import('../components/ActivityFeed'))
+const MediaWidget       = React.lazy(() => import('../components/MediaWidget'))
+const Leaderboard       = React.lazy(() => import('../components/Leaderboard'))
+const StreakWidget      = React.lazy(() => import('../components/StreakWidget'))
+const XPBar             = React.lazy(() => import('../components/XPBar'))
+const SettingsDrawer    = React.lazy(() => import('../components/SettingsDrawer'))
+const SupportWidget     = React.lazy(() => import('../components/SupportWidget'))
 
 export default function App(){
   React.useEffect(()=>{(async()=>{
@@ -20,6 +22,7 @@ export default function App(){
     const S = useStore.getState();
     S.kpis=r.kpis; (S as any).funnel=r.funnel; (S as any).feed=r.feed; (S as any).share=r.share;
   })()},[])
+
   return (
     <div className="min-h-screen grid md:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr]">
       <aside className="hidden md:block"><Sidebar/></aside>
@@ -29,21 +32,21 @@ export default function App(){
           <section className="xl:col-span-2 space-y-6">
             <KPIsGrid/>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <ChannelShareChart/>
-              <FunnelChart/>
+              <React.Suspense fallback={<div className="card p-4">Loading…</div>}><ChannelShareChart/></React.Suspense>
+              <React.Suspense fallback={<div className="card p-4">Loading…</div>}><FunnelChart/></React.Suspense>
             </div>
-            <ActivityFeed/>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><ActivityFeed/></React.Suspense>
           </section>
           <section className="space-y-6">
-            <MediaWidget/>
-            <Leaderboard/>
-            <StreakWidget/>
-            <XPBar/>
-            <SettingsDrawer/>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><MediaWidget/></React.Suspense>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><Leaderboard/></React.Suspense>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><StreakWidget/></React.Suspense>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><XPBar/></React.Suspense>
+            <React.Suspense fallback={<div className="card p-4">Loading…</div>}><SettingsDrawer/></React.Suspense>
           </section>
         </div>
       </main>
-      <SupportWidget/>
+      <React.Suspense fallback={null}><SupportWidget/></React.Suspense>
     </div>
   )
 }
