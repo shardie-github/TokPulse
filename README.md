@@ -1,15 +1,21 @@
-# TokPulse Monorepo (Shopify + Wix + CI Packages)
 
-**Flow:** push ZIPs to `incoming/` → CI unboxes to `packages/<drop>` → test with **TokPulse Run** → promote with **TokPulse Promote** (writes `packages/.current` + deploy hooks).
+# TokPulse + Hardonia — Shareable Repo Snapshot
 
-## Quick Start
-1. Put a build ZIP in `incoming/` and push.  
-2. GitHub → Actions → **TokPulse Run** (runs against `.current` or latest).  
-3. GitHub → Actions → **TokPulse Promote** → set `packages/<drop-name>` and (optionally) trigger deploy hooks.
+This snapshot contains:
+- TokPulse CI package unboxing, runner, and promotion workflows
+- Next steps playbook and Hardonia project README
+- A ready-made repo structure with `incoming/` and `packages/` for ZIP-based drops
+- Netlify config (optional)
 
-## Deploy Hooks (optional)
-- Add `VERCEL_HOOK_PROD` / `NETLIFY_HOOK_PROD` in **Settings → Secrets → Actions**.
+## How to use
 
-## Docs
-- See `/docs/TOKPULSE-NEXT-STEPS.md` for end-to-end CI details.
-- See `/docs/HARDONIA-README.md` for Shopify system overview & history.
+1. Create a new GitHub repo and push these files.
+2. Drop any build ZIP into `incoming/` and push — the unbox workflow will extract to `packages/<zipname>/`.
+3. Run the **TokPulse Run** workflow to test from `packages/.current` (or latest if not set).
+4. Use **TokPulse Promote** to flip production to a chosen package and optionally trigger Vercel/Netlify hooks.
+
+> For details see `TOKPULSE-NEXT-STEPS.md` and `HARDONIA-README.md`.
+
+
+## Demo package
+- Pre-set `packages/.current` → `packages/demo-app` for a green CI build immediately.

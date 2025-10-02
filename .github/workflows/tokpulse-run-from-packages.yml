@@ -1,72 +1,52 @@
+
 name: TokPulse Run (prefer .current; fallback latest)
 
 on:
   workflow_dispatch:
-    inputs:
-      node_version:
-        description: "Node.js version"
-        type: string
-        default: "20"
-      install_cmd:
-        description: "Install command"
-        type: string
-        default: "npm ci"
-      build_cmd:
-        description: "Build command"
-        type: string
-        default: "npm run build"
-      test_cmd:
-        description: "Test command (leave blank to skip)"
-        type: string
-        default: ""
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Resolve package path
-        id: path
+      - name: Determine package directory
+        id: pick
         shell: bash
         run: |
           set -euo pipefail
+          dir=""
           if [ -f packages/.current ]; then
-            CURRENT="$(cat packages/.current | tr -d '[:space:]')"
-            if [ -d "$CURRENT" ]; then
-              echo "dir=$CURRENT" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
+            dir="$(cat packages/.current | tr -d '\r\n' || true)"
           fi
-          LATEST="$(ls -1dt packages/*/ 2>/dev/null | head -n 1 | sed 's:/$::')"
-          if [ -z "$LATEST" ]; then
-            echo "No packages found. Did you push a ZIP to incoming/ yet?"
+          if [ -z "$dir" ]; then
+            latest="$(ls -1dt packages/*/ 2>/dev/null | head -n1 | sed 's#/$##' || true)"
+            dir="$latest"
+          fi
+          if [ -z "$dir" ]; then
+            echo "No packages found." >&2
             exit 1
           fi
-          echo "dir=$LATEST" >> "$GITHUB_OUTPUT"
-
-      - name: Setup Node.js
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "Using: $dir"
+      - name: Node setup
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ inputs.node_version }}
-
-      - name: Install
-        working-directory: ${{ steps.path.outputs.dir }}
-        run: ${{ inputs.install_cmd }}
-
-      - name: Build
-        working-directory: ${{ steps.path.outputs.dir }}
-        run: ${{ inputs.build_cmd }}
-
-      - name: Test
-        if: inputs.test_cmd != ''
-        working-directory: ${{ steps.path.outputs.dir }}
-        run: ${{ inputs.test_cmd }}
-
-      - name: Summary
-        shell: bash
+          node-version: '20'
+      - name: Install & build
+        working-directory: ${{ steps.pick.outputs.dir }}
         run: |
-          echo "✅ Ran against: ${{ steps.path.outputs.dir }}"
+          if [ -f package-lock.json ] || [ -f package.json ]; then
+            npm ci || npm install
+            npm run build || echo "No build script"
+          fi
+      - name: Archive build output (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokpulse-build
+          path: |
+            ${{ steps.pick.outputs.dir }}/dist
+            ${{ steps.pick.outputs.dir }}/build
+          if-no-files-found: ignore

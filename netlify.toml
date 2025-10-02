@@ -1,3 +1,4 @@
+
 [build]
 base = "packages/current"
 command = "npm ci && npm run build"
