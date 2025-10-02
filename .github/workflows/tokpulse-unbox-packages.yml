@@ -45,8 +45,7 @@ jobs:
           fi
           {
             echo "zips<<EOF"
-            printf "%s
-" "${zips[@]}"
+            printf "%s\n" "${zips[@]}"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
@@ -65,6 +64,21 @@ jobs:
             rm -rf "$dest"
             mkdir -p "$dest"
             unzip -q "$zip" -d "$dest"
+          done <<< "${{ steps.find.outputs.zips }}"
+
+      - name: Optionally remove original ZIP(s)
+        if: steps.find.outputs.zips != '' && env.DELETE_ZIPS == 'true'
+        env:
+          DELETE_ZIPS: 'false'   # change to 'true' to delete zips after unpack
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r zip; do
+            [ -n "$zip" ] || continue
+            if [ -f "$zip" ]; then
+              echo "Removing original ZIP: $zip"
+              git rm -f -- "$zip"
+            fi
           done <<< "${{ steps.find.outputs.zips }}"
 
       - name: Commit & push extracted files (direct)
