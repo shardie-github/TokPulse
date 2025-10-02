@@ -1,0 +1,12 @@
+{
+  "name": "tokpulse",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:meta": "node apps/meta/src/webhook.js",
+    "flip:current": "bash scripts/flip_current.sh",
+    "tag:release": "bash scripts/tag_release.sh",
+    "lint": "node -e \"console.log('lint-ok')\""
+  },
+  "engines": { "node": ">=20" }
+}

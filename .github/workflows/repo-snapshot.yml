@@ -1,0 +1,19 @@
+name: Repo Snapshot (artifact)
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Make tarball
+        run: |
+          tar -czf tokpulse-$(date +%Y%m%d).tar.gz \
+            --exclude="./.git" --exclude="./var/log" --exclude="./var/data" .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: repo-snapshot
+          path: tokpulse-*.tar.gz

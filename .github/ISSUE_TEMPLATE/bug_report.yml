@@ -1,0 +1,16 @@
+name: Bug report
+description: Report a problem
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      placeholder: Steps to reproduce, expected vs actual
+    validations: { required: true }
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: (OS, branch, etc.)
