@@ -1,4 +1,5 @@
 import React from 'react'
+import { registerPWA } from '../lib/pwa'
 import { Sidebar } from '../components/Sidebar'
 import { Topbar } from '../components/Topbar'
 import { KPIsGrid } from '../components/KPIsGrid'
@@ -14,10 +15,14 @@ const Leaderboard       = React.lazy(() => import('../components/Leaderboard'))
 const StreakWidget      = React.lazy(() => import('../components/StreakWidget'))
 const XPBar             = React.lazy(() => import('../components/XPBar'))
 const ProPanel = React.lazy(() => import('../components/ProPanel'));
+const CommandPalette    = React.lazy(() => import('../components/CommandPalette'))
+const TrialBanner       = React.lazy(() => import('../components/TrialBanner'))
+const ExportButton      = React.lazy(() => import('../components/ExportButton'))
 const SettingsDrawer    = React.lazy(() => import('../components/SettingsDrawer'))
 const SupportWidget     = React.lazy(() => import('../components/SupportWidget'))
 
 export default function App(){
+  React.useEffect(()=>{ registerPWA() },[])
   React.useEffect(()=>{(async()=>{
     const r = await fetchReport(); if(!r) return;
     const S = useStore.getState();
@@ -29,6 +34,8 @@ export default function App(){
       <aside className="hidden md:block"><Sidebar/></aside>
       <main className="p-4 md:p-6 lg:p-8 space-y-6">
         <Topbar/>
+        
+        <React.Suspense fallback={<div className='card p-3'>Loading…</div>}><TrialBanner/></React.Suspense>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-6">
           <section className="xl:col-span-2 space-y-6">
             <KPIsGrid/>
@@ -47,6 +54,7 @@ export default function App(){
             <SettingsDrawer/></React.Suspense>
           </section>
         </div>
+        <React.Suspense fallback={null}><CommandPalette/></React.Suspense>
       </main>
       <React.Suspense fallback={null}><SupportWidget/></React.Suspense>
     </div>
