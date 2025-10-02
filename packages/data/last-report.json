@@ -1,0 +1,22 @@
+{
+  "schema": "v1",
+  "kpis": [
+    {"label":"Revenue","value":128430,"delta":12.4,"unit":"$"},
+    {"label":"Orders","value":1780,"delta":7.8},
+    {"label":"Conv. Rate","value":3.7,"delta":0.3,"unit":"%"},
+    {"label":"Avg. Order","value":72.1,"delta":1.1,"unit":"$"}
+  ],
+  "share": {"tiktok":42,"meta":31,"instagram":12,"youtube":9,"x":3,"shop":3},
+  "funnel": [
+    {"stage":"Visits","value":42000},
+    {"stage":"Product Views","value":18000},
+    {"stage":"Adds to Cart","value":5600},
+    {"stage":"Checkouts","value":2200},
+    {"stage":"Purchases","value":1780}
+  ],
+  "feed": [
+    {"ts":"2025-10-02T00:00:00Z","channel":"shop","title":"Order #12031 placed","details":"$184.22"},
+    {"ts":"2025-10-02T01:00:00Z","channel":"tiktok","title":"Spark Ad boosted","+details":"CTR +14%"}
+  ],
+  "ts": "2025-10-02T00:00:00Z"
+}
