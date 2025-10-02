@@ -7,9 +7,6 @@ const PORT = process.env.SUPPORT_PORT || 3002
 const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), 'var', 'data')
 const TICKETS = path.join(DATA_DIR, 'tickets.jsonl')
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ''
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
-const GITHUB_REPO  = process.env.GITHUB_REPO  || ''
-
 const ORIGIN = process.env.CORS_ORIGIN || '*'
 const RATE = { windowMs: 60_000, max: 300 }
 const bucket = new Map()
@@ -30,7 +27,6 @@ function secHeaders(res){
 function json(res, code, obj){ secHeaders(res); res.writeHead(code, {'Content-Type':'application/json'}); res.end(JSON.stringify(obj)) }
 
 function redact(s=''){
-  // mask emails and long digit runs (naive)
   return s.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[redacted-email]')
           .replace(/\b\d{12,19}\b/g,'[redacted-number]')
 }
@@ -80,19 +76,7 @@ const server = http.createServer(async (req,res)=>{
       ensureData()
       const rec = { ts:new Date().toISOString(), title:redact(title), details:redact(details), contact:redact(contact) }
       fs.appendFileSync(TICKETS, JSON.stringify(rec)+'\n')
-      // optional GH issue
-      let issue=null
-      if (process.env.GITHUB_TOKEN && process.env.GITHUB_REPO){
-        try{
-          const r = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPO}/issues`,{
-            method:'POST',
-            headers:{'Authorization':`Bearer ${process.env.GITHUB_TOKEN}`,'Accept':'application/vnd.github+json'},
-            body: JSON.stringify({title: rec.title || 'Support ticket', body: `${rec.details}\n\nContact: ${rec.contact}`, labels:['support']})
-          })
-          if (r.ok) issue = await r.json()
-        }catch{}
-      }
-      json(res,200,{ok:true, issue})
+      json(res,200,{ok:true})
     }); return
   }
 

@@ -36,10 +36,8 @@ const server = http.createServer((req,res)=>{
   const ip = (req.headers['x-forwarded-for']||'').toString().split(',')[0] || req.socket.remoteAddress || 'ip'
   if (limited(ip)) return send(res, 429, 'rate limit')
 
-  // health
   if (parsed.pathname === '/healthz') return send(res,200,JSON.stringify({ok:true,service:'dashboard'}),'application/json')
 
-  // license
   if (parsed.pathname === '/api/license') {
     try{
       const txt = fs.readFileSync(LICENSE_PATH,'utf-8')
@@ -49,7 +47,6 @@ const server = http.createServer((req,res)=>{
     }
   }
 
-  // report
   if (parsed.pathname === '/api/report') {
     try {
       const txt = fs.readFileSync(REPORT_PATH,'utf-8')
@@ -59,7 +56,6 @@ const server = http.createServer((req,res)=>{
     }
   }
 
-  // static dashboard
   let file = parsed.pathname === '/' ? '/index.html' : parsed.pathname
   const full = path.join(DASH_DIST, decodeURI(file))
   if (full.startsWith(DASH_DIST) && fs.existsSync(full)) {
