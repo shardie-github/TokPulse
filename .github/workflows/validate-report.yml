@@ -1,0 +1,14 @@
+name: Validate Report
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "packages/data/last-report.json", "schemas/report.v1.json", "scripts/validate_report.mjs" ]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node scripts/validate_report.mjs packages/data/last-report.json

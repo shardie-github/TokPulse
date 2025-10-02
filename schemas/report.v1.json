@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"TokPulse Report v1",
+  "type":"object",
+  "required":["schema","kpis","share","funnel","feed","ts"],
+  "properties":{
+    "schema":{"const":"v1"},
+    "kpis":{"type":"array","items":{
+      "type":"object","required":["label","value","delta"],
+      "properties":{"label":{"type":"string"},"value":{"type":"number"},"delta":{"type":"number"},"unit":{"type":"string"}}
+    }},
+    "share":{"type":"object","additionalProperties":{"type":"number"}},
+    "funnel":{"type":"array","items":{"type":"object","required":["stage","value"],"properties":{"stage":{"type":"string"},"value":{"type":"number"}}}},
+    "feed":{"type":"array","items":{"type":"object","required":["ts","channel","title"],"properties":{"ts":{"type":"string"},"channel":{"type":"string"},"title":{"type":"string"},"details":{"type":"string"}}}},
+    "ts":{"type":"string"}
+  },
+  "additionalProperties":false
+}
