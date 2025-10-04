@@ -1,5 +1,10 @@
 # Changelog
 
+* feat(go3): START guide + public landing pages (27fe72a) [2025-10-04]
+* feat(go1): JSON repair + minimal servers + dev tools + docs/ci/qa (6c96036) [2025-10-04]
+* fix: package.json repairs + presubmit hardening (vA-fix-20251003_2320) (85d9e3d) [2025-10-03]
+* chore(audit): report + QA automation (vA-20251003_2314) (f6dface) [2025-10-03]
+* feat(v1.2.4): self-heal web service + Sentry/metrics/health + QA + smoke + export (eb48bb0) [2025-10-03]
 * chore: auto doctor run (rebuild, relaunch, seeds) (6ebe734) [2025-10-02]
 * feat(ui): command palette (cmd/ctrl+k), export CSV, trial/upgrade banner, PWA register; preconnects; premium UX pass (cf59f04) [2025-10-02]
 * fix(billing): lazy-load Stripe; SANDBOX runs without deps; stable local start (7b09a23) [2025-10-02]
