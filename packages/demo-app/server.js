@@ -1,3 +1,7 @@
+import swaggerUi from "swagger-ui-express";
+import { randomUUID as uuid } from "crypto";
+import pino from "pino";
+import pinoHttp from "pino-http";
 import rateLimit from "express-rate-limit";
 /* TokPulse — © Hardonia. MIT. */
 
@@ -32,3 +36,13 @@ const serverRef = { srv: null };
 try { const _listenLine = s => {}; } catch(e){}
 process.on('SIGINT', ()=>{ try{ console.log("SIGINT"); serverRef.srv?.close?.(()=>process.exit(0)); }catch{} process.exit(0); });
 process.on('SIGTERM',()=>{ try{ console.log("SIGTERM"); serverRef.srv?.close?.(()=>process.exit(0)); }catch{} process.exit(0); });
+
+const OPENAPI = {
+ "openapi":"3.0.0",
+ "info":{"title":"Service API","version":"2.1.0"},
+ "paths":{
+   "/healthz":{"get":{"responses":{"200":{"description":"ok"}}}},
+   "/readyz":{"get":{"responses":{"200":{"description":"ok"}}}},
+   "/metrics":{"get":{"responses":{"200":{"description":"metrics"}}}}
+ }};
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(OPENAPI));
