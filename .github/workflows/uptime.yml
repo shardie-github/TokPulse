@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 name: Uptime Ping
 on:
   schedule:

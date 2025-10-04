@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 export function applyTheme(t?:'light'|'dark'|'system'){
   const root = document.documentElement
   const pref = t || (localStorage.getItem('tp_theme') as any) || 'system'

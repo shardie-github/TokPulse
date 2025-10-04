@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # TokPulse Secrets & Inputs (single source of truth)
 
 ## GitHub Actions (Repository → Settings → Secrets and variables)

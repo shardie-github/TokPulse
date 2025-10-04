@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 export type KPI = { label:string; value:number; delta:number; unit?:string }
 export type ReportV1 = {
   schema:'v1'

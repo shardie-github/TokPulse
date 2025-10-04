@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 // Tiny cache-first for HTML + assets
 const CACHE="tokpulse-v1";
 self.addEventListener("install", e=>{ e.waitUntil(caches.open(CACHE)) });

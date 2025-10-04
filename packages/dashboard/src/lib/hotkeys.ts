@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 type FN = ()=>void
 const subs = new Map<string,FN[]>()
 export function onHotkey(key:string, fn:FN){ const arr=subs.get(key)||[]; arr.push(fn); subs.set(key,arr); return ()=>{ subs.set(key,(subs.get(key)||[]).filter(f=>f!==fn)) } }

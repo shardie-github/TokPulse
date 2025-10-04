@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 name: npm audit (prod)
 on:
   schedule: [ { cron: "0 6 * * 1" } ]

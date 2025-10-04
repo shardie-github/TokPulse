@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 import fs from 'node:fs'
 import path from 'node:path'
 const LOGDIR = process.env.LOG_DIR || path.join(process.cwd(),'var','data')

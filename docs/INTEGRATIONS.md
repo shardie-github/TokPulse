@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Integrations Map
 
 This document explains how components connect across Shopify and Wix.

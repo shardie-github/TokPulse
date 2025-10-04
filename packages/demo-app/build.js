@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 
 const fs = require('fs');
 const path = require('path');

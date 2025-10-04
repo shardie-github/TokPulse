@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 
 # TokPulse + Hardonia — Shareable Repo Snapshot
 

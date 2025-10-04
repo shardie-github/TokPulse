@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Contributing
 - Run TokPulse Run/Promote workflows for package releases.
 - Dashboard changes must pass: Validate Report, Dashboard Build, CodeQL.

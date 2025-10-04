@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 import { create } from 'zustand'
 type Channel = 'tiktok'|'meta'|'youtube'|'x'|'instagram'|'shop'
 type KPI = { label:string; value:number; delta:number; unit?:string }

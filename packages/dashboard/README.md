@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # TokPulse Premium Dashboard
 
 - React + Vite + Tailwind + Recharts + Framer Motion + Zustand

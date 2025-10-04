@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 services:
   dashboard: { restart: unless-stopped }
   support:   { restart: unless-stopped }

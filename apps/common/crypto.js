@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 import crypto from 'node:crypto'
 const b64 = (s)=>Buffer.from(s).toString('base64')
 const b = (s)=>Buffer.from(s,'base64')

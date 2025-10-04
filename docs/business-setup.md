@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Business Setup Checklist (Private Summary)
 
 Use this as a companion to items stored in `private/BUSINESS/`.

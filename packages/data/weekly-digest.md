@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Weekly Digest
 
 - Revenue: $9815.61

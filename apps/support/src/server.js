@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 import http from 'node:http'
 import url from 'node:url'
 import fs from 'node:fs'

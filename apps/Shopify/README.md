@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Shopify App/Theme Folder
 
 - `theme/` — place your Dawn-based theme or custom sections here.

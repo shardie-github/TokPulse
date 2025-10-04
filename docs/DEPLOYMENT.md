@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Deployment
 
 ## Shopify

@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Release Notes
 
 ## Version

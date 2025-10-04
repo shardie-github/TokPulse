@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 export function idle(cb:()=>void){ ('requestIdleCallback' in window ? (window as any).requestIdleCallback(cb) : setTimeout(cb,300)) }
 export function prefetchChunks(){
   idle(async ()=>{

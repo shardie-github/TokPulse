@@ -8,5 +8,13 @@
     "tag:release": "bash scripts/tag_release.sh",
     "lint": "node -e \"console.log('lint-ok')\""
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "cspell": "^8.14.2",
+    "eslint": "^8.57.0",
+    "markdownlint-cli": "^0.41.0",
+    "prettier": "^3.3.3"
+  }
 }

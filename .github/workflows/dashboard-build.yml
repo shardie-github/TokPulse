@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 name: Dashboard Build
 on:
   push: { branches: [ "main" ] }

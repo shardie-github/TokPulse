@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 import { hasConsent } from '../components/CookieConsent'
 export async function track(ev:string, props:any={}){
   try{

@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 import { initPixels } from '../analytics/pixels.js';
 
 $w.onReady(function () {

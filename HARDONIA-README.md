@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Hardonia — Full Project README (v1.0 → v5.6)
 
 **Hardonia** is a high‑performance Shopify ecosystem with automation, CRO, SEO, and creative ops integrated end‑to‑end. This README captures the full context, architecture, and version history through **v5.6** (TokPulse integration and CI unboxing).

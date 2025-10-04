@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 # Wix / Velo App Scaffolding
 
 Mirror this structure inside your Wix site's **Dev Mode (Velo)** file system.

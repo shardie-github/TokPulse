@@ -1,3 +1,4 @@
+/* TokPulse — © Hardonia. MIT. */
 // Basic pixel parity (set IDs in Secrets Manager or site settings)
 export function initPixels({ tiktokPixelId='', metaPixelId='', ga4Id='' } = {}) {
   if (tiktokPixelId) {
