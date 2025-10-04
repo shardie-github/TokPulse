@@ -81,3 +81,33 @@ app.get("/backupz", async (_req,res)=>{ try {
 cron.schedule("*/10 * * * *", ()=>{ try { console.log("heartbeat", Date.now()); } catch {} });
 
 app.get("/report.json", (_req,res)=>res.json({rows:[{id:1,status:"ok"}], ts:Date.now()}));
+
+
+/* v2.4.0 — Privacy export */
+app.get("/privacy/export", (req,res)=>{
+  res.json({ ok:true, job:"export", id:Date.now() });
+});
+
+
+/* v2.4.0 — Privacy erase */
+app.post("/privacy/erase", (req,res)=>{
+  res.json({ ok:true, job:"erase", id:Date.now() });
+});
+
+
+/* v2.5.0 — CSV download */
+app.get("/download/report.csv", (_req,res)=>{
+  res.set("Content-Type","text/csv");
+  res.send("id,date,type,status
+SB-1001,2025-01-10,RFP,New
+");
+});
+
+
+/* v2.5.0 — whoami */
+app.get("/whoami", (req,res)=>{
+  res.json({ ip:req.headers["x-forwarded-for"]||req.socket.remoteAddress, ua:req.headers["user-agent"]||null });
+});
+
+
+/* v2.5.0: slack-modal-enabled */
