@@ -1,3 +1,5 @@
+import prom from "prom-client";
+import compression from "compression";
 import cron from "node-cron";
 import swaggerUi from "swagger-ui-express";
 import { randomUUID as uuid } from "crypto";
@@ -12,6 +14,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 const app = express();
+app.use(compression());
 app.get("/version", (_req,res)=>res.json({version: process.env.APP_VERSION || "2.0.0", commit: "029ad75", ts: Date.now()}));
 const limiter = rateLimit({ windowMs: 60_000, max: 300 });
 app.use(limiter);
@@ -111,3 +114,43 @@ app.get("/whoami", (req,res)=>{
 
 
 /* v2.5.0: slack-modal-enabled */
+
+
+const registry = new prom.Registry();
+prom.collectDefaultMetrics({ register: registry });
+
+
+
+// request-logger-mw
+app.use((req,res,next)=>{
+  const t = Date.now();
+  res.on('finish', ()=>{
+    const ms = Date.now()-t;
+    try { console.log(`${req.method} ${req.url} ${res.statusCode} ${ms}ms`); } catch {}
+  });
+  next();
+});
+
+
+
+// rateLimitBasic (env-gated)
+const reqCount = new Map();
+app.use((req,res,next)=>{
+  const windowMs = Number(process.env.RL_WINDOW_MS||60000);
+  const max = Number(process.env.RL_MAX||600);
+  const key = req.ip || 'x';
+  const now = Date.now();
+  let e = reqCount.get(key)||{t:now,c:0};
+  if(now - e.t > windowMs){ e = {t:now, c:0}; }
+  e.c++; reqCount.set(key,e);
+  if (process.env.RL_ON==="1" && e.c>max) return res.status(429).json({ok:false, rate_limited:true});
+  next();
+});
+
+
+
+app.get("/status", async (_req,res)=>{
+  const metrics = await (async()=>{ try { return await registry.metrics(); } catch { return ""; }})();
+  res.type("text/plain").send("ok\n"+metrics.slice(0,1024));
+});
+
