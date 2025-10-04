@@ -1,3 +1,4 @@
+import rateLimit from "express-rate-limit";
 /* TokPulse — © Hardonia. MIT. */
 const SENTRY_DSN = process.env.SENTRY_DSN || ""; const Sentry = await (async()=>initSentry(SENTRY_DSN))();
 async function initSentry(dsn){ if(!dsn) return null; const Sentry=(await import('@sentry/node')).default; Sentry.init({dsn}); return Sentry; }
@@ -6,6 +7,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 const app = express();
+const limiter = rateLimit({ windowMs: 60_000, max: 300 });
+app.use(limiter);
+app.use((req,_res,next)=>{ try{ console.log(req.method, req.url); }catch{} next(); });
 app.disable("x-powered-by");
 app.use(helmet({
   contentSecurityPolicy: {

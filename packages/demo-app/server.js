@@ -1,3 +1,4 @@
+import rateLimit from "express-rate-limit";
 /* TokPulse — © Hardonia. MIT. */
 
 const http = require('http');
