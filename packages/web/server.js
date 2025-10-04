@@ -7,6 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 const app = express();
+app.get("/version", (_req,res)=>res.json({version: process.env.APP_VERSION || "2.0.0", commit: "029ad75", ts: Date.now()}));
 const limiter = rateLimit({ windowMs: 60_000, max: 300 });
 app.use(limiter);
 app.use((req,_res,next)=>{ try{ console.log(req.method, req.url); }catch{} next(); });
@@ -31,7 +32,14 @@ app.get("/metrics",(_req,res)=>{ res.type("text/plain").send(`tokpulse_requests_
 app.get("/", (_req,res)=>res.type("text/html").send("<h1>TokPulse</h1>OK"));
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, ()=>console.log("TokPulse web on", PORT));
+(serverRef.srv = app.listen($1))=>console.log("TokPulse web on", PORT));
 
 app.get("/healthz", (_req,res)=>res.json({ok:true,ts:Date.now()}));
 app.get("/readyz", (_req,res)=>res.json({ok:true,ts:Date.now()}));
+
+
+/* graceful shutdown */
+const serverRef = { srv: null };
+try { const _listenLine = s => {}; } catch(e){}
+process.on('SIGINT', ()=>{ try{ console.log("SIGINT"); serverRef.srv?.close?.(()=>process.exit(0)); }catch{} process.exit(0); });
+process.on('SIGTERM',()=>{ try{ console.log("SIGTERM"); serverRef.srv?.close?.(()=>process.exit(0)); }catch{} process.exit(0); });

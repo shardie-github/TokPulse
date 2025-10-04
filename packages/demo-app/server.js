@@ -25,3 +25,10 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, () => console.log(`Demo app serving dist/ on http://localhost:${port}`));
+
+
+/* graceful shutdown */
+const serverRef = { srv: null };
+try { const _listenLine = s => {}; } catch(e){}
+process.on('SIGINT', ()=>{ try{ console.log("SIGINT"); serverRef.srv?.close?.(()=>process.exit(0)); }catch{} process.exit(0); });
+process.on('SIGTERM',()=>{ try{ console.log("SIGTERM"); serverRef.srv?.close?.(()=>process.exit(0)); }catch{} process.exit(0); });
