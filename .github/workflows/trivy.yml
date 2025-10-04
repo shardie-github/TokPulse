@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: aquasecurity/trivy-action@0.24.0
+      - uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: fs
           ignore-unfixed: true
@@ -24,25 +24,25 @@ jobs:
           docker build -t tokpulse-support   apps/support         || true
           docker build -t tokpulse-billing   apps/billing         || true
           docker build -t tokpulse-shopify   apps/shopify         || true
-      - uses: aquasecurity/trivy-action@0.24.0
+      - uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: 'tokpulse-dashboard'
           format: table
           exit-code: '0'
           severity: CRITICAL,HIGH
-      - uses: aquasecurity/trivy-action@0.24.0
+      - uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: 'tokpulse-support'
           format: table
           exit-code: '0'
           severity: CRITICAL,HIGH
-      - uses: aquasecurity/trivy-action@0.24.0
+      - uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: 'tokpulse-billing'
           format: table
           exit-code: '0'
           severity: CRITICAL,HIGH
-      - uses: aquasecurity/trivy-action@0.24.0
+      - uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: 'tokpulse-shopify'
           format: table
