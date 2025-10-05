@@ -41,7 +41,7 @@ jobs:
         if: steps.probe.outputs.has_fails == 'true'
         env: { RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }} }
         run: |
-          if [ -n "$RESEND_API_KEY" ] && [ "$RESEND_API_KEY" != "<TODO>" ]; then
+          if [ -n "$RESEND_API_KEY" ] && [ "$RESEND_API_KEY" ] && [ "$RESEND_API_KEY" != "<TODO>" ]; then
             subj="[Ops] Health check failures ${GITHUB_REPOSITORY}"
             body=$(sed 's/"/\\"/g' fails.txt)
             curl -s https://api.resend.com/emails \
