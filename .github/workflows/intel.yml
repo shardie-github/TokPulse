@@ -1,0 +1,28 @@
+name: intel
+on:
+  schedule:
+    - cron: "40 11 * * *"   # 07:40 Toronto (adjust for DST)
+    - cron: "40 20 * * *"   # 16:40 Toronto
+  workflow_dispatch: {}
+jobs:
+  intel:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: |
+          npm i --silent
+          node tools/compute_kpis.mjs
+          node tools/capcut_pack.mjs
+      - name: Upload daily creative pack to draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          prerelease: true
+          files: |
+            reports/intel/latest/*.zip
+            reports/creative/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
