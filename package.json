@@ -6,16 +6,56 @@
     "dev:meta": "node apps/meta/src/webhook.js",
     "flip:current": "bash scripts/flip_current.sh",
     "tag:release": "bash scripts/tag_release.sh",
-    "lint": "node -e \"console.log('lint-ok')\""
+    "typecheck": "npm run typecheck:dashboard && npm run typecheck:services",
+    "typecheck:dashboard": "cd packages/dashboard && tsc --noEmit",
+    "typecheck:services": "echo 'TypeScript check for services - TODO'",
+    "lint": "npm run lint:dashboard && npm run lint:services && npm run lint:docs",
+    "lint:dashboard": "cd packages/dashboard && eslint src --ext .ts,.tsx --max-warnings 0",
+    "lint:services": "eslint apps packages --ext .js,.ts --max-warnings 0",
+    "lint:docs": "markdownlint docs/**/*.md README.md",
+    "lint:fix": "npm run lint:dashboard -- --fix && npm run lint:services -- --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test:dashboard",
+    "test:dashboard": "cd packages/dashboard && npm run test",
+    "test:cov": "npm run test:dashboard -- --coverage",
+    "test:watch": "npm run test:dashboard -- --watch",
+    "build": "npm run build:dashboard",
+    "build:dashboard": "cd packages/dashboard && npm run build",
+    "build:analyze": "cd packages/dashboard && npm run build -- --analyze",
+    "perf:budgets": "cd packages/dashboard && npm run build && npm run perf:check",
+    "perf:check": "echo 'Performance budget check - TODO'",
+    "audit:deps": "npm audit --audit-level moderate",
+    "audit:licenses": "npm run audit:licenses:dashboard",
+    "audit:licenses:dashboard": "cd packages/dashboard && npm run audit:licenses",
+    "spell:check": "cspell \"**/*.{js,ts,tsx,md,json}\" --no-progress",
+    "spell:fix": "cspell \"**/*.{js,ts,tsx,md,json}\" --no-progress --fix",
+    "quality:check": "npm run typecheck && npm run lint && npm run format:check && npm run test && npm run audit:deps",
+    "quality:fix": "npm run lint:fix && npm run format && npm run spell:fix",
+    "pre-commit": "npm run quality:check",
+    "prepare": "husky install || true"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20",
+    "npm": ">=10"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "cspell": "^8.14.2",
     "eslint": "^8.57.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-security": "^2.1.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "markdownlint-cli": "^0.41.0",
     "prettier": "^3.3.3"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{md,json}": ["prettier --write", "cspell --no-progress"]
   },
   "version": "2.2.0"
 }
