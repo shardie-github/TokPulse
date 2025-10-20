@@ -1,0 +1,71 @@
+# Shopify Oxygen Configuration for TokPulse
+
+[build]
+command = "npm run build"
+watch = ["src/**/*", "public/**/*"]
+
+[deploy]
+command = "npm run deploy"
+
+[env]
+# Production environment variables
+SHOPIFY_API_KEY = "{{ env.SHOPIFY_API_KEY }}"
+SHOPIFY_API_SECRET = "{{ env.SHOPIFY_API_SECRET }}"
+SHOPIFY_SCOPES = "{{ env.SHOPIFY_SCOPES }}"
+SHOPIFY_APP_URL = "{{ env.SHOPIFY_APP_URL }}"
+SHOPIFY_STORE_DOMAIN = "{{ env.SHOPIFY_STORE_DOMAIN }}"
+SHOPIFY_STOREFRONT_TOKEN = "{{ env.SHOPIFY_STOREFRONT_TOKEN }}"
+SHOPIFY_STOREFRONT_API_URL = "{{ env.SHOPIFY_STOREFRONT_API_URL }}"
+
+# Database
+DATABASE_URL = "{{ env.DATABASE_URL }}"
+REDIS_URL = "{{ env.REDIS_URL }}"
+
+# Social Media APIs
+INSTAGRAM_API_KEY = "{{ env.INSTAGRAM_API_KEY }}"
+INSTAGRAM_API_SECRET = "{{ env.INSTAGRAM_API_SECRET }}"
+TIKTOK_API_KEY = "{{ env.TIKTOK_API_KEY }}"
+TIKTOK_API_SECRET = "{{ env.TIKTOK_API_SECRET }}"
+FACEBOOK_API_KEY = "{{ env.FACEBOOK_API_KEY }}"
+FACEBOOK_API_SECRET = "{{ env.FACEBOOK_API_SECRET }}"
+TWITTER_API_KEY = "{{ env.TWITTER_API_KEY }}"
+TWITTER_API_SECRET = "{{ env.TWITTER_API_SECRET }}"
+
+# App Configuration
+NODE_ENV = "{{ env.NODE_ENV }}"
+PORT = "{{ env.PORT }}"
+CORS_ORIGIN = "{{ env.CORS_ORIGIN }}"
+
+# Analytics
+ANALYTICS_ENABLED = "{{ env.ANALYTICS_ENABLED }}"
+ANALYTICS_SYNC_INTERVAL = "{{ env.ANALYTICS_SYNC_INTERVAL }}"
+ANALYTICS_DATA_RETENTION = "{{ env.ANALYTICS_DATA_RETENTION }}"
+
+# Notifications
+EMAIL_SERVICE_API_KEY = "{{ env.EMAIL_SERVICE_API_KEY }}"
+PUSH_NOTIFICATION_KEY = "{{ env.PUSH_NOTIFICATION_KEY }}"
+SMS_SERVICE_API_KEY = "{{ env.SMS_SERVICE_API_KEY }}"
+
+# Security
+JWT_SECRET = "{{ env.JWT_SECRET }}"
+ENCRYPTION_KEY = "{{ env.ENCRYPTION_KEY }}"
+
+# Monitoring
+SENTRY_DSN = "{{ env.SENTRY_DSN }}"
+LOG_LEVEL = "{{ env.LOG_LEVEL }}"
+
+[functions]
+# Edge functions for analytics processing
+analytics = "src/functions/analytics.ts"
+webhooks = "src/functions/webhooks.ts"
+auth = "src/functions/auth.ts"
+
+[assets]
+# Static assets
+public = "public"
+dist = "dist"
+
+[cache]
+# Cache configuration
+ttl = 3600
+max_age = 86400
