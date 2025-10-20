@@ -1,0 +1,34 @@
+{
+  "store": {
+    "domain": "jb4izh-tz.myshopify.com",
+    "name": "Test Store",
+    "url": "https://shopify.com/store/jb4izh-tz"
+  },
+  "app": {
+    "name": "TokPulse",
+    "version": "0.1.0",
+    "scopes": [
+      "read_products",
+      "read_orders", 
+      "read_customers",
+      "read_analytics",
+      "write_products",
+      "write_orders"
+    ],
+    "webhooks": [
+      "orders/create",
+      "orders/updated",
+      "orders/paid",
+      "orders/cancelled",
+      "products/create",
+      "products/update",
+      "products/delete"
+    ]
+  },
+  "endpoints": {
+    "install": "/api/shopify/install",
+    "callback": "/api/shopify/callback", 
+    "webhook": "/api/shopify/webhook",
+    "health": "/healthz"
+  }
+}

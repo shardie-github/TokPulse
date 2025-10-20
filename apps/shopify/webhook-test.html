@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokPulse Shopify Webhook Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 TokPulse Shopify Webhook Test</h1>
+    <p>Test webhook endpoints for store: <strong>jb4izh-tz.myshopify.com</strong></p>
+
+    <div class="test-section info">
+        <h3>📋 Test Information</h3>
+        <p><strong>Store:</strong> jb4izh-tz.myshopify.com</p>
+        <p><strong>Webhook URL:</strong> <span id="webhookUrl">http://localhost:3004/api/shopify/webhook</span></p>
+        <p><strong>Health URL:</strong> <span id="healthUrl">http://localhost:3004/healthz</span></p>
+    </div>
+
+    <div class="test-section">
+        <h3>🔍 Health Check</h3>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="healthResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>🔗 Install Flow Test</h3>
+        <button onclick="testInstall()">Generate Install URL</button>
+        <div id="installResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>📡 Webhook Test</h3>
+        <p>Test webhook with sample data:</p>
+        <button onclick="testWebhook('orders/create')">Test Orders/Create</button>
+        <button onclick="testWebhook('products/create')">Test Products/Create</button>
+        <div id="webhookResult"></div>
+    </div>
+
+    <script>
+        const baseUrl = 'http://localhost:3004';
+        
+        async function testHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch(`${baseUrl}/healthz`);
+                const data = await response.json();
+                
+                if (data.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <p>✅ Health check passed!</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <p>❌ Health check failed</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <p>❌ Connection failed: ${error.message}</p>
+                        <p>Make sure the server is running on port 3004</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function testInstall() {
+            const resultDiv = document.getElementById('installResult');
+            const installUrl = `${baseUrl}/api/shopify/install?shop=jb4izh-tz.myshopify.com`;
+            
+            resultDiv.innerHTML = `
+                <div class="info">
+                    <p>🔗 Install URL generated:</p>
+                    <p><a href="${installUrl}" target="_blank">${installUrl}</a></p>
+                    <p>Click the link to test the OAuth flow</p>
+                </div>
+            `;
+        }
+        
+        async function testWebhook(topic) {
+            const resultDiv = document.getElementById('webhookResult');
+            resultDiv.innerHTML = '<p>Testing webhook...</p>';
+            
+            const sampleData = {
+                id: 12345,
+                topic: topic,
+                shop_domain: 'jb4izh-tz.myshopify.com',
+                created_at: new Date().toISOString(),
+                data: {
+                    id: 12345,
+                    name: '#1001',
+                    email: 'test@example.com'
+                }
+            };
+            
+            try {
+                const response = await fetch(`${baseUrl}/api/shopify/webhook`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Shopify-Topic': topic,
+                        'X-Shopify-Shop-Domain': 'jb4izh-tz.myshopify.com',
+                        'X-Shopify-Webhook-Id': '12345'
+                    },
+                    body: JSON.stringify(sampleData)
+                });
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <p>✅ Webhook test passed for ${topic}!</p>
+                            <p>Response: ${response.status} ${response.statusText}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <p>❌ Webhook test failed for ${topic}</p>
+                            <p>Response: ${response.status} ${response.statusText}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <p>❌ Webhook test failed: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
