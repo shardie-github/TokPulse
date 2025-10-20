@@ -1,5 +1,5 @@
 // Analytics processing function for Shopify Oxygen
-import { Request, Response } from '@shopify/oxygen';
+// Note: @shopify/oxygen types are not available, using standard types
 
 export default async function analytics(request: Request): Promise<Response> {
   const url = new URL(request.url);

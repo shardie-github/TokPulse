@@ -1,5 +1,5 @@
 // Authentication function for Shopify Oxygen
-import { Request, Response } from '@shopify/oxygen';
+// Note: @shopify/oxygen types are not available, using standard types
 import crypto from 'crypto';
 
 export default async function auth(request: Request): Promise<Response> {

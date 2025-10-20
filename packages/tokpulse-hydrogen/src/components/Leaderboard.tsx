@@ -1,5 +1,4 @@
-import React from 'react';
-import { Text, Badge, Card } from '@shopify/polaris';
+import { Text } from '@shopify/polaris';
 
 interface LeaderboardItem {
   id: string;
@@ -123,7 +122,7 @@ export function Leaderboard() {
             <Text variant="bodyMd" as="p" fontWeight="medium" truncate>
               {item.name}
             </Text>
-            <Text variant="bodySm" as="p" color="subdued">
+                <Text variant="bodySm" as="p" tone="subdued">
               {formatValue(item.value)}
             </Text>
           </div>

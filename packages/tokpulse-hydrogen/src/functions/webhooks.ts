@@ -1,5 +1,5 @@
 // Webhook processing function for Shopify Oxygen
-import { Request, Response } from '@shopify/oxygen';
+// Note: @shopify/oxygen types are not available, using standard types
 import crypto from 'crypto';
 
 export default async function webhooks(request: Request): Promise<Response> {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Spinner, Text, Card } from '@shopify/polaris';
+import { Spinner, Text } from '@shopify/polaris';
 
 interface LoadingSpinnerProps {
   message?: string;
@@ -20,7 +19,7 @@ export function LoadingSpinner({
       gap: '1rem'
     }}>
       <Spinner size={size} />
-      <Text variant="bodyMd" as="p" color="subdued">
+      <Text variant="bodyMd" as="p" tone="subdued">
         {message}
       </Text>
     </div>

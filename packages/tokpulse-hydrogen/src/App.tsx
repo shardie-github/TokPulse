@@ -16,7 +16,7 @@ function App() {
   return (
     <ErrorBoundary>
       <ApolloProvider client={apolloClient}>
-        <AppProvider>
+        <AppProvider i18n={{}}>
           <ThemeProvider>
             <BrowserRouter>
               <Suspense fallback={<LoadingSpinner />}>

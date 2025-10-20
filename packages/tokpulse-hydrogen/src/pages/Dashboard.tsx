@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { Page, Layout, Card, Text, Button, Spinner, Banner } from '@shopify/polaris';
+import { Page, Layout, Card, Text, Spinner, Banner } from '@shopify/polaris';
 import { GET_SHOP_INFO, GET_PRODUCTS, GET_ORDERS } from '@/lib/graphql/queries';
 import { KPIsGrid } from '@/components/KPIsGrid';
 import { ChannelShareChart } from '@/components/ChannelShareChart';
@@ -13,7 +13,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   // GraphQL queries
   const { data: shopData, loading: shopLoading, error: shopError } = useQuery(GET_SHOP_INFO);
@@ -56,7 +55,7 @@ export function Dashboard() {
       <Page>
         <Layout>
           <Layout.Section>
-            <Banner status="critical" title="Error loading data">
+            <Banner tone="critical" title="Error loading data">
               <p>There was an error loading your dashboard data. Please try refreshing the page.</p>
             </Banner>
           </Layout.Section>
@@ -66,13 +65,13 @@ export function Dashboard() {
   }
 
   const shop = shopData?.shop;
-  const products = productsData?.products?.edges?.map(edge => edge.node) || [];
-  const orders = ordersData?.orders?.edges?.map(edge => edge.node) || [];
+  const products = productsData?.products?.edges?.map((edge: any) => edge.node) || [];
+  const orders = ordersData?.orders?.edges?.map((edge: any) => edge.node) || [];
 
   // Calculate KPIs
   const totalProducts = products.length;
   const totalOrders = orders.length;
-  const totalRevenue = orders.reduce((sum, order) => {
+  const totalRevenue = orders.reduce((sum: number, order: any) => {
     return sum + parseFloat(order.totalPrice?.amount || '0');
   }, 0);
   const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
@@ -120,7 +119,7 @@ export function Dashboard() {
                 <Text variant="headingLg" as="h1">
                   Welcome to TokPulse Analytics
                 </Text>
-                <Text variant="bodyMd" as="p" color="subdued">
+                <Text variant="bodyMd" as="p" tone="subdued">
                   Track your social media performance and optimize your Shopify store
                 </Text>
               </Layout.Section>
@@ -131,7 +130,7 @@ export function Dashboard() {
 
               <Layout.Section>
                 <Layout>
-                  <Layout.Section oneHalf>
+                  <Layout.Section variant="oneHalf">
                     <Card>
                       <Text variant="headingMd" as="h2">
                         Channel Performance
@@ -139,7 +138,7 @@ export function Dashboard() {
                       <ChannelShareChart />
                     </Card>
                   </Layout.Section>
-                  <Layout.Section oneHalf>
+                  <Layout.Section variant="oneHalf">
                     <Card>
                       <Text variant="headingMd" as="h2">
                         Conversion Funnel
@@ -152,7 +151,7 @@ export function Dashboard() {
 
               <Layout.Section>
                 <Layout>
-                  <Layout.Section oneHalf>
+                  <Layout.Section variant="oneHalf">
                     <Card>
                       <Text variant="headingMd" as="h2">
                         Recent Activity
@@ -160,7 +159,7 @@ export function Dashboard() {
                       <ActivityFeed />
                     </Card>
                   </Layout.Section>
-                  <Layout.Section oneHalf>
+                  <Layout.Section variant="oneHalf">
                     <Card>
                       <Text variant="headingMd" as="h2">
                         Top Products

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Text, Badge, Card } from '@shopify/polaris';
+import { Text, Badge } from '@shopify/polaris';
 
 interface ActivityItem {
   id: string;
@@ -131,19 +130,21 @@ export function ActivityFeed() {
                 {activity.title}
               </Text>
               {activity.status && (
-                <Badge status={getStatusColor(activity.status)}>
+                <Badge tone={getStatusColor(activity.status) as any}>
                   {activity.status}
                 </Badge>
               )}
             </div>
             
-            <Text variant="bodySm" as="p" color="subdued">
+            <Text variant="bodySm" as="p" tone="subdued">
               {activity.description}
             </Text>
             
-            <Text variant="bodySm" as="p" color="subdued" style={{ marginTop: '4px' }}>
-              {formatTimestamp(activity.timestamp)}
-            </Text>
+            <div style={{ marginTop: '4px' }}>
+              <Text variant="bodySm" as="p" tone="subdued">
+                {formatTimestamp(activity.timestamp)}
+              </Text>
+            </div>
           </div>
         </div>
       ))}
