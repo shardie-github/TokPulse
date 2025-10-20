@@ -19,7 +19,7 @@
 
   function search(q){
     q=(q||'').toLowerCase();
-    const all=[...(data.general||[]),...(data.suiteA||[]),...(data.suiteB||[]),...(data.suiteC||[])];
+    const all=[...(data.general||[]),...(data.suiteC||[])];
     const scored = all.map(qa=>({qa,score:(qa.q+" "+qa.a).toLowerCase().includes(q)?1:0})).filter(x=>x.score>0);
     return scored.length? scored.map(x=>x.qa) : [{q:'No exact answer found',a:'A support ticket has been prepared. We will reply by email shortly.'}];
   }
