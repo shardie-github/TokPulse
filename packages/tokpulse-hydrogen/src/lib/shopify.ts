@@ -1,5 +1,5 @@
 import { createApp } from '@shopify/app-bridge';
-import { getSessionToken } from '@shopify/app-bridge/utilities';
+import { getSessionToken as getAppBridgeSessionToken } from '@shopify/app-bridge/utilities';
 
 // Initialize Shopify App Bridge
 export const app = createApp({
@@ -8,9 +8,9 @@ export const app = createApp({
 });
 
 // Get session token for authenticated requests
-export async function getSessionToken() {
+export async function getSessionToken(): Promise<string> {
   try {
-    const token = await getSessionToken(app);
+    const token = await getAppBridgeSessionToken(app);
     return token;
   } catch (error) {
     console.error('Failed to get session token:', error);

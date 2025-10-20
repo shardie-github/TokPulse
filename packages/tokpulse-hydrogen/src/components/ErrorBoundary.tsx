@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { Banner, Button, Card, Text } from '@shopify/polaris';
 
 interface Props {
@@ -36,16 +36,18 @@ export class ErrorBoundary extends Component<Props, State> {
         <div style={{ padding: '2rem' }}>
           <Card>
             <div style={{ textAlign: 'center' }}>
-              <Text variant="headingLg" as="h1" color="critical">
+              <Text variant="headingLg" as="h1" tone="critical">
                 Something went wrong
               </Text>
-              <Text variant="bodyMd" as="p" color="subdued" style={{ marginTop: '1rem' }}>
-                We're sorry, but something unexpected happened. Please try refreshing the page.
-              </Text>
+              <div style={{ marginTop: '1rem' }}>
+                <Text variant="bodyMd" as="p" tone="subdued">
+                  We're sorry, but something unexpected happened. Please try refreshing the page.
+                </Text>
+              </div>
               
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <div style={{ marginTop: '2rem', textAlign: 'left' }}>
-                  <Banner status="critical" title="Error Details">
+                  <Banner tone="critical" title="Error Details">
                     <pre style={{ 
                       background: '#f6f6f7', 
                       padding: '1rem', 
@@ -61,15 +63,14 @@ export class ErrorBoundary extends Component<Props, State> {
               )}
               
               <div style={{ marginTop: '2rem' }}>
-                <Button onClick={this.handleReset} primary>
+                <Button onClick={this.handleReset} variant="primary">
                   Try Again
                 </Button>
-                <Button 
-                  onClick={() => window.location.reload()} 
-                  style={{ marginLeft: '1rem' }}
-                >
-                  Refresh Page
-                </Button>
+                <div style={{ marginLeft: '1rem', display: 'inline-block' }}>
+                  <Button onClick={() => window.location.reload()}>
+                    Refresh Page
+                  </Button>
+                </div>
               </div>
             </div>
           </Card>

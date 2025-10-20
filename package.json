@@ -54,8 +54,14 @@
     "prettier": "^3.3.3"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{md,json}": ["prettier --write", "cspell --no-progress"]
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": [
+      "prettier --write",
+      "cspell --no-progress"
+    ]
   },
   "version": "2.2.0"
 }

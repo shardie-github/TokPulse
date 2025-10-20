@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Navigation, Text } from '@shopify/polaris';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -109,7 +109,7 @@ export function Sidebar() {
           }}
         >
           <span>{isCollapsed ? '→' : '←'}</span>
-          {!isCollapsed && <Text variant="bodySm">Collapse</Text>}
+          {!isCollapsed && <Text variant="bodySm" as="span">Collapse</Text>}
         </button>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TopBar, Button, Text, Popover, ActionList, Avatar } from '@shopify/polaris';
+import { useState } from 'react';
+import { TopBar, Button, Popover, ActionList } from '@shopify/polaris';
 import { useTheme } from '@/lib/theme';
 
 interface TopbarProps {
@@ -8,25 +8,29 @@ interface TopbarProps {
 
 export function Topbar({ shopName }: TopbarProps) {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const userMenuActions = [
     {
-      content: 'Profile',
-      onAction: () => console.log('Profile clicked'),
-    },
-    {
-      content: 'Settings',
-      onAction: () => console.log('Settings clicked'),
-    },
-    {
-      content: 'Help',
-      onAction: () => console.log('Help clicked'),
-    },
-    {
-      content: 'Sign out',
-      onAction: () => console.log('Sign out clicked'),
-    },
+      items: [
+        {
+          content: 'Profile',
+          onAction: () => console.log('Profile clicked'),
+        },
+        {
+          content: 'Settings',
+          onAction: () => console.log('Settings clicked'),
+        },
+        {
+          content: 'Help',
+          onAction: () => console.log('Help clicked'),
+        },
+        {
+          content: 'Sign out',
+          onAction: () => console.log('Sign out clicked'),
+        },
+      ]
+    }
   ];
 
   const themeToggleActions = [

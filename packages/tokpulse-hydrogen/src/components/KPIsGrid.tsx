@@ -1,5 +1,4 @@
-import React from 'react';
-import { Card, Text, Icon } from '@shopify/polaris';
+import { Card, Text } from '@shopify/polaris';
 
 interface KPI {
   title: string;
@@ -73,17 +72,19 @@ export function KPIsGrid({ kpis }: KPIsGridProps) {
                 <Text variant="bodySm" as="span">
                   {getTrendIcon(kpi.trend)}
                 </Text>
-                <Text variant="bodySm" as="span" color="subdued">
+                <Text variant="bodySm" as="span" tone="subdued">
                   {kpi.change}
                 </Text>
               </div>
             </div>
             
-            <Text variant="headingLg" as="h3" style={{ marginBottom: '0.5rem' }}>
-              {kpi.value}
-            </Text>
+            <div style={{ marginBottom: '0.5rem' }}>
+              <Text variant="headingLg" as="h3">
+                {kpi.value}
+              </Text>
+            </div>
             
-            <Text variant="bodyMd" as="p" color="subdued">
+            <Text variant="bodyMd" as="p" tone="subdued">
               {kpi.title}
             </Text>
           </div>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { Page, Layout, Card, Text, Button, Select, DatePicker, Spinner, Banner } from '@shopify/polaris';
+import { Page, Layout, Card, Text, Select, DatePicker, Spinner, Banner } from '@shopify/polaris';
 import { GET_ANALYTICS, GET_PRODUCTS, GET_ORDERS } from '@/lib/graphql/queries';
 import { ChannelShareChart } from '@/components/ChannelShareChart';
 import { FunnelChart } from '@/components/FunnelChart';
@@ -17,7 +17,7 @@ export function Analytics() {
   const [isLoading, setIsLoading] = useState(true);
 
   // GraphQL queries
-  const { data: analyticsData, loading: analyticsLoading, error: analyticsError } = useQuery(GET_ANALYTICS, {
+  const { loading: analyticsLoading, error: analyticsError } = useQuery(GET_ANALYTICS, {
     variables: {
       first: 30,
       query: `created_at:>=${dateRange.start.toISOString().split('T')[0]} created_at:<=${dateRange.end.toISOString().split('T')[0]}`,
@@ -55,7 +55,7 @@ export function Analytics() {
             <Card>
               <div style={{ textAlign: 'center', padding: '2rem' }}>
                 <Spinner size="large" />
-                <Text variant="bodyMd" as="p" color="subdued">
+                <Text variant="bodyMd" as="p" tone="subdued">
                   Loading analytics data...
                 </Text>
               </div>
@@ -71,7 +71,7 @@ export function Analytics() {
       <Page>
         <Layout>
           <Layout.Section>
-            <Banner status="critical" title="Error loading analytics">
+            <Banner tone="critical" title="Error loading analytics">
               <p>There was an error loading your analytics data. Please try refreshing the page.</p>
             </Banner>
           </Layout.Section>
@@ -80,11 +80,11 @@ export function Analytics() {
     );
   }
 
-  const products = productsData?.products?.edges?.map(edge => edge.node) || [];
-  const orders = ordersData?.orders?.edges?.map(edge => edge.node) || [];
+  const products = productsData?.products?.edges?.map((edge: any) => edge.node) || [];
+  const orders = ordersData?.orders?.edges?.map((edge: any) => edge.node) || [];
 
   // Calculate analytics data
-  const totalRevenue = orders.reduce((sum, order) => {
+  const totalRevenue = orders.reduce((sum: number, order: any) => {
     return sum + parseFloat(order.totalPrice?.amount || '0');
   }, 0);
 
@@ -143,7 +143,7 @@ export function Analytics() {
 
               <Layout.Section>
                 <Layout>
-                  <Layout.Section oneHalf>
+                  <Layout.Section variant="oneHalf">
                     <Card>
                       <Text variant="headingMd" as="h2">
                         Revenue by Channel
@@ -151,7 +151,7 @@ export function Analytics() {
                       <ChannelShareChart data={revenueByChannel} />
                     </Card>
                   </Layout.Section>
-                  <Layout.Section oneHalf>
+                  <Layout.Section variant="oneHalf">
                     <Card>
                       <Text variant="headingMd" as="h2">
                         Conversion Funnel
@@ -169,19 +169,19 @@ export function Analytics() {
                   </Text>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
                     <div>
-                      <Text variant="bodyMd" as="p" color="subdued">Total Revenue</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">Total Revenue</Text>
                       <Text variant="headingLg" as="p">${totalRevenue.toLocaleString()}</Text>
                     </div>
                     <div>
-                      <Text variant="bodyMd" as="p" color="subdued">Total Orders</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">Total Orders</Text>
                       <Text variant="headingLg" as="p">{totalOrders.toLocaleString()}</Text>
                     </div>
                     <div>
-                      <Text variant="bodyMd" as="p" color="subdued">Total Products</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">Total Products</Text>
                       <Text variant="headingLg" as="p">{totalProducts.toLocaleString()}</Text>
                     </div>
                     <div>
-                      <Text variant="bodyMd" as="p" color="subdued">Avg Order Value</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">Avg Order Value</Text>
                       <Text variant="headingLg" as="p">
                         ${totalOrders > 0 ? (totalRevenue / totalOrders).toFixed(2) : '0.00'}
                       </Text>

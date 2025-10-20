@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Page, Layout, Card, Text, Button, TextField, Select, Checkbox, Banner, Spinner } from '@shopify/polaris';
 import { Topbar } from '@/components/Topbar';
 import { Sidebar } from '@/components/Sidebar';
@@ -67,10 +67,10 @@ export function Settings() {
       let current = newSettings;
       
       for (let i = 0; i < keys.length - 1; i++) {
-        current = current[keys[i]];
+        current = (current as any)[keys[i]];
       }
       
-      current[keys[keys.length - 1]] = value;
+      (current as any)[keys[keys.length - 1]] = value;
       return newSettings;
     });
 
@@ -139,7 +139,7 @@ export function Settings() {
             <Card>
               <div style={{ textAlign: 'center', padding: '2rem' }}>
                 <Spinner size="large" />
-                <Text variant="bodyMd" as="p" color="subdued">
+                <Text variant="bodyMd" as="p" tone="subdued">
                   Loading settings...
                 </Text>
               </div>
@@ -162,14 +162,14 @@ export function Settings() {
                 <Text variant="headingLg" as="h1">
                   Settings
                 </Text>
-                <Text variant="bodyMd" as="p" color="subdued">
+                <Text variant="bodyMd" as="p" tone="subdued">
                   Configure your social media integrations and preferences
                 </Text>
               </Layout.Section>
 
               {successMessage && (
                 <Layout.Section>
-                  <Banner status="success" title="Success">
+                  <Banner tone="success" title="Success">
                     {successMessage}
                   </Banner>
                 </Layout.Section>
@@ -186,27 +186,29 @@ export function Settings() {
                       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
                         <Checkbox
                           label={`${platform.charAt(0).toUpperCase() + platform.slice(1)} Integration`}
-                          checked={config.enabled}
+                          checked={(config as any).enabled}
                           onChange={(value) => handleSettingChange(`${platform}.enabled`, value)}
                         />
                       </div>
                       
-                      {config.enabled && (
+                      {(config as any).enabled && (
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                           <TextField
                             label="API Key"
-                            value={config.apiKey}
+                            value={(config as any).apiKey}
                             onChange={(value) => handleSettingChange(`${platform}.apiKey`, value)}
                             error={errors[`${platform}.apiKey`]}
                             type="password"
+                            autoComplete="off"
                           />
                           <TextField
                             label={platform === 'facebook' ? 'Page ID' : 'Username'}
-                            value={platform === 'facebook' ? config.pageId : config.username}
+                            value={platform === 'facebook' ? (config as any).pageId : (config as any).username}
                             onChange={(value) => handleSettingChange(
                               platform === 'facebook' ? `${platform}.pageId` : `${platform}.username`, 
                               value
                             )}
+                            autoComplete="off"
                           />
                         </div>
                       )}
@@ -272,7 +274,7 @@ export function Settings() {
               <Layout.Section>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
                   <Button>Cancel</Button>
-                  <Button primary onClick={handleSave}>
+                  <Button variant="primary" onClick={handleSave}>
                     Save Settings
                   </Button>
                 </div>
