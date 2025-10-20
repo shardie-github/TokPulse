@@ -1,4 +1,3 @@
-/* TokPulse — © Hardonia. MIT. */
 # TokPulse — Run from `packages/` (Shorthand Ops)
 
 **Goal:** ship new builds side‑by‑side under `packages/<drop>/`, test safely, then promote one to **production** by pointing `packages/.current` at it.

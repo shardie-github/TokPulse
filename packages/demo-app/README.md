@@ -1,4 +1,3 @@
-/* TokPulse — © Hardonia. MIT. */
 
 # TokPulse Demo App
 
