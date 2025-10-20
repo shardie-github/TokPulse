@@ -39,7 +39,7 @@ export function Dashboard() {
             <Card>
               <div style={{ textAlign: 'center', padding: '2rem' }}>
                 <Spinner size="large" />
-                <Text variant="bodyMd" as="p" color="subdued">
+                <Text variant="bodyMd" as="p" tone="subdued">
                   Loading your analytics dashboard...
                 </Text>
               </div>

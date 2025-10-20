@@ -208,6 +208,7 @@ export function Settings() {
                               platform === 'facebook' ? `${platform}.pageId` : `${platform}.username`, 
                               value
                             )}
+                            autoComplete="off"
                           />
                         </div>
                       )}
