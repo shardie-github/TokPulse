@@ -3,7 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "start": "node src/server.js" },
-  "dependencies": {},
+  "scripts": { 
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "setup": "./setup-test-store.sh",
+    "test": "node test-connection.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
   "engines": { "node": ">=20" }
 }
