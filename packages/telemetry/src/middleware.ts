@@ -40,7 +40,7 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
 
   // Override res.end to capture response metrics
   const originalEnd = res.end
-  res.end = function(chunk?: any, encoding?: any) {
+  res.end = function(chunk?: any, encoding?: any, cb?: any) {
     const duration = Date.now() - (req.startTime || 0)
     
     // Record metrics
@@ -77,7 +77,7 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
     tracing.finishSpan(span, res.statusCode < 400)
 
     // Call original end
-    originalEnd.call(this, chunk, encoding)
+    return originalEnd.call(this, chunk, encoding, cb)
   }
 
   next()

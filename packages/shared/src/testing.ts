@@ -1,6 +1,17 @@
 import { PrismaClient } from '@tokpulse/db'
 import { z } from 'zod'
 
+// Jest globals type declarations
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeValidEmail(): R
+      toBeValidUrl(): R
+      toBeValidUuid(): R
+    }
+  }
+}
+
 // Test utilities
 export class TestUtils {
   // Create test database
@@ -261,7 +272,8 @@ export class MockUtils {
   static mockFetch(responses: Record<string, any> = {}): jest.MockedFunction<typeof fetch> {
     const mockFetch = jest.fn() as jest.MockedFunction<typeof fetch>
     
-    mockFetch.mockImplementation((url: string) => {
+    mockFetch.mockImplementation((input: string | URL | Request) => {
+      const url = typeof input === 'string' ? input : input.toString()
       const response = responses[url] || { status: 404, json: () => Promise.resolve({ error: 'Not found' }) }
       
       return Promise.resolve({

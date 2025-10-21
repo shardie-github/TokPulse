@@ -2,33 +2,3 @@
 > @tokpulse/telemetry@0.0.0 typecheck /workspace/packages/telemetry
 > tsc --noEmit
 
-src/endpoints.ts(1,35): error TS2307: Cannot find module 'express' or its corresponding type declarations.
-src/middleware.ts(1,49): error TS2307: Cannot find module 'express' or its corresponding type declarations.
-src/middleware.ts(25,23): error TS2339: Property 'headers' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(25,64): error TS2339: Property 'headers' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(26,21): error TS2339: Property 'headers' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(27,19): error TS2339: Property 'headers' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(34,42): error TS2339: Property 'method' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(34,54): error TS2339: Property 'route' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(34,73): error TS2339: Property 'path' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(37,42): error TS2339: Property 'url' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(38,49): error TS2339: Property 'get' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(48,18): error TS2339: Property 'route' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(48,37): error TS2339: Property 'path' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(49,19): error TS2339: Property 'method' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(55,18): error TS2339: Property 'route' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(55,37): error TS2339: Property 'path' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(56,19): error TS2339: Property 'method' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(65,11): error TS2339: Property 'method' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(66,11): error TS2339: Property 'route' does not exist on type 'TelemetryRequest'.
-src/middleware.ts(66,30): error TS2339: Property 'path' does not exist on type 'TelemetryRequest'.
-src/tracing.ts(39,7): error TS2322: Type 'import("/workspace/node_modules/.pnpm/@opentelemetry+resources@1.30.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/resources/build/src/Resource").Resource' is not assignable to type 'import("/workspace/node_modules/.pnpm/@opentelemetry+resources@1.0.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/resources/build/src/Resource").Resource'.
-  Types of property 'attributes' are incompatible.
-    Type 'Attributes' is not assignable to type 'ResourceAttributes'.
-      'string' index signatures are incompatible.
-        Type 'AttributeValue | undefined' is not assignable to type 'string | number | boolean'.
-          Type 'undefined' is not assignable to type 'string | number | boolean'.
-src/tracing.ts(42,9): error TS2322: Type 'Instrumentation[]' is not assignable to type 'InstrumentationOption'.
-  Type 'Instrumentation[]' is not assignable to type '(typeof InstrumentationBase)[]'.
-    Property 'prototype' is missing in type 'Instrumentation' but required in type 'typeof InstrumentationBase'.
- ELIFECYCLE  Command failed with exit code 2.
