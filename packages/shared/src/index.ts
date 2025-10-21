@@ -15,3 +15,21 @@ export * from './auth'
 
 // Telemetry
 export * from './telemetry'
+
+// Health monitoring
+export * from './health'
+
+// Error tracking
+export * from './error-tracking'
+
+// Performance monitoring
+export * from './performance-monitoring'
+
+// Security hardening
+export * from './security-hardening'
+
+// Security utilities
+export * from './security'
+
+// Performance utilities
+export * from './performance'
