@@ -1,0 +1,122 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "TokPulse Jobs & Queues",
+    "tags": ["tokpulse", "jobs", "queues"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Job Queue Size",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "tokpulse_job_queue_size",
+            "legendFormat": "{{jobType}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Job Processing Duration",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(tokpulse_job_processing_duration_seconds_bucket[5m]))",
+            "legendFormat": "p95 - {{job}}"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(tokpulse_job_processing_duration_seconds_bucket[5m]))",
+            "legendFormat": "p50 - {{job}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Job Success/Fail Ratio",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(tokpulse_job_attempts_total{status=\"completed\"}[5m])",
+            "legendFormat": "Success - {{job}}"
+          },
+          {
+            "expr": "rate(tokpulse_job_attempts_total{status=\"failed\"}[5m])",
+            "legendFormat": "Failed - {{job}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "Job Attempts by Status",
+        "type": "piechart",
+        "targets": [
+          {
+            "expr": "sum(rate(tokpulse_job_attempts_total[5m])) by (status)",
+            "legendFormat": "{{status}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}
