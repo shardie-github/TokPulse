@@ -1,0 +1,59 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # Add alerting rules here
+  # - "alert_rules.yml"
+
+scrape_configs:
+  # TokPulse API metrics
+  - job_name: 'tokpulse-api'
+    static_configs:
+      - targets: ['localhost:3000']
+    metrics_path: '/internal/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # TokPulse Partner App metrics
+  - job_name: 'tokpulse-partner-app'
+    static_configs:
+      - targets: ['localhost:3001']
+    metrics_path: '/internal/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # TokPulse Dashboard metrics
+  - job_name: 'tokpulse-dashboard'
+    static_configs:
+      - targets: ['localhost:3002']
+    metrics_path: '/internal/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # TokPulse Hydrogen app metrics
+  - job_name: 'tokpulse-hydrogen'
+    static_configs:
+      - targets: ['localhost:3003']
+    metrics_path: '/internal/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # System metrics (if node_exporter is running)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+    scrape_interval: 30s
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Storage configuration
+storage:
+  tsdb:
+    retention.time: 15d
+    retention.size: 1GB

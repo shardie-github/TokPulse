@@ -20,7 +20,13 @@
     "quality:check": "turbo run typecheck && turbo run lint && turbo run format:check && turbo run test",
     "quality:fix": "turbo run lint -- --fix && pnpm format",
     "pre-commit": "turbo run typecheck && turbo run lint && turbo run test",
-    "prepare": "husky install || true"
+    "prepare": "husky install || true",
+    "obs:dev": "docker-compose -f ops/docker-compose.observability.yml up -d",
+    "obs:lint": "node scripts/lint-observability.mjs",
+    "api:openapi": "node scripts/generate-openapi.mjs",
+    "docs:dev": "cd apps/docs && pnpm dev",
+    "docs:build": "cd apps/docs && pnpm build",
+    "docs:lint": "cd apps/docs && pnpm lint"
   },
   "engines": {
     "node": ">=20",

@@ -1,0 +1,115 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "TokPulse Tenancy Overview",
+    "tags": ["tokpulse", "tenancy", "multi-tenant"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Top Stores by Events",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "topk(10, sum(rate(tokpulse_tenant_events_total[5m])) by (storeId, orgId))",
+            "format": "table",
+            "instant": true
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Noisy Tenants",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "topk(5, sum(rate(tokpulse_tenant_events_total[5m])) by (storeId))",
+            "legendFormat": "{{storeId}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Tenant Throttling Events",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(tokpulse_tenant_throttling_total[5m])",
+            "legendFormat": "{{storeId}} - {{reason}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "Events by Type",
+        "type": "piechart",
+        "targets": [
+          {
+            "expr": "sum(rate(tokpulse_tenant_events_total[5m])) by (eventType)",
+            "legendFormat": "{{eventType}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

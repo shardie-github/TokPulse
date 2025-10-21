@@ -18,8 +18,11 @@ model Organization {
   updatedAt DateTime @updatedAt
 
   // Relations
-  users  User[]
-  stores Store[]
+  users       User[]
+  stores      Store[]
+  experiments Experiment[]
+  assignments Assignment[]
+  exposures   Exposure[]
 
   @@map("organizations")
 }
@@ -61,6 +64,8 @@ model Store {
   feedConfigs    FeedConfig[]
   webhookEvents  WebhookEvent[]
   jobs           Job[]
+  assignments    Assignment[]
+  exposures      Exposure[]
 
   @@map("stores")
 }
@@ -121,19 +126,82 @@ model Attribution {
 }
 
 model Experiment {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  status      String   @default("DRAFT") // DRAFT, RUNNING, PAUSED, COMPLETED
-  config      String   // JSON string
-  storeId     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  orgId           String
+  storeId         String?
+  key             String   @unique
+  name            String
+  description     String?
+  status          String   @default("DRAFT") // DRAFT, RUNNING, PAUSED, COMPLETED
+  startAt         DateTime?
+  stopAt          DateTime?
+  hashSalt        String   @default(cuid())
+  guardrailMetric String?
+  allocation      Int      @default(100) // Percentage allocation
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   // Relations
-  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  store        Store?       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  variants     Variant[]
+  assignments  Assignment[]
+  exposures    Exposure[]
 
   @@map("experiments")
+}
+
+model Variant {
+  id           String   @id @default(cuid())
+  experimentId String
+  key          String
+  name         String
+  weight       Int      @default(50) // Weight percentage (0-100)
+  configJson   String   // JSON configuration
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  experiment  Experiment   @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  assignments Assignment[]
+  exposures   Exposure[]
+
+  @@unique([experimentId, key])
+  @@map("variants")
+}
+
+model Assignment {
+  id           String   @id @default(cuid())
+  experimentId String
+  subjectKey   String   // customerId || sessionId || anonId
+  variantId    String
+  storeId      String
+  orgId        String
+  createdAt    DateTime @default(now())
+
+  // Relations
+  experiment Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  variant    Variant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([experimentId, subjectKey])
+  @@map("assignments")
+}
+
+model Exposure {
+  id           String   @id @default(cuid())
+  experimentId String
+  variantId    String
+  subjectKey   String
+  surface      String   // hydrogen, theme, api, etc.
+  storeId      String
+  orgId        String
+  ts           DateTime @default(now())
+
+  // Relations
+  experiment Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  variant    Variant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@map("exposures")
 }
 
 model AudienceSegment {
