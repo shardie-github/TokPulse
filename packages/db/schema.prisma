@@ -14,6 +14,9 @@ datasource db {
 model Organization {
   id        String   @id @default(cuid())
   name      String
+  email     String?  @unique
+  domain    String?  @unique
+  status    String   @default("ACTIVE") // ACTIVE, SUSPENDED, DELETED
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -25,6 +28,9 @@ model Organization {
   exposures     Exposure[]
   subscription  Subscription?
 
+  @@index([email])
+  @@index([domain])
+  @@index([status])
   @@map("organizations")
 }
 
@@ -33,6 +39,8 @@ model User {
   email          String   @unique
   name           String?
   role           String   @default("ANALYST") // OWNER, ADMIN, ANALYST, VIEWER
+  status         String   @default("ACTIVE") // ACTIVE, SUSPENDED, DELETED
+  lastLoginAt    DateTime?
   organizationId String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -40,6 +48,10 @@ model User {
   // Relations
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
+  @@index([email])
+  @@index([organizationId])
+  @@index([status])
+  @@index([lastLoginAt])
   @@map("users")
 }
 
@@ -50,6 +62,7 @@ model Store {
   scopes         String   // Comma-separated scopes
   region         String   @default("us")
   status         String   @default("ACTIVE") // ACTIVE, SUSPENDED, UNINSTALLED
+  lastSyncAt     DateTime?
   organizationId String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -68,6 +81,10 @@ model Store {
   assignments    Assignment[]
   exposures      Exposure[]
 
+  @@index([shopDomain])
+  @@index([organizationId])
+  @@index([status])
+  @@index([lastSyncAt])
   @@map("stores")
 }
 
@@ -84,6 +101,7 @@ model CatalogItem {
   price       Float
   compareAtPrice Float?
   inventory   Int      @default(0)
+  status      String   @default("ACTIVE") // ACTIVE, ARCHIVED, DRAFT
   storeId     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -92,6 +110,13 @@ model CatalogItem {
   store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([storeId, productId, variantId])
+  @@index([storeId])
+  @@index([productId])
+  @@index([handle])
+  @@index([vendor])
+  @@index([productType])
+  @@index([status])
+  @@index([price])
   @@map("catalog_items")
 }
 
@@ -325,6 +350,7 @@ model Subscription {
   planId            String
   shopifyBillingId  String?  // Shopify billing ID
   stripeCustomerId  String?  // Stripe customer ID
+  stripeSubscriptionId String? // Stripe subscription ID
   status            String   @default("TRIAL") // TRIAL, ACTIVE, PAST_DUE, CANCELLED, EXPIRED
   trialEndsAt       DateTime?
   currentPeriodStart DateTime?
@@ -340,6 +366,12 @@ model Subscription {
   usageRecords UsageRecord[]
 
   @@unique([organizationId])
+  @@index([status])
+  @@index([shopifyBillingId])
+  @@index([stripeCustomerId])
+  @@index([stripeSubscriptionId])
+  @@index([trialEndsAt])
+  @@index([currentPeriodEnd])
   @@map("subscriptions")
 }
 
@@ -354,6 +386,10 @@ model UsageRecord {
   // Relations
   subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 
+  @@index([subscriptionId])
+  @@index([metric])
+  @@index([timestamp])
+  @@index([subscriptionId, metric, timestamp])
   @@map("usage_records")
 }
 
