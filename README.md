@@ -1,297 +1,250 @@
-# TokPulse - Enterprise Social Media Analytics for Shopify
+# TokPulse - Enterprise Multi-Store Shopify App
 
-A comprehensive social media analytics platform built with **Shopify Hydrogen**, **Oxygen Edge Functions**, and **GraphQL** to provide real-time insights and optimization for Shopify stores.
+TokPulse is an enterprise, multi-store Shopify app that supports two first-class surfaces:
 
-## 🚀 Key Features
+1. **Headless storefront** (Hydrogen/Remix) for larger merchants
+2. **Shopify Online Store 2.0** via Theme App Extensions for Shopify Basic merchants
 
-### **Shopify Hydrogen Integration**
-- **Modern React Framework**: Built with Shopify Hydrogen for optimal performance and SEO
-- **Server-Side Rendering**: Fast initial page loads and better search engine visibility
-- **Edge-Optimized**: Leverages Shopify's global CDN for lightning-fast delivery
-- **Polaris Design System**: Native Shopify UI components for consistent user experience
+## Architecture
 
-### **Oxygen Edge Functions**
-- **Global Edge Deployment**: Functions deployed to Shopify's global edge network
-- **Real-time Analytics Processing**: Process social media data at the edge for instant insights
-- **Webhook Handling**: Secure webhook processing for real-time data synchronization
-- **Authentication**: OAuth and session management at the edge
+This is a monorepo built with:
 
-### **Advanced GraphQL Implementation**
-- **Shopify Storefront API**: Full integration with Shopify's GraphQL API
-- **Real-time Data Fetching**: Apollo Client with caching and optimistic updates
-- **Custom Mutations**: Create, update, and delete operations for products, orders, and customers
-- **Type-Safe Queries**: Full TypeScript support with generated types
+- **pnpm** for package management
+- **Turborepo** for build orchestration
+- **TypeScript** with strict mode
+- **Prisma** with WASM engine for database operations
+- **Supabase** PostgreSQL for data storage
+- **Shopify API** for store integration
 
-## 🏗️ Architecture
-
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Shopify App   │    │  Oxygen Edge     │    │  Social Media   │
-│   (Hydrogen)    │◄──►│  Functions       │◄──►│  APIs           │
-│                 │    │                  │    │                 │
-│ • Dashboard     │    │ • Analytics      │    │ • Instagram     │
-│ • Analytics     │    │ • Webhooks       │    │ • TikTok        │
-│ • Settings      │    │ • Auth           │    │ • Facebook      │
-│ • GraphQL       │    │ • Real-time      │    │ • Twitter       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-```
-
-## 🛠️ Technology Stack
-
-### **Frontend (Hydrogen)**
-- **React 18** with TypeScript
-- **Shopify Hydrogen** for SSR and edge optimization
-- **Apollo Client** for GraphQL data management
-- **Shopify Polaris** for UI components
-- **Tailwind CSS** for styling
-- **Framer Motion** for animations
-
-### **Backend (Oxygen)**
-- **Edge Functions** for serverless compute
-- **GraphQL** for data querying and mutations
-- **Webhook Processing** for real-time updates
-- **Authentication** with Shopify OAuth
-
-### **Data & Analytics**
-- **Shopify Storefront API** for store data
-- **Social Media APIs** for external data
-- **Real-time Processing** with edge functions
-- **Caching** with Apollo Client and Oxygen
-
-## 📊 Analytics Capabilities
-
-### **Real-time Dashboard**
-- Live social media performance metrics
-- Revenue tracking and conversion analysis
-- Customer engagement insights
-- Product performance analytics
-
-### **Multi-Platform Integration**
-- **Instagram**: Stories, posts, and reels analytics
-- **TikTok**: Video performance and engagement
-- **Facebook**: Page insights and ad performance
-- **Twitter**: Tweet engagement and reach
-
-### **Advanced Reporting**
-- Custom date ranges and filters
-- Export capabilities (CSV, PDF)
-- Automated reports and alerts
-- Trend analysis and predictions
-
-## 🚀 Getting Started
+## Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- Shopify CLI 3.50+
-- Shopify Partner account
-- Social media API credentials
+
+- Node.js 20+
+- pnpm 8+
+- Supabase account (or PostgreSQL database)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd tokpulse
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   cd packages/tokpulse-hydrogen
-   npm install
-   ```
-
-3. **Configure environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your credentials
-   ```
-
-4. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-### Deployment to Oxygen
-
-1. **Build the application**
-   ```bash
-   npm run build
-   ```
-
-2. **Deploy to Oxygen**
-   ```bash
-   shopify app deploy
-   ```
-
-3. **Configure edge functions**
-   ```bash
-   # Deploy analytics function
-   shopify app deploy --function=analytics
-   
-   # Deploy webhook function
-   shopify app deploy --function=webhooks
-   
-   # Deploy auth function
-   shopify app deploy --function=auth
-   ```
-
-## 🔧 Configuration
-
-### **Shopify App Configuration**
-```toml
-# shopify.app.toml
-name = "tokpulse"
-client_id = "YOUR_CLIENT_ID"
-application_url = "https://your-app-url.com"
-embedded = true
-
-[access_scopes]
-scopes = "read_products,read_orders,read_customers,read_analytics,write_products,write_orders"
-
-[auth]
-redirect_urls = [
-  "https://your-app-url.com/auth/callback",
-  "https://your-app-url.com/auth/shopify/callback"
-]
-
-[webhooks]
-api_version = "2024-10"
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd tokpulse
 ```
 
-### **Oxygen Configuration**
-```toml
-# oxygen.config.toml
-[build]
-command = "npm run build"
-
-[functions]
-analytics = "src/functions/analytics.ts"
-webhooks = "src/functions/webhooks.ts"
-auth = "src/functions/auth.ts"
-
-[env]
-SHOPIFY_API_KEY = "{{ env.SHOPIFY_API_KEY }}"
-SHOPIFY_STOREFRONT_TOKEN = "{{ env.SHOPIFY_STOREFRONT_TOKEN }}"
+2. Install dependencies:
+```bash
+pnpm install
 ```
 
-## 📈 GraphQL Schema
-
-### **Core Queries**
-```graphql
-query GetShopInfo {
-  shop {
-    id
-    name
-    email
-    domain
-    currencyCode
-    plan {
-      displayName
-      shopifyPlus
-    }
-  }
-}
-
-query GetProducts($first: Int!, $query: String) {
-  products(first: $first, query: $query) {
-    edges {
-      node {
-        id
-        title
-        handle
-        description
-        variants(first: 10) {
-          edges {
-            node {
-              id
-              title
-              price {
-                amount
-                currencyCode
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
 ```
 
-### **Analytics Mutations**
-```graphql
-mutation CreateAnalyticsEvent($input: AnalyticsEventInput!) {
-  createAnalyticsEvent(input: $input) {
-    success
-    eventId
-    errors {
-      field
-      message
-    }
-  }
-}
+4. Set up the database:
+```bash
+pnpm db:push
+pnpm db:seed
 ```
 
-## 🔒 Security Features
+5. Start development:
+```bash
+pnpm dev
+```
 
-- **OAuth 2.0** authentication with Shopify
-- **JWT tokens** for secure API communication
-- **CORS** configuration for cross-origin requests
-- **Rate limiting** on edge functions
-- **Input validation** and sanitization
-- **Encrypted** sensitive data storage
+## Project Structure
 
-## 📱 Mobile & PWA Support
+```
+tokpulse/
+├── apps/
+│   ├── partner-app/          # Shopify app (OAuth, billing, Admin API)
+│   ├── web-hydrogen/         # Hydrogen headless storefront
+│   └── edge-worker/          # Edge functions
+├── packages/
+│   ├── theme-ext/            # Theme App Extension (blocks/sections)
+│   ├── shared/               # Shared types, validation, utilities
+│   ├── db/                   # Prisma schema and client
+│   ├── api/                  # API handlers and business logic
+│   ├── jobs/                 # Background jobs and webhooks
+│   └── ui/                   # React components and design system
+└── docs/                     # Documentation
+```
 
-- **Responsive design** for all screen sizes
-- **Progressive Web App** capabilities
-- **Offline support** with service workers
-- **Push notifications** for important updates
-- **Touch-optimized** interface
+## Development
 
-## 🧪 Testing
+### Available Scripts
+
+- `pnpm dev` - Start all development servers
+- `pnpm build` - Build all packages and apps
+- `pnpm lint` - Run ESLint on all packages
+- `pnpm typecheck` - Run TypeScript type checking
+- `pnpm test` - Run all tests
+- `pnpm db:push` - Push Prisma schema to database
+- `pnpm db:migrate` - Run database migrations
+- `pnpm db:seed` - Seed database with test data
+- `pnpm db:studio` - Open Prisma Studio
+
+### Environment Variables
+
+See `.env.example` for required environment variables:
+
+- `SHOPIFY_API_KEY` - Your Shopify app API key
+- `SHOPIFY_API_SECRET` - Your Shopify app secret
+- `SHOPIFY_SCOPES` - Required Shopify scopes
+- `DATABASE_URL` - PostgreSQL connection string
+- `REDIS_URL` - Redis connection string (for queues)
+
+## Features
+
+### Multi-Store Support
+
+- Single control plane for multiple Shopify stores
+- Organization-level user management
+- Store-specific configurations and data isolation
+
+### Headless Integration
+
+- Hydrogen/Remix routes for product recommendations
+- Server-side rendering with streaming
+- Edge caching and optimization
+
+### Theme App Extensions
+
+- Native Shopify 2.0 app blocks
+- No theme file modifications required
+- Progressive enhancement with JavaScript
+
+### Data Pipeline
+
+- Product catalog synchronization
+- Order and customer data ingestion
+- Attribution tracking and analytics
+- A/B testing framework
+
+### Webhooks
+
+- Idempotent webhook processing
+- Retry logic with exponential backoff
+- Dead letter queue for failed events
+- GDPR compliance with data deletion
+
+## API Endpoints
+
+### Partner App (`/auth`, `/webhooks`, `/api`)
+
+- `GET /auth/callback` - OAuth callback
+- `POST /webhooks/*` - Shopify webhooks
+- `GET /api/stores/:shopDomain` - Store information
+- `GET /api/stores/:shopDomain/catalog` - Product catalog
+
+### Widget API (`/api/widgets`)
+
+- `GET /api/widgets/recommendations` - Product recommendations
+- `POST /api/analytics/track` - Event tracking
+
+## Theme App Extension
+
+The extension provides several app blocks:
+
+1. **Product Recommendations** - Shows related products
+2. **Collection Badges** - Displays ratings and promo flags
+3. **Sticky CTA** - Utility block for sticky call-to-actions
+4. **Global Bootstrap** - Lightweight JavaScript loader
+
+### Installation
+
+1. Package the extension:
+```bash
+cd packages/theme-ext
+zip -r tokpulse-extension.zip .
+```
+
+2. Upload to Shopify Partners dashboard
+3. Install on merchant stores
+
+## Database Schema
+
+### Core Models
+
+- `Organization` - Customer/tenant
+- `User` - User accounts with roles
+- `Store` - Shopify store connections
+- `CatalogItem` - Normalized product data
+- `PixelEvent` - Analytics events
+- `Attribution` - Order attribution data
+- `Experiment` - A/B test configurations
+- `Job` - Background job queue
+- `WebhookEvent` - Webhook processing log
+
+### Multi-Tenancy
+
+All queries are scoped by organization. Row-level security policies ensure data isolation between tenants.
+
+## Deployment
+
+### Partner App
+
+Deploy to your preferred platform (Railway, Heroku, etc.):
 
 ```bash
-# Run TypeScript checks
-npm run typecheck
-
-# Run linting
-npm run lint
-
-# Run tests
-npm run test
-
-# Run all quality checks
-npm run quality:check
+pnpm build
+# Deploy apps/partner-app/dist
 ```
 
-## 📚 Documentation
+### Hydrogen App
 
-- [API Documentation](./docs/API.md)
-- [Deployment Guide](./docs/DEPLOYMENT.md)
-- [Integration Guide](./docs/INTEGRATIONS.md)
-- [Security Guide](./docs/SECURITY.md)
+Deploy to Shopify Oxygen or Vercel:
 
-## 🤝 Contributing
+```bash
+pnpm build
+# Deploy apps/web-hydrogen/dist
+```
+
+### Theme Extension
+
+Package and upload to Shopify Partners:
+
+```bash
+cd packages/theme-ext
+zip -r tokpulse-extension.zip .
+```
+
+## Testing
+
+```bash
+# Run all tests
+pnpm test
+
+# Run specific package tests
+pnpm --filter @tokpulse/db test
+
+# Run e2e tests
+pnpm test:e2e
+```
+
+## Quality Gates
+
+- TypeScript coverage ≥ 95%
+- ESLint with zero warnings
+- All tests passing
+- Lighthouse performance budgets met
+- Bundle size limits enforced
+
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run quality checks
-5. Submit a pull request
+4. Add tests
+5. Run quality checks: `pnpm quality:check`
+6. Submit a pull request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Private - All rights reserved
 
-## 🆘 Support
+## Support
 
-- **Documentation**: [docs/](./docs/)
-- **Issues**: [GitHub Issues](https://github.com/your-org/tokpulse/issues)
-- **Discord**: [Community Server](https://discord.gg/tokpulse)
-- **Email**: support@tokpulse.com
-
----
-
-**Built with ❤️ using Shopify Hydrogen, Oxygen, and GraphQL**
+For support, please contact the development team or create an issue in the repository.

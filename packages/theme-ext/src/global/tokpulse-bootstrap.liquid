@@ -1,0 +1,143 @@
+{% comment %}
+  TokPulse Global Bootstrap Script
+  Lightweight JavaScript loader for TokPulse widgets
+  Must be under 8KB gzipped
+{% endcomment %}
+
+<script>
+  (function() {
+    'use strict';
+    
+    // TokPulse global object
+    window.TokPulse = window.TokPulse || {};
+    
+    // Configuration
+    var config = {
+      apiEndpoint: '{{ settings.api_endpoint | default: "https://api.tokpulse.com" }}',
+      enableRecommendations: {{ settings.enable_recommendations | default: false }},
+      enableExperiments: {{ settings.enable_experiments | default: false }},
+      enableAnalytics: {{ settings.enable_analytics | default: false }},
+      shop: '{{ shop.permanent_domain }}',
+      version: '1.0.0'
+    };
+
+    // Utility functions
+    function createSignedUrl(endpoint, params) {
+      var url = new URL(endpoint);
+      Object.keys(params).forEach(function(key) {
+        url.searchParams.set(key, params[key]);
+      });
+      url.searchParams.set('timestamp', Date.now().toString());
+      return url.toString();
+    }
+
+    function makeRequest(url, options) {
+      options = options || {};
+      return fetch(url, {
+        method: options.method || 'GET',
+        headers: Object.assign({
+          'Content-Type': 'application/json',
+          'X-TokPulse-Version': config.version
+        }, options.headers || {}),
+        body: options.body ? JSON.stringify(options.body) : undefined
+      }).then(function(response) {
+        if (!response.ok) {
+          throw new Error('Request failed: ' + response.status);
+        }
+        return response.json();
+      });
+    }
+
+    // Recommendations API
+    window.TokPulse.getRecommendations = function(params) {
+      if (!config.enableRecommendations) {
+        return Promise.resolve([]);
+      }
+
+      var url = createSignedUrl(config.apiEndpoint + '/api/widgets/recommendations', {
+        store: config.shop,
+        productId: params.productId,
+        variantId: params.variantId,
+        experimentId: params.experimentId || ''
+      });
+
+      return makeRequest(url).then(function(response) {
+        return response.data || [];
+      }).catch(function(error) {
+        console.warn('TokPulse recommendations failed:', error);
+        return [];
+      });
+    };
+
+    // Experiment bucketing
+    window.TokPulse.getExperimentVariant = function(experimentId) {
+      if (!config.enableExperiments) {
+        return 'control';
+      }
+
+      // Simple hash-based bucketing
+      var hash = 0;
+      var str = config.shop + experimentId;
+      for (var i = 0; i < str.length; i++) {
+        var char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+      }
+      
+      return Math.abs(hash) % 2 === 0 ? 'control' : 'treatment';
+    };
+
+    // Analytics tracking
+    window.TokPulse.track = function(event, properties) {
+      if (!config.enableAnalytics) {
+        return;
+      }
+
+      var payload = {
+        event: event,
+        properties: Object.assign({
+          shop: config.shop,
+          timestamp: Date.now(),
+          url: window.location.href,
+          userAgent: navigator.userAgent
+        }, properties || {})
+      };
+
+      // Send to analytics endpoint
+      makeRequest(config.apiEndpoint + '/api/analytics/track', {
+        method: 'POST',
+        body: payload
+      }).catch(function(error) {
+        console.warn('TokPulse analytics failed:', error);
+      });
+    };
+
+    // Initialize
+    window.TokPulse.init = function() {
+      // Track page view
+      window.TokPulse.track('page_view', {
+        page: window.location.pathname,
+        referrer: document.referrer
+      });
+
+      // Track product views
+      if (window.location.pathname.includes('/products/')) {
+        var productHandle = window.location.pathname.split('/products/')[1];
+        window.TokPulse.track('product_view', {
+          productHandle: productHandle
+        });
+      }
+    };
+
+    // Auto-initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', window.TokPulse.init);
+    } else {
+      window.TokPulse.init();
+    }
+
+    // Expose config for debugging
+    window.TokPulse.config = config;
+
+  })();
+</script>

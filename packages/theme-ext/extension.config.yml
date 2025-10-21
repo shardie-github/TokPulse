@@ -1,0 +1,39 @@
+api_version: "2024-01"
+
+extension_points:
+  - target: "product.details"
+    module: "./src/blocks/product-recommendations.liquid"
+    schema: "./src/blocks/product-recommendations.schema.json"
+
+  - target: "product.details"
+    module: "./src/blocks/sticky-cta.liquid"
+    schema: "./src/blocks/sticky-cta.schema.json"
+
+  - target: "collection.details"
+    module: "./src/blocks/collection-badges.liquid"
+    schema: "./src/blocks/collection-badges.schema.json"
+
+  - target: "theme"
+    module: "./src/global/tokpulse-bootstrap.liquid"
+    schema: "./src/global/tokpulse-bootstrap.schema.json"
+
+settings:
+  - key: "api_endpoint"
+    type: "text"
+    label: "API Endpoint"
+    default: "https://api.tokpulse.com"
+
+  - key: "enable_recommendations"
+    type: "checkbox"
+    label: "Enable Product Recommendations"
+    default: false
+
+  - key: "enable_experiments"
+    type: "checkbox"
+    label: "Enable A/B Testing"
+    default: false
+
+  - key: "enable_analytics"
+    type: "checkbox"
+    label: "Enable Analytics"
+    default: false

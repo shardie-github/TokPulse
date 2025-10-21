@@ -1,0 +1,50 @@
+# TokPulse Development Rules
+
+# Testing
+- Always write tests first (TDD approach)
+- Unit tests for all business logic
+- Integration tests for API endpoints
+- E2E tests for critical user flows
+
+# Code Quality
+- Use TypeScript strict mode
+- Prefer functional programming patterns
+- Keep functions small and focused
+- Use meaningful variable and function names
+- Add JSDoc comments for public APIs
+
+# Architecture
+- Follow monorepo package boundaries
+- Use workspace dependencies for internal packages
+- Implement proper error handling and logging
+- Use telemetry for observability
+
+# Database
+- Always use Prisma for database operations
+- Write migrations for schema changes
+- Use transactions for multi-table operations
+- Implement proper indexing
+
+# API Design
+- Use Zod for input validation
+- Return consistent response formats
+- Implement proper HTTP status codes
+- Add rate limiting where appropriate
+
+# Security
+- Validate all inputs
+- Use signed URLs for public endpoints
+- Implement CSRF protection
+- Follow OWASP guidelines
+
+# Performance
+- Optimize database queries
+- Use caching where appropriate
+- Implement proper pagination
+- Monitor bundle sizes
+
+# Documentation
+- Update README for new features
+- Add inline comments for complex logic
+- Document API endpoints
+- Keep architecture docs current

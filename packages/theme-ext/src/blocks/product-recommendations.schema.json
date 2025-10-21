@@ -1,0 +1,31 @@
+{
+  "name": "TokPulse Product Recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "You might also like"
+    },
+    {
+      "type": "text",
+      "id": "experiment_id",
+      "label": "Experiment ID",
+      "info": "Optional experiment ID for A/B testing"
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Maximum Items",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "TokPulse Product Recommendations"
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{% comment %}
+  TokPulse Product Recommendations Block
+  Renders product recommendations with UGC and creative content
+{% endcomment %}
+
+<div class="tokpulse-recommendations" 
+     data-product-id="{{ product.id }}"
+     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+     data-shop="{{ shop.permanent_domain }}"
+     data-experiment-id="{{ block.settings.experiment_id | default: '' }}">
+  
+  {% if block.settings.title != blank %}
+    <h3 class="tokpulse-recommendations__title">{{ block.settings.title }}</h3>
+  {% endif %}
+
+  <div class="tokpulse-recommendations__container">
+    <div class="tokpulse-recommendations__loading">
+      <p>Loading recommendations...</p>
+    </div>
+    
+    <div class="tokpulse-recommendations__content" style="display: none;">
+      <!-- Recommendations will be populated by JavaScript -->
+    </div>
+    
+    <div class="tokpulse-recommendations__error" style="display: none;">
+      <p>Unable to load recommendations at this time.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tokpulse-recommendations {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fafafa;
+  }
+
+  .tokpulse-recommendations__title {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .tokpulse-recommendations__container {
+    position: relative;
+  }
+
+  .tokpulse-recommendations__loading {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+  }
+
+  .tokpulse-recommendations__error {
+    text-align: center;
+    padding: 2rem;
+    color: #d32f2f;
+    background: #ffebee;
+    border-radius: 4px;
+  }
+
+  .tokpulse-recommendations__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .tokpulse-recommendation-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .tokpulse-recommendation-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+
+  .tokpulse-recommendation-item__image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .tokpulse-recommendation-item__title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+
+  .tokpulse-recommendation-item__price {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .tokpulse-recommendation-item__reason {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+</style>
+
+<script>
+  (function() {
+    // Only run if TokPulse bootstrap is loaded
+    if (typeof window.TokPulse === 'undefined') {
+      console.warn('TokPulse bootstrap not loaded');
+      return;
+    }
+
+    const container = document.querySelector('.tokpulse-recommendations');
+    if (!container) return;
+
+    const productId = container.dataset.productId;
+    const variantId = container.dataset.variantId;
+    const shop = container.dataset.shop;
+    const experimentId = container.dataset.experimentId;
+
+    // Show loading state
+    const loadingEl = container.querySelector('.tokpulse-recommendations__loading');
+    const contentEl = container.querySelector('.tokpulse-recommendations__content');
+    const errorEl = container.querySelector('.tokpulse-recommendations__error');
+
+    // Fetch recommendations
+    window.TokPulse.getRecommendations({
+      productId,
+      variantId,
+      shop,
+      experimentId
+    }).then(function(recommendations) {
+      if (recommendations && recommendations.length > 0) {
+        renderRecommendations(recommendations);
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'block';
+      } else {
+        showError();
+      }
+    }).catch(function(error) {
+      console.error('TokPulse recommendations error:', error);
+      showError();
+    });
+
+    function renderRecommendations(recommendations) {
+      const html = recommendations.map(function(rec) {
+        return `
+          <div class="tokpulse-recommendation-item">
+            ${rec.image ? `<img src="${rec.image}" alt="${rec.title}" class="tokpulse-recommendation-item__image">` : ''}
+            <div class="tokpulse-recommendation-item__title">${rec.title}</div>
+            <div class="tokpulse-recommendation-item__price">$${rec.price}</div>
+            ${rec.reason ? `<div class="tokpulse-recommendation-item__reason">${rec.reason}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      contentEl.innerHTML = html;
+    }
+
+    function showError() {
+      loadingEl.style.display = 'none';
+      errorEl.style.display = 'block';
+    }
+  })();
+</script>

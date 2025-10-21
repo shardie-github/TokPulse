@@ -1,0 +1,227 @@
+// Simplified Prisma schema for SQLite development
+// This is a temporary schema for local development only
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "wasm"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  users  User[]
+  stores Store[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  name           String?
+  role           String   @default("ANALYST") // OWNER, ADMIN, ANALYST
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}
+
+model Store {
+  id             String   @id @default(cuid())
+  shopDomain     String   @unique
+  accessToken    String
+  scopes         String   // Comma-separated scopes
+  region         String   @default("us")
+  status         String   @default("ACTIVE") // ACTIVE, SUSPENDED, UNINSTALLED
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  catalogItems   CatalogItem[]
+  pixelEvents    PixelEvent[]
+  attributions   Attribution[]
+  experiments    Experiment[]
+  audienceSegments AudienceSegment[]
+  creativeAssets CreativeAsset[]
+  feedConfigs    FeedConfig[]
+  webhookEvents  WebhookEvent[]
+  jobs           Job[]
+
+  @@map("stores")
+}
+
+model CatalogItem {
+  id          String   @id @default(cuid())
+  productId   String
+  variantId   String?
+  title       String
+  handle      String
+  vendor      String?
+  productType String?
+  tags        String   // Comma-separated tags
+  images      String   // Comma-separated image URLs
+  price       Float
+  compareAtPrice Float?
+  inventory   Int      @default(0)
+  storeId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, productId, variantId])
+  @@map("catalog_items")
+}
+
+model PixelEvent {
+  id        String   @id @default(cuid())
+  eventType String
+  eventData String   // JSON string
+  storeId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("pixel_events")
+}
+
+model Attribution {
+  id        String   @id @default(cuid())
+  orderId   String
+  utmSource String?
+  utmMedium String?
+  utmCampaign String?
+  utmTerm   String?
+  utmContent String?
+  revenue   Float
+  storeId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("attributions")
+}
+
+model Experiment {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      String   @default("DRAFT") // DRAFT, RUNNING, PAUSED, COMPLETED
+  config      String   // JSON string
+  storeId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("experiments")
+}
+
+model AudienceSegment {
+  id        String   @id @default(cuid())
+  name      String
+  criteria  String   // JSON string
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("audience_segments")
+}
+
+model CreativeAsset {
+  id        String   @id @default(cuid())
+  type      String
+  url       String
+  metadata  String?  // JSON string
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("creative_assets")
+}
+
+model FeedConfig {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  config    String   // JSON string
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("feed_configs")
+}
+
+model Job {
+  id        String   @id @default(cuid())
+  type      String
+  status    String   @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED, CANCELLED
+  payload   String   // JSON string
+  result    String?  // JSON string
+  error     String?
+  attempts  Int      @default(0)
+  maxAttempts Int    @default(3)
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("jobs")
+}
+
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  topic     String
+  payload   String   // JSON string
+  processed Boolean  @default(false)
+  storeId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("webhook_events")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  resource  String
+  resourceId String?
+  changes   String?  // JSON string
+  userId    String?
+  storeId   String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
