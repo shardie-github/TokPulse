@@ -32,7 +32,17 @@
     "feeds:gen": "node scripts/feeds-gen.mjs",
     "cache:purge": "node scripts/cache-purge.mjs",
     "ops:replay": "node scripts/ops-replay.mjs",
-    "ops:simulate:traffic": "node scripts/ops-simulate-traffic.mjs"
+    "ops:simulate:traffic": "node scripts/ops-simulate-traffic.mjs",
+    "spin:up": "node scripts/spin-up.mjs",
+    "spin:down": "node scripts/spin-down.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "contracts:check": "node scripts/contracts-check.mjs",
+    "env:validate": "node scripts/env-validate.mjs",
+    "deps:graph": "node scripts/deps-graph.mjs",
+    "seed:all": "node scripts/seed-all.mjs",
+    "e2e:full": "pnpm test && pnpm e2e",
+    "obs:smoke": "node scripts/obs-smoke.mjs",
+    "ops:drill": "node scripts/ops-drill.mjs"
   },
   "engines": {
     "node": ">=20",
