@@ -11,16 +11,64 @@ import {
   SubscriptionStatus,
   UsageMetric
 } from './types'
+import { SecurityUtils, ValidationSchemas } from '@tokpulse/shared'
+import { z } from 'zod'
 
 export class BillingService {
   constructor(private db: PrismaClient) {}
 
+  // Input validation
+  private validateInput<T>(schema: z.ZodSchema<T>, data: unknown): T {
+    try {
+      return schema.parse(data)
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        throw new Error(`Validation error: ${error.errors.map(e => e.message).join(', ')}`)
+      }
+      throw error
+    }
+  }
+
+  // Audit logging
+  private async logAuditEvent(
+    action: string,
+    resource: string,
+    resourceId: string,
+    userId?: string,
+    changes?: Record<string, any>
+  ): Promise<void> {
+    try {
+      await this.db.auditLog.create({
+        data: {
+          action,
+          resource,
+          resourceId,
+          userId,
+          changes: changes ? JSON.stringify(changes) : null,
+        },
+      })
+    } catch (error) {
+      console.error('Failed to log audit event:', error)
+    }
+  }
+
   // Plan Management
   async getPlans(): Promise<Plan[]> {
-    return this.db.plan.findMany({
-      where: { isActive: true },
-      orderBy: { price: 'asc' }
-    })
+    try {
+      const plans = await this.db.plan.findMany({
+        where: { isActive: true },
+        orderBy: { price: 'asc' }
+      })
+      
+      return plans.map(plan => ({
+        ...plan,
+        features: JSON.parse(plan.features),
+        limits: plan.limits ? JSON.parse(plan.limits) : {},
+      }))
+    } catch (error) {
+      console.error('Failed to get plans:', error)
+      throw new Error('Failed to retrieve plans')
+    }
   }
 
   async getPlanByKey(key: string): Promise<Plan | null> {
@@ -39,44 +87,120 @@ export class BillingService {
     features: string[]
     limits?: Record<string, number>
   }): Promise<Plan> {
-    return this.db.plan.create({
-      data: {
-        ...data,
-        features: JSON.stringify(data.features),
-        limits: data.limits ? JSON.stringify(data.limits) : null
+    try {
+      // Validate input
+      const validatedData = this.validateInput(z.object({
+        key: z.string().min(1).max(50),
+        name: z.string().min(1).max(100),
+        description: z.string().max(500).optional(),
+        price: z.number().min(0),
+        currency: z.string().length(3).optional(),
+        interval: z.enum(['month', 'year']).optional(),
+        features: z.array(z.string()),
+        limits: z.record(z.number()).optional(),
+      }), data)
+
+      const plan = await this.db.plan.create({
+        data: {
+          ...validatedData,
+          features: JSON.stringify(validatedData.features),
+          limits: validatedData.limits ? JSON.stringify(validatedData.limits) : null
+        }
+      })
+
+      await this.logAuditEvent('CREATE', 'plan', plan.id, undefined, validatedData)
+
+      return {
+        ...plan,
+        features: JSON.parse(plan.features),
+        limits: plan.limits ? JSON.parse(plan.limits) : {},
       }
-    })
+    } catch (error) {
+      console.error('Failed to create plan:', error)
+      throw new Error('Failed to create plan')
+    }
   }
 
   // Subscription Management
   async getSubscription(organizationId: string): Promise<Subscription | null> {
-    return this.db.subscription.findUnique({
-      where: { organizationId },
-      include: { plan: true }
-    })
+    try {
+      const subscription = await this.db.subscription.findUnique({
+        where: { organizationId },
+        include: { plan: true }
+      })
+
+      if (!subscription) {
+        return null
+      }
+
+      return {
+        ...subscription,
+        plan: {
+          ...subscription.plan,
+          features: JSON.parse(subscription.plan.features),
+          limits: subscription.plan.limits ? JSON.parse(subscription.plan.limits) : {},
+        }
+      }
+    } catch (error) {
+      console.error('Failed to get subscription:', error)
+      throw new Error('Failed to retrieve subscription')
+    }
   }
 
   async createSubscription(data: CreateSubscriptionRequest): Promise<Subscription> {
-    const plan = await this.getPlanByKey(data.planKey)
-    if (!plan) {
-      throw new Error(`Plan ${data.planKey} not found`)
+    try {
+      // Validate input
+      const validatedData = this.validateInput(ValidationSchemas.planKey, data.planKey)
+      const organizationId = this.validateInput(ValidationSchemas.organizationId, data.organizationId)
+
+      const plan = await this.getPlanByKey(validatedData)
+      if (!plan) {
+        throw new Error(`Plan ${validatedData} not found`)
+      }
+
+      // Check if organization already has a subscription
+      const existingSubscription = await this.db.subscription.findUnique({
+        where: { organizationId }
+      })
+
+      if (existingSubscription) {
+        throw new Error('Organization already has a subscription')
+      }
+
+      const trialEndsAt = new Date()
+      trialEndsAt.setDate(trialEndsAt.getDate() + (data.trialDays || 14))
+
+      const subscription = await this.db.subscription.create({
+        data: {
+          organizationId,
+          planId: plan.id,
+          shopifyBillingId: data.shopifyBillingId,
+          status: 'TRIAL',
+          trialEndsAt,
+          currentPeriodStart: new Date(),
+          currentPeriodEnd: trialEndsAt
+        },
+        include: { plan: true }
+      })
+
+      await this.logAuditEvent('CREATE', 'subscription', subscription.id, undefined, {
+        organizationId,
+        planKey: validatedData,
+        trialDays: data.trialDays || 14
+      })
+
+      return {
+        ...subscription,
+        plan: {
+          ...subscription.plan,
+          features: JSON.parse(subscription.plan.features),
+          limits: subscription.plan.limits ? JSON.parse(subscription.plan.limits) : {},
+        }
+      }
+    } catch (error) {
+      console.error('Failed to create subscription:', error)
+      throw error instanceof Error ? error : new Error('Failed to create subscription')
     }
-
-    const trialEndsAt = new Date()
-    trialEndsAt.setDate(trialEndsAt.getDate() + data.trialDays)
-
-    return this.db.subscription.create({
-      data: {
-        organizationId: data.organizationId,
-        planId: plan.id,
-        shopifyBillingId: data.shopifyBillingId,
-        status: 'TRIAL',
-        trialEndsAt,
-        currentPeriodStart: new Date(),
-        currentPeriodEnd: trialEndsAt
-      },
-      include: { plan: true }
-    })
   }
 
   async updateSubscription(
