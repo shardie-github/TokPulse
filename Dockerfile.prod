@@ -1,0 +1,78 @@
+# Multi-stage build for production
+FROM node:20-alpine AS base
+
+# Install system dependencies
+RUN apk add --no-cache \
+    libc6-compat \
+    dumb-init \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+# Create app directory
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm@8.15.0
+
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY turbo.json ./
+
+# Copy all package.json files for dependency resolution
+COPY packages/*/package.json ./packages/*/
+COPY apps/*/package.json ./apps/*/
+
+# Install dependencies
+FROM base AS deps
+RUN pnpm install --frozen-lockfile --prod
+
+# Build stage
+FROM base AS builder
+WORKDIR /app
+
+# Copy source code
+COPY . .
+
+# Install all dependencies (including dev dependencies)
+RUN pnpm install --frozen-lockfile
+
+# Build the application
+RUN pnpm build
+
+# Production stage
+FROM base AS runner
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup --system --gid 1001 tokpulse
+RUN adduser --system --uid 1001 tokpulse
+
+# Copy built application
+COPY --from=builder --chown=tokpulse:tokpulse /app/apps/partner-app/dist ./apps/partner-app/dist
+COPY --from=builder --chown=tokpulse:tokpulse /app/packages ./packages
+COPY --from=deps --chown=tokpulse:tokpulse /app/node_modules ./node_modules
+COPY --from=builder --chown=tokpulse:tokpulse /app/package.json ./package.json
+
+# Copy production configuration
+COPY --chown=tokpulse:tokpulse ops/docker-compose.observability.yml ./ops/
+COPY --chown=tokpulse:tokpulse scripts/backup-system.mjs ./scripts/
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+# Switch to non-root user
+USER tokpulse
+
+# Expose port
+EXPOSE 3000
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start the application
+CMD ["node", "apps/partner-app/dist/server.js"]
