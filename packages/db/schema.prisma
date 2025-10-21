@@ -18,11 +18,12 @@ model Organization {
   updatedAt DateTime @updatedAt
 
   // Relations
-  users       User[]
-  stores      Store[]
-  experiments Experiment[]
-  assignments Assignment[]
-  exposures   Exposure[]
+  users         User[]
+  stores        Store[]
+  experiments   Experiment[]
+  assignments   Assignment[]
+  exposures     Exposure[]
+  subscription  Subscription?
 
   @@map("organizations")
 }
@@ -292,4 +293,74 @@ model AuditLog {
   createdAt DateTime @default(now())
 
   @@map("audit_logs")
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+  description String?
+  price       Float
+  currency    String   @default("USD")
+  interval    String   @default("month") // month, year
+  features    String   // JSON array of features
+  limits      String?  // JSON object with usage limits
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id                String   @id @default(cuid())
+  organizationId    String
+  planId            String
+  shopifyBillingId  String?  // Shopify billing ID
+  stripeCustomerId  String?  // Stripe customer ID
+  status            String   @default("TRIAL") // TRIAL, ACTIVE, PAST_DUE, CANCELLED, EXPIRED
+  trialEndsAt       DateTime?
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd Boolean  @default(false)
+  cancelledAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plan         Plan         @relation(fields: [planId], references: [id])
+  usageRecords UsageRecord[]
+
+  @@unique([organizationId])
+  @@map("subscriptions")
+}
+
+model UsageRecord {
+  id             String   @id @default(cuid())
+  subscriptionId String
+  metric         String   // api_calls, widget_views, etc.
+  quantity       Int
+  timestamp      DateTime @default(now())
+  metadata       String?  // JSON string with additional data
+
+  // Relations
+  subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@map("usage_records")
+}
+
+model BillingWebhook {
+  id        String   @id @default(cuid())
+  source    String   // shopify, stripe
+  eventType String
+  payload   String   // JSON string
+  processed Boolean  @default(false)
+  processedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@map("billing_webhooks")
 }

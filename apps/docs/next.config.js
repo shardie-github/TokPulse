@@ -1,17 +1,6 @@
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [require('remark-gfm'), require('remark-prism')],
-    rehypePlugins: [require('rehype-slug'), require('rehype-autolink-headings')],
-  },
-})
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  experimental: {
-    mdxRs: false,
-  },
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
   images: {
     unoptimized: true,
   },
@@ -20,4 +9,4 @@ const nextConfig = {
   distDir: 'dist',
 }
 
-module.exports = withMDX(nextConfig)
+module.exports = nextConfig
