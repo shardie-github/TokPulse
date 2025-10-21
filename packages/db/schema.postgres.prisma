@@ -1,0 +1,255 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "wasm"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  users  User[]
+  stores Store[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  name           String?
+  role           UserRole @default(ANALYST)
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}
+
+model Store {
+  id             String      @id @default(cuid())
+  shopDomain     String      @unique
+  accessToken    String
+  scopes         String[]
+  region         String      @default("us")
+  status         StoreStatus @default(ACTIVE)
+  organizationId String
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  // Relations
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  catalogItems   CatalogItem[]
+  pixelEvents    PixelEvent[]
+  attributions   Attribution[]
+  experiments    Experiment[]
+  audienceSegments AudienceSegment[]
+  creativeAssets CreativeAsset[]
+  feedConfigs    FeedConfig[]
+  webhookEvents  WebhookEvent[]
+  jobs           Job[]
+
+  @@map("stores")
+}
+
+model CatalogItem {
+  id          String   @id @default(cuid())
+  productId   String
+  variantId   String?
+  title       String
+  handle      String
+  vendor      String?
+  productType String?
+  tags        String[]
+  images      String[]
+  price       Decimal
+  compareAtPrice Decimal?
+  inventory   Int      @default(0)
+  storeId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, productId, variantId])
+  @@map("catalog_items")
+}
+
+model PixelEvent {
+  id        String   @id @default(cuid())
+  eventType String
+  eventData Json
+  storeId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("pixel_events")
+}
+
+model Attribution {
+  id        String   @id @default(cuid())
+  orderId   String
+  utmSource String?
+  utmMedium String?
+  utmCampaign String?
+  utmTerm   String?
+  utmContent String?
+  revenue   Decimal
+  storeId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("attributions")
+}
+
+model Experiment {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      ExperimentStatus @default(DRAFT)
+  config      Json
+  storeId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("experiments")
+}
+
+model AudienceSegment {
+  id        String   @id @default(cuid())
+  name      String
+  criteria  Json
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("audience_segments")
+}
+
+model CreativeAsset {
+  id        String   @id @default(cuid())
+  type      String
+  url       String
+  metadata  Json?
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("creative_assets")
+}
+
+model FeedConfig {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  config    Json
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("feed_configs")
+}
+
+model Job {
+  id        String   @id @default(cuid())
+  type      String
+  status    JobStatus @default(PENDING)
+  payload   Json
+  result    Json?
+  error     String?
+  attempts  Int      @default(0)
+  maxAttempts Int    @default(3)
+  storeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("jobs")
+}
+
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  topic     String
+  payload   Json
+  processed Boolean  @default(false)
+  storeId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("webhook_events")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  resource  String
+  resourceId String?
+  changes   Json?
+  userId    String?
+  storeId   String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+// Enums
+enum UserRole {
+  OWNER
+  ADMIN
+  ANALYST
+}
+
+enum StoreStatus {
+  ACTIVE
+  SUSPENDED
+  UNINSTALLED
+}
+
+enum ExperimentStatus {
+  DRAFT
+  RUNNING
+  PAUSED
+  COMPLETED
+}
+
+enum JobStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
