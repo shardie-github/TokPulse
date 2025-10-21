@@ -191,6 +191,9 @@ importers:
 
   apps/shopify:
     dependencies:
+      dotenv:
+        specifier: ^16.0.0
+        version: 16.4.5
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
@@ -244,6 +247,68 @@ importers:
       typescript:
         specifier: ^5.4.5
         version: 5.9.3
+
+  packages/billing:
+    dependencies:
+      '@tokpulse/db':
+        specifier: workspace:*
+        version: link:../db
+      '@tokpulse/shared':
+        specifier: workspace:*
+        version: link:../shared
+      zod:
+        specifier: ^3.22.4
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.0
+        version: 20.19.23
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.1(@types/node@20.19.23)
+
+  packages/billing-api:
+    dependencies:
+      '@tokpulse/billing':
+        specifier: workspace:*
+        version: link:../billing
+      '@tokpulse/db':
+        specifier: workspace:*
+        version: link:../db
+      '@tokpulse/shared':
+        specifier: workspace:*
+        version: link:../shared
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^4.18.2
+        version: 4.19.2
+      express-rate-limit:
+        specifier: ^7.1.5
+        version: 7.5.1(express@4.19.2)
+      helmet:
+        specifier: ^7.1.0
+        version: 7.1.0
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.19
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.23
+      '@types/node':
+        specifier: ^20.11.0
+        version: 20.19.23
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.1(@types/node@20.19.23)
 
   packages/dashboard:
     dependencies:
@@ -413,6 +478,9 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
+      '@types/node':
+        specifier: ^20.11.0
+        version: 20.19.23
       typescript:
         specifier: ^5.4.5
         version: 5.9.3
@@ -5133,6 +5201,7 @@ packages:
 
   /@swagger-api/apidom-ns-json-schema-draft-4@1.0.0-beta.51:
     resolution: {integrity: sha512-KRaipRy2ZI1+8Z2OiXBSOSRO/RFyC7lNiXk8h9Yg1W5DDD5H9/AL4Jq6PWJaeAdKaXV/Thgon9fjK4YGPRTlQA==}
+    requiresBuild: true
     dependencies:
       '@babel/runtime-corejs3': 7.28.4
       '@swagger-api/apidom-ast': 1.0.0-beta.51
@@ -9099,6 +9168,15 @@ packages:
       signal-exit: 4.1.0
       strip-final-newline: 3.0.0
     dev: true
+
+  /express-rate-limit@7.5.1(express@4.19.2):
+    resolution: {integrity: sha512-7iN8iPMDzOMHPUYllBEsQdWVB6fPDMPqwjBaFrgr4Jgr/+okjvzAy+UHlYYL/Vs0OsOrMkwS6PJDkFlJwoxUnw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express: '>= 4.11'
+    dependencies:
+      express: 4.19.2
+    dev: false
 
   /express@4.19.2:
     resolution: {integrity: sha512-5T6nhjsT+EOMzuck8JjBHARTHfMht0POzlA60WV2pMD3gyXw2LZnZ+ueGdNxG+0calOJcWKbpFcuzLZ91YWq9Q==}

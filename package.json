@@ -26,7 +26,13 @@
     "api:openapi": "node scripts/generate-openapi.mjs",
     "docs:dev": "cd apps/docs && pnpm dev",
     "docs:build": "cd apps/docs && pnpm build",
-    "docs:lint": "cd apps/docs && pnpm lint"
+    "docs:lint": "cd apps/docs && pnpm lint",
+    "billing:dev": "node scripts/billing-dev.mjs",
+    "rbac:dev": "node scripts/rbac-dev.mjs",
+    "feeds:gen": "node scripts/feeds-gen.mjs",
+    "cache:purge": "node scripts/cache-purge.mjs",
+    "ops:replay": "node scripts/ops-replay.mjs",
+    "ops:simulate:traffic": "node scripts/ops-simulate-traffic.mjs"
   },
   "engines": {
     "node": ">=20",

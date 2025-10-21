@@ -32,7 +32,7 @@ model User {
   id             String   @id @default(cuid())
   email          String   @unique
   name           String?
-  role           String   @default("ANALYST") // OWNER, ADMIN, ANALYST
+  role           String   @default("ANALYST") // OWNER, ADMIN, ANALYST, VIEWER
   organizationId String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -183,6 +183,8 @@ model Assignment {
   // Relations
   experiment Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
   variant    Variant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  store      Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([experimentId, subjectKey])
   @@map("assignments")
@@ -201,6 +203,8 @@ model Exposure {
   // Relations
   experiment Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
   variant    Variant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  store      Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@map("exposures")
 }

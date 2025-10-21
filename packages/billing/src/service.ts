@@ -304,32 +304,228 @@ export class BillingService {
   }
 
   private async handleShopifySubscriptionCreated(payload: any): Promise<void> {
-    // Implementation for Shopify subscription created
-    console.log('Shopify subscription created:', payload)
+    const { id, name, price, status, trial_ends_on, created_at, shop_domain } = payload
+
+    // Find organization by shop domain
+    const store = await this.db.store.findUnique({
+      where: { shopDomain: shop_domain },
+      include: { organization: true }
+    })
+
+    if (!store) {
+      console.error('Store not found for shop domain:', shop_domain)
+      return
+    }
+
+    // Create subscription
+    const plan = await this.getPlanByKey(this.getPlanKeyFromName(name))
+    if (!plan) {
+      console.error('Plan not found for name:', name)
+      return
+    }
+
+    const trialEndsAt = trial_ends_on ? new Date(trial_ends_on) : null
+    const currentPeriodStart = new Date(created_at)
+    const currentPeriodEnd = trialEndsAt || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days from now
+
+    await this.db.subscription.upsert({
+      where: { organizationId: store.organizationId },
+      update: {
+        planId: plan.id,
+        shopifyBillingId: id.toString(),
+        status: status === 'active' ? 'ACTIVE' : 'TRIAL',
+        trialEndsAt,
+        currentPeriodStart,
+        currentPeriodEnd
+      },
+      create: {
+        organizationId: store.organizationId,
+        planId: plan.id,
+        shopifyBillingId: id.toString(),
+        status: status === 'active' ? 'ACTIVE' : 'TRIAL',
+        trialEndsAt,
+        currentPeriodStart,
+        currentPeriodEnd
+      }
+    })
+
+    console.log('Shopify subscription created:', { id, organizationId: store.organizationId })
   }
 
   private async handleShopifySubscriptionUpdated(payload: any): Promise<void> {
-    // Implementation for Shopify subscription updated
-    console.log('Shopify subscription updated:', payload)
+    const { id, status, trial_ends_on } = payload
+
+    const subscription = await this.db.subscription.findFirst({
+      where: { shopifyBillingId: id.toString() }
+    })
+
+    if (!subscription) {
+      console.error('Subscription not found for Shopify billing ID:', id)
+      return
+    }
+
+    const updateData: any = {}
+    
+    if (status === 'active') {
+      updateData.status = 'ACTIVE'
+    } else if (status === 'cancelled') {
+      updateData.status = 'CANCELLED'
+      updateData.cancelledAt = new Date()
+    }
+
+    if (trial_ends_on) {
+      updateData.trialEndsAt = new Date(trial_ends_on)
+    }
+
+    await this.db.subscription.update({
+      where: { id: subscription.id },
+      data: updateData
+    })
+
+    console.log('Shopify subscription updated:', { id, status })
   }
 
   private async handleShopifySubscriptionCancelled(payload: any): Promise<void> {
-    // Implementation for Shopify subscription cancelled
-    console.log('Shopify subscription cancelled:', payload)
+    const { id } = payload
+
+    const subscription = await this.db.subscription.findFirst({
+      where: { shopifyBillingId: id.toString() }
+    })
+
+    if (!subscription) {
+      console.error('Subscription not found for Shopify billing ID:', id)
+      return
+    }
+
+    await this.db.subscription.update({
+      where: { id: subscription.id },
+      data: {
+        status: 'CANCELLED',
+        cancelledAt: new Date(),
+        cancelAtPeriodEnd: true
+      }
+    })
+
+    console.log('Shopify subscription cancelled:', { id })
   }
 
   private async handleStripeSubscriptionCreated(payload: any): Promise<void> {
-    // Implementation for Stripe subscription created
-    console.log('Stripe subscription created:', payload)
+    const { id, customer, status, trial_end, current_period_start, current_period_end } = payload
+
+    // Find organization by Stripe customer ID
+    const subscription = await this.db.subscription.findFirst({
+      where: { stripeCustomerId: customer }
+    })
+
+    if (!subscription) {
+      console.error('Subscription not found for Stripe customer ID:', customer)
+      return
+    }
+
+    const updateData: any = {
+      stripeCustomerId: customer
+    }
+
+    if (status === 'active') {
+      updateData.status = 'ACTIVE'
+    } else if (status === 'trialing') {
+      updateData.status = 'TRIAL'
+    }
+
+    if (trial_end) {
+      updateData.trialEndsAt = new Date(trial_end * 1000)
+    }
+
+    if (current_period_start) {
+      updateData.currentPeriodStart = new Date(current_period_start * 1000)
+    }
+
+    if (current_period_end) {
+      updateData.currentPeriodEnd = new Date(current_period_end * 1000)
+    }
+
+    await this.db.subscription.update({
+      where: { id: subscription.id },
+      data: updateData
+    })
+
+    console.log('Stripe subscription created:', { id, customer })
   }
 
   private async handleStripeSubscriptionUpdated(payload: any): Promise<void> {
-    // Implementation for Stripe subscription updated
-    console.log('Stripe subscription updated:', payload)
+    const { id, status, trial_end, current_period_start, current_period_end } = payload
+
+    const subscription = await this.db.subscription.findFirst({
+      where: { stripeCustomerId: payload.customer }
+    })
+
+    if (!subscription) {
+      console.error('Subscription not found for Stripe customer ID:', payload.customer)
+      return
+    }
+
+    const updateData: any = {}
+    
+    if (status === 'active') {
+      updateData.status = 'ACTIVE'
+    } else if (status === 'past_due') {
+      updateData.status = 'PAST_DUE'
+    } else if (status === 'cancelled' || status === 'unpaid') {
+      updateData.status = 'CANCELLED'
+      updateData.cancelledAt = new Date()
+    }
+
+    if (trial_end) {
+      updateData.trialEndsAt = new Date(trial_end * 1000)
+    }
+
+    if (current_period_start) {
+      updateData.currentPeriodStart = new Date(current_period_start * 1000)
+    }
+
+    if (current_period_end) {
+      updateData.currentPeriodEnd = new Date(current_period_end * 1000)
+    }
+
+    await this.db.subscription.update({
+      where: { id: subscription.id },
+      data: updateData
+    })
+
+    console.log('Stripe subscription updated:', { id, status })
   }
 
   private async handleStripeSubscriptionCancelled(payload: any): Promise<void> {
-    // Implementation for Stripe subscription cancelled
-    console.log('Stripe subscription cancelled:', payload)
+    const { id, customer } = payload
+
+    const subscription = await this.db.subscription.findFirst({
+      where: { stripeCustomerId: customer }
+    })
+
+    if (!subscription) {
+      console.error('Subscription not found for Stripe customer ID:', customer)
+      return
+    }
+
+    await this.db.subscription.update({
+      where: { id: subscription.id },
+      data: {
+        status: 'CANCELLED',
+        cancelledAt: new Date(),
+        cancelAtPeriodEnd: true
+      }
+    })
+
+    console.log('Stripe subscription cancelled:', { id, customer })
+  }
+
+  private getPlanKeyFromName(name: string): string {
+    const planMapping: Record<string, string> = {
+      'Starter Plan': 'STARTER',
+      'Growth Plan': 'GROWTH',
+      'Enterprise Plan': 'ENTERPRISE'
+    }
+
+    return planMapping[name] || 'STARTER'
   }
 }
