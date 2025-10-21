@@ -1,0 +1,4 @@
+
+> tokpulse-dashboard@0.1.0 typecheck /workspace/packages/dashboard
+> tsc --noEmit
+

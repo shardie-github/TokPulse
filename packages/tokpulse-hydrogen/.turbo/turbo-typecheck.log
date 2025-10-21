@@ -1,0 +1,4 @@
+
+> tokpulse-hydrogen@1.0.0 typecheck /workspace/packages/tokpulse-hydrogen
+> tsc --noEmit
+

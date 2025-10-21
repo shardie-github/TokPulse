@@ -1,0 +1,4 @@
+
+> @tokpulse/ui@0.0.0 typecheck /workspace/packages/ui
+> tsc --noEmit
+
