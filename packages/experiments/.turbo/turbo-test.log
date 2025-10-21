@@ -2,3 +2,12 @@
 > @tokpulse/experiments@0.0.0 test /workspace/packages/experiments
 > vitest
 
+
+ DEV  v1.6.1 /workspace/packages/experiments
+
+include: **/*.{test,spec}.?(c|m)[jt]s?(x)
+exclude:  **/node_modules/**, **/dist/**, **/cypress/**, **/.{idea,git,cache,output,temp}/**, **/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*
+watch exclude:  **/node_modules/**, **/dist/**
+
+No test files found, exiting with code 1
+ ELIFECYCLE  Test failed. See above for more details.
