@@ -10,7 +10,8 @@
     "test": "node test-connection.js"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.0.0"
   },
   "engines": { "node": ">=20" }
 }

@@ -1,4 +1,5 @@
 import { prisma } from './index.js'
+import { seedBillingData } from '@tokpulse/billing'
 
 async function main() {
   console.log('🌱 Seeding database...')
@@ -87,6 +88,29 @@ async function main() {
       storeId: store.id,
     },
   })
+
+  // Seed billing data
+  await seedBillingData(prisma)
+
+  // Create a test subscription for the organization
+  const starterPlan = await prisma.plan.findUnique({
+    where: { key: 'STARTER' }
+  })
+
+  if (starterPlan) {
+    await prisma.subscription.upsert({
+      where: { organizationId: organization.id },
+      update: {},
+      create: {
+        organizationId: organization.id,
+        planId: starterPlan.id,
+        status: 'TRIAL',
+        trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
+      }
+    })
+  }
 
   console.log('✅ Database seeded successfully!')
   console.log(`Organization: ${organization.name} (${organization.id})`)
