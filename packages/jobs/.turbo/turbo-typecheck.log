@@ -81,4 +81,4 @@ src/webhook-processor.ts(2,27): error TS6059: File '/workspace/packages/shared/s
 ../shared/src/security.ts(212,11): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
 ../shared/src/security.ts(213,16): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
 ../shared/src/security.ts(214,13): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
- ELIFECYCLE  Command failed with exit code 2.
+ ELIFECYCLE  Command failed with exit code 1.

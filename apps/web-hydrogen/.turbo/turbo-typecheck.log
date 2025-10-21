@@ -1,0 +1,4 @@
+
+> @tokpulse/web-hydrogen@0.0.0 typecheck /workspace/apps/web-hydrogen
+> tsc --noEmit
+

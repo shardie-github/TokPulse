@@ -1,0 +1,4 @@
+
+> @tokpulse/experiments@0.0.0 typecheck /workspace/packages/experiments
+> tsc --noEmit
+
