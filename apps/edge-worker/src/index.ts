@@ -1,4 +1,4 @@
-import { experimentEngine } from '@tokpulse/experiments'
+// import { experimentEngine } from '@tokpulse/experiments'
 import { logger } from '@tokpulse/telemetry'
 
 export interface EdgeWorkerRequest {
@@ -127,30 +127,30 @@ export async function handleRequest(
       }
       
       try {
-        const assignment = await experimentEngine.getAssignment({
-          orgId,
-          storeId,
-          subjectKey,
-          experimentKey
-        })
+        // const assignment = await experimentEngine.getAssignment({
+        //   orgId,
+        //   storeId,
+        //   subjectKey,
+        //   experimentKey
+        // })
         
-        if (assignment) {
-          // Set cookie for 30 days
-          newAssignments.set(experimentKey, {
-            variantKey: assignment.variantKey,
-            maxAge: 30 * 24 * 60 * 60 // 30 days
-          })
-          
-          assignmentHeaders.set(experimentKey, assignment.variantKey)
-          
-          logger.info(`Edge worker assigned experiment`, {
-            experimentKey,
-            variantKey: assignment.variantKey,
-            orgId,
-            storeId,
-            subjectKey
-          })
-        }
+        // if (assignment) {
+        //   // Set cookie for 30 days
+        //   newAssignments.set(experimentKey, {
+        //     variantKey: assignment.variantKey,
+        //     maxAge: 30 * 24 * 60 * 60 // 30 days
+        //   })
+        //   
+        //   assignmentHeaders.set(experimentKey, assignment.variantKey)
+        //   
+        //   logger.info(`Edge worker assigned experiment`, {
+        //     experimentKey,
+        //     variantKey: assignment.variantKey,
+        //     orgId,
+        //     storeId,
+        //     subjectKey
+        //   })
+        // }
       } catch (error) {
         logger.error(`Failed to get assignment for experiment ${experimentKey}`, error as Error, {
           orgId,

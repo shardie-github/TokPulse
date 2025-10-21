@@ -1,0 +1,303 @@
+
+> @tokpulse/partner-app@0.0.0 build /workspace/apps/partner-app
+> tsc
+
+src/components/ExperimentForm.tsx(1,33): error TS2307: Cannot find module 'react' or its corresponding type declarations.
+src/components/ExperimentForm.tsx(37,17): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(41,17): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(41,35): error TS7006: Parameter 'variant' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(41,44): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(47,17): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(57,19): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(57,40): error TS7006: Parameter '_' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(57,43): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(72,42): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(72,47): error TS7006: Parameter 'variant' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(121,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(121,5): error TS2875: This JSX tag requires the module path 'react/jsx-runtime' to exist, but none could be found. Make sure you have types for the appropriate package installed.
+src/components/ExperimentForm.tsx(122,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(123,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(124,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(125,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(126,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(126,93): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(127,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(129,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(130,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(131,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(132,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(133,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(134,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(136,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(137,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(140,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(144,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(146,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(147,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(149,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(150,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(153,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(157,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(159,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(160,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(162,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(163,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(165,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(170,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(172,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(173,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(175,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(176,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(179,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(182,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(184,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(185,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(187,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(188,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(191,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(194,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(196,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(197,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(199,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(200,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(205,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(208,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(210,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(211,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(213,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(214,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(217,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(221,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(222,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(223,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(224,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(225,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(227,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(228,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(229,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(230,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(230,83): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(231,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(233,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(234,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(235,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(236,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(237,32): error TS7006: Parameter 'variant' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(237,41): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(238,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(239,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(240,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(241,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(243,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(244,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(247,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(250,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(252,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(253,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(255,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(256,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(259,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(262,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(264,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(265,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(267,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(268,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(273,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(276,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(278,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(280,27): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(286,27): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(288,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(289,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(291,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(292,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(294,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(295,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(297,36): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/ExperimentForm.tsx(302,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(303,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(306,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(311,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(311,84): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(312,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(313,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(314,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(315,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(316,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(319,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(320,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(320,58): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(321,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(324,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(325,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(331,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(332,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(338,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(339,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(340,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentForm.tsx(341,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(1,44): error TS2307: Cannot find module 'react' or its corresponding type declarations.
+src/components/ExperimentList.tsx(107,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(107,7): error TS2875: This JSX tag requires the module path 'react/jsx-runtime' to exist, but none could be found. Make sure you have types for the appropriate package installed.
+src/components/ExperimentList.tsx(108,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(108,87): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(109,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(115,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(116,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(117,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(118,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(118,67): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(119,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(120,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(120,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(121,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(122,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(123,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(128,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(129,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(130,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(131,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(132,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(137,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(138,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(139,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(139,69): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(140,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(142,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(143,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(146,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(147,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(148,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(149,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(150,13): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(151,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(152,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(152,80): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(153,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(153,94): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(154,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(156,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(157,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(158,31): error TS7006: Parameter 'experiment' implicitly has an 'any' type.
+src/components/ExperimentList.tsx(159,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(160,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(161,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(162,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(163,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(165,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(166,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(167,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(168,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(168,91): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(169,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(169,78): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(171,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(171,93): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(173,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(174,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(175,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(176,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(178,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(179,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(181,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(182,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(184,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(189,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(192,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(197,25): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(199,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(201,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(202,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(204,23): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(205,21): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(206,19): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(207,17): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(208,15): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(210,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(211,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/components/ExperimentList.tsx(213,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/routes/billing.ts(3,32): error TS2307: Cannot find module '@tokpulse/billing' or its corresponding type declarations.
+src/routes/billing.ts(4,39): error TS2307: Cannot find module '@tokpulse/billing' or its corresponding type declarations.
+src/routes/billing.ts(5,39): error TS2307: Cannot find module '@tokpulse/billing' or its corresponding type declarations.
+src/routes/experiments.ts(2,19): error TS2307: Cannot find module 'zod' or its corresponding type declarations.
+src/routes/experiments.ts(18,8): error TS6059: File '/workspace/packages/api/src/index.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+src/routes/experiments.ts(19,24): error TS2307: Cannot find module '@tokpulse/telemetry' or its corresponding type declarations.
+src/routes/experiments.ts(71,18): error TS18046: 'error' is of type 'unknown'.
+src/routes/experiments.ts(102,18): error TS18046: 'error' is of type 'unknown'.
+src/routes/experiments.ts(133,18): error TS18046: 'error' is of type 'unknown'.
+src/routes/experiments.ts(166,18): error TS18046: 'error' is of type 'unknown'.
+src/routes/experiments.ts(195,18): error TS18046: 'error' is of type 'unknown'.
+src/routes/oauth.ts(4,24): error TS6059: File '/workspace/packages/db/src/index.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Imported via '@tokpulse/db' from file '/workspace/apps/partner-app/src/routes/oauth.ts'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/health.tsx'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/error-tracking.tsx'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/performance-monitoring.tsx'
+    Imported via '@tokpulse/db' from file '/workspace/apps/partner-app/src/routes/webhooks.ts'
+    Imported via '@tokpulse/db' from file '/workspace/apps/partner-app/src/routes/api.ts'
+    Imported via '@tokpulse/db' from file '/workspace/apps/partner-app/src/routes/billing.ts'
+    Imported via '@tokpulse/db' from file '/workspace/packages/api/src/recommendations.ts'
+    Imported via '@tokpulse/db' from file '/workspace/packages/api/src/analytics.ts'
+src/routes/oauth.ts(5,27): error TS6059: File '/workspace/packages/shared/src/index.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Imported via '@tokpulse/shared' from file '/workspace/apps/partner-app/src/routes/oauth.ts'
+    Imported via '@tokpulse/shared' from file '/workspace/apps/partner-app/src/routes/webhooks.ts'
+    Imported via '@tokpulse/shared' from file '/workspace/apps/partner-app/src/routes/api.ts'
+    Imported via '@tokpulse/shared' from file '/workspace/apps/partner-app/src/server.ts'
+    Imported via '@tokpulse/shared' from file '/workspace/packages/api/src/recommendations.ts'
+    Imported via '@tokpulse/shared' from file '/workspace/packages/api/src/recommendations.ts'
+    Imported via '@tokpulse/shared' from file '/workspace/packages/api/src/analytics.ts'
+src/routes/oauth.ts(39,32): error TS2339: Property 'accessToken' does not exist on type 'CallbackResponse<any>'.
+src/routes/oauth.ts(40,27): error TS2339: Property 'scope' does not exist on type 'CallbackResponse<any>'.
+src/routes/oauth.ts(45,32): error TS2339: Property 'accessToken' does not exist on type 'CallbackResponse<any>'.
+src/routes/oauth.ts(46,27): error TS2339: Property 'scope' does not exist on type 'CallbackResponse<any>'.
+src/routes/oauth.ts(57,27): error TS2339: Property 'scope' does not exist on type 'CallbackResponse<any>'.
+src/server.ts(70,10): error TS7053: Element implicitly has an 'any' type because expression of type '"validation"' can't be used to index type 'SecurityHardening'.
+  Property 'validation' does not exist on type 'SecurityHardening'.
+src/server.ts(72,9): error TS2339: Property 'rawBody' does not exist on type 'IncomingMessage'.
+src/server.ts(102,37): error TS2345: Argument of type 'Shopify<{ apiKey: string; apiSecretKey: string; scopes: string[]; hostName: string; apiVersion: ApiVersion.October23; isEmbeddedApp: true; }, unknown, ConfigInterface<{ apiKey: string; apiSecretKey: string; scopes: string[]; hostName: string; apiVersion: ApiVersion.October23; isEmbeddedApp: true; }>>' is not assignable to parameter of type 'Shopify<ConfigParams<ShopifyRestResources, FutureFlagOptions>, ShopifyRestResources, ConfigInterface<ConfigParams<ShopifyRestResources, FutureFlagOptions>>>'.
+  Type 'unknown' is not assignable to type 'ShopifyRestResources'.
+src/server.ts(103,43): error TS2345: Argument of type 'Shopify<{ apiKey: string; apiSecretKey: string; scopes: string[]; hostName: string; apiVersion: ApiVersion.October23; isEmbeddedApp: true; }, unknown, ConfigInterface<{ apiKey: string; apiSecretKey: string; scopes: string[]; hostName: string; apiVersion: ApiVersion.October23; isEmbeddedApp: true; }>>' is not assignable to parameter of type 'Shopify<ConfigParams<ShopifyRestResources, FutureFlagOptions>, ShopifyRestResources, ConfigInterface<ConfigParams<ShopifyRestResources, FutureFlagOptions>>>'.
+  Type 'unknown' is not assignable to type 'ShopifyRestResources'.
+src/server.ts(104,34): error TS2345: Argument of type 'Shopify<{ apiKey: string; apiSecretKey: string; scopes: string[]; hostName: string; apiVersion: ApiVersion.October23; isEmbeddedApp: true; }, unknown, ConfigInterface<{ apiKey: string; apiSecretKey: string; scopes: string[]; hostName: string; apiVersion: ApiVersion.October23; isEmbeddedApp: true; }>>' is not assignable to parameter of type 'Shopify<ConfigParams<ShopifyRestResources, FutureFlagOptions>, ShopifyRestResources, ConfigInterface<ConfigParams<ShopifyRestResources, FutureFlagOptions>>>'.
+  Type 'unknown' is not assignable to type 'ShopifyRestResources'.
+src/server.ts(130,5): error TS2353: Object literal may only specify known properties, and 'path' does not exist in type 'Partial<ErrorContext>'.
+src/server.ts(148,20): error TS2339: Property 'requestId' does not exist on type 'Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>'.
+../../packages/api/src/experiments.ts(1,19): error TS2307: Cannot find module 'zod' or its corresponding type declarations.
+../../packages/api/src/experiments.ts(2,34): error TS2307: Cannot find module '@tokpulse/experiments' or its corresponding type declarations.
+../../packages/api/src/experiments.ts(3,24): error TS2307: Cannot find module '@tokpulse/telemetry' or its corresponding type declarations.
+../../packages/api/src/experiments.ts(54,53): error TS2749: 'GetActiveExperimentsSchema' refers to a value, but is being used as a type here. Did you mean 'typeof GetActiveExperimentsSchema'?
+../../packages/api/src/experiments.ts(81,46): error TS2749: 'GetAssignmentSchema' refers to a value, but is being used as a type here. Did you mean 'typeof GetAssignmentSchema'?
+../../packages/api/src/experiments.ts(117,47): error TS2749: 'RecordExposureSchema' refers to a value, but is being used as a type here. Did you mean 'typeof RecordExposureSchema'?
+../../packages/api/src/experiments.ts(156,49): error TS2749: 'CreateExperimentSchema' refers to a value, but is being used as a type here. Did you mean 'typeof CreateExperimentSchema'?
+../../packages/api/src/experiments.ts(201,49): error TS2749: 'UpdateExperimentSchema' refers to a value, but is being used as a type here. Did you mean 'typeof UpdateExperimentSchema'?
+../../packages/api/src/experiments.ts(231,49): error TS2749: 'DeleteExperimentSchema' refers to a value, but is being used as a type here. Did you mean 'typeof DeleteExperimentSchema'?
+../../packages/api/src/index.ts(1,15): error TS6059: File '/workspace/packages/api/src/recommendations.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/api/src/index.ts(2,15): error TS6059: File '/workspace/packages/api/src/experiments.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/api/src/index.ts(3,15): error TS6059: File '/workspace/packages/api/src/analytics.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/api/src/recommendations.ts(68,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../packages/shared/src/error-tracking.tsx(328,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+../../packages/shared/src/error-tracking.tsx(342,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+../../packages/shared/src/error-tracking.tsx(373,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+../../packages/shared/src/error-tracking.tsx(385,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+../../packages/shared/src/index.ts(8,15): error TS6059: File '/workspace/packages/shared/src/validation.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(11,15): error TS6059: File '/workspace/packages/shared/src/feature-flags.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(14,15): error TS6059: File '/workspace/packages/shared/src/auth.ts' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(17,15): error TS6059: File '/workspace/packages/shared/src/telemetry.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(20,15): error TS6059: File '/workspace/packages/shared/src/health.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(23,15): error TS6059: File '/workspace/packages/shared/src/error-tracking.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(26,15): error TS6059: File '/workspace/packages/shared/src/performance-monitoring.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(29,15): error TS6059: File '/workspace/packages/shared/src/security-hardening.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(32,15): error TS6059: File '/workspace/packages/shared/src/security.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/index.ts(39,8): error TS6059: File '/workspace/packages/shared/src/performance.tsx' is not under 'rootDir' '/workspace/apps/partner-app/src'. 'rootDir' is expected to contain all source files.
+../../packages/shared/src/performance.tsx(375,27): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/performance.tsx(378,8): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/performance.tsx(378,44): error TS2339: Property 'fallback' does not exist on type 'JSX.IntrinsicElements'.
+../../packages/shared/src/performance.tsx(380,9): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/performance.tsx(395,33): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/performance.tsx(396,31): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/performance.tsx(397,20): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/performance.tsx(399,5): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+../../packages/shared/src/security-hardening.tsx(287,28): error TS2339: Property 'getAuthTag' does not exist on type 'Cipher'.
+../../packages/shared/src/security-hardening.tsx(300,14): error TS2339: Property 'setAuthTag' does not exist on type 'Decipher'.
+ ELIFECYCLE  Command failed with exit code 2.

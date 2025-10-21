@@ -31,5 +31,9 @@ export * from './security-hardening'
 // Security utilities
 export * from './security'
 
-// Performance utilities
-export * from './performance'
+// Performance utilities (excluding duplicates)
+export { 
+  PerformanceBudget as PerformanceBudgetUtil,
+  PerformanceMonitor as PerformanceMonitorUtil,
+  initializePerformanceMonitoring
+} from './performance'

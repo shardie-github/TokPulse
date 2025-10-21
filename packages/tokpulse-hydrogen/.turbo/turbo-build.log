@@ -1,0 +1,14 @@
+
+> tokpulse-hydrogen@1.0.0 build /workspace/packages/tokpulse-hydrogen
+> shopify app build
+
+╭─ error ──────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│                                                                              │
+│  Validation errors in shopify.app.toml:                                      │
+│                                                                              │
+│  • [web_directories]: Expected array, received object                        │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

@@ -1,0 +1,5 @@
+
+> tokpulse-demo-app@1.0.0 build /workspace/packages/demo-app
+> node build.js
+
+Build complete: /workspace/packages/demo-app/dist

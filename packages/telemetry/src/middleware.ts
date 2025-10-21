@@ -31,7 +31,7 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
   apiActiveConnections.inc()
 
   // Create tracing span
-  const span = tracing.createApiSpan(req.method, req.route?.path || req.path, req.storeId)
+  const span = tracing.createApiSpan(req.method, (req as any).route?.path || req.path, req.storeId)
   
   // Add request context to span
   tracing.addSpanContext('http.url', req.url)
@@ -39,20 +39,20 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
   tracing.addSpanContext('http.request_id', req.requestId)
 
   // Override res.end to capture response metrics
-  const originalEnd = res.end
-  res.end = function(chunk?: any, encoding?: any) {
+  const originalEnd = res.end.bind(res)
+  res.end = function(chunk?: any, encoding?: any, cb?: any) {
     const duration = Date.now() - (req.startTime || 0)
     
     // Record metrics
     apiRequestsTotal.inc({
-      route: req.route?.path || req.path,
+      route: (req as any).route?.path || req.path,
       method: req.method,
       code: res.statusCode.toString(),
       storeId: req.storeId || 'unknown'
     })
     
     apiRequestDuration.observe({
-      route: req.route?.path || req.path,
+      route: (req as any).route?.path || req.path,
       method: req.method,
       storeId: req.storeId || 'unknown'
     }, duration / 1000)
@@ -63,7 +63,7 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
     // Log request
     logger.apiRequest(
       req.method,
-      req.route?.path || req.path,
+      (req as any).route?.path || req.path,
       res.statusCode,
       duration,
       req.storeId,
@@ -77,7 +77,7 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
     tracing.finishSpan(span, res.statusCode < 400)
 
     // Call original end
-    originalEnd.call(this, chunk, encoding)
+    return originalEnd(chunk, encoding, cb)
   }
 
   next()

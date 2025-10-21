@@ -1,0 +1,11 @@
+
+> @tokpulse/web-hydrogen@0.0.0 build /workspace/apps/web-hydrogen
+> shopify app build
+
+╭─ error ──────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Couldn't find an app toml file at /workspace/apps/web-hydrogen, is this an  │
+│   app directory?                                                             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

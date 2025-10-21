@@ -2,3 +2,58 @@
 > @tokpulse/shared@0.0.0 typecheck /workspace/packages/shared
 > tsc --noEmit
 
+src/error-tracking.tsx(1,30): error TS6059: File '/workspace/packages/db/src/index.ts' is not under 'rootDir' '/workspace/packages/shared/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/error-tracking.tsx'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/health.tsx'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/performance-monitoring.tsx'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/testing.tsx'
+src/error-tracking.tsx(328,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+src/error-tracking.tsx(342,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+src/error-tracking.tsx(373,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+src/error-tracking.tsx(385,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
+src/errors.tsx(179,10): error TS2540: Cannot assign to 'code' because it is a read-only property.
+src/errors.tsx(186,10): error TS2540: Cannot assign to 'code' because it is a read-only property.
+src/errors.tsx(309,36): error TS2304: Cannot find name 'React'.
+src/errors.tsx(310,15): error TS2503: Cannot find namespace 'React'.
+src/errors.tsx(310,43): error TS2503: Cannot find namespace 'React'.
+src/errors.tsx(315,10): error TS2339: Property 'state' does not exist on type 'ErrorBoundary'.
+src/errors.tsx(326,10): error TS2339: Property 'setState' does not exist on type 'ErrorBoundary'.
+src/errors.tsx(336,14): error TS2339: Property 'state' does not exist on type 'ErrorBoundary'.
+src/errors.tsx(337,38): error TS2339: Property 'props' does not exist on type 'ErrorBoundary'.
+src/errors.tsx(339,16): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/workspace/node_modules/.pnpm/react@19.2.0/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/react` if it exists or add a new declaration (.d.ts) file containing `declare module 'react/jsx-runtime';`
+src/errors.tsx(339,47): error TS2339: Property 'state' does not exist on type 'ErrorBoundary'.
+src/errors.tsx(343,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(344,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(344,35): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(345,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(345,61): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(346,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(348,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(349,9): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/errors.tsx(353,17): error TS2339: Property 'props' does not exist on type 'ErrorBoundary'.
+src/performance.tsx(371,38): error TS2503: Cannot find namespace 'React'.
+src/performance.tsx(373,16): error TS2503: Cannot find namespace 'React'.
+src/performance.tsx(374,6): error TS2503: Cannot find namespace 'React'.
+src/performance.tsx(375,27): error TS2304: Cannot find name 'React'.
+src/performance.tsx(378,8): error TS2304: Cannot find name 'React'.
+src/performance.tsx(378,44): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/performance.tsx(378,59): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/performance.tsx(378,74): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/performance.tsx(380,9): error TS2304: Cannot find name 'React'.
+src/performance.tsx(394,6): error TS2503: Cannot find namespace 'React'.
+src/performance.tsx(395,33): error TS2304: Cannot find name 'React'.
+src/performance.tsx(396,31): error TS2304: Cannot find name 'React'.
+src/performance.tsx(397,20): error TS2304: Cannot find name 'React'.
+src/performance.tsx(399,5): error TS2304: Cannot find name 'React'.
+src/performance.tsx(421,7): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/workspace/node_modules/.pnpm/react@19.2.0/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/react` if it exists or add a new declaration (.d.ts) file containing `declare module 'react/jsx-runtime';`
+src/performance.tsx(421,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/security-hardening.tsx(287,28): error TS2339: Property 'getAuthTag' does not exist on type 'Cipher'.
+src/security-hardening.tsx(300,14): error TS2339: Property 'setAuthTag' does not exist on type 'Decipher'.
+src/testing.tsx(264,34): error TS2345: Argument of type '(url: string) => Promise<Response>' is not assignable to parameter of type '(input: string | URL | Request, init?: RequestInit | undefined) => Promise<Response>'.
+  Types of parameters 'url' and 'input' are incompatible.
+    Type 'string | URL | Request' is not assignable to type 'string'.
+      Type 'URL' is not assignable to type 'string'.
+ ELIFECYCLE  Command failed with exit code 2.

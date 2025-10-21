@@ -1,0 +1,9 @@
+
+> @tokpulse/docs@0.0.0 build /workspace/apps/docs
+> next build
+
+  ▲ Next.js 14.2.33
+
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config

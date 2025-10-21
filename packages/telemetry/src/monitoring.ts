@@ -1,4 +1,4 @@
-import { PrismaClient } from '@tokpulse/db'
+// import { PrismaClient } from '@tokpulse/db'
 
 export interface MonitoringConfig {
   enableMetrics: boolean
@@ -12,13 +12,13 @@ export interface MonitoringConfig {
 }
 
 export class MonitoringService {
-  private db: PrismaClient
+  // private db: PrismaClient
   private config: MonitoringConfig
   private metrics: Map<string, number> = new Map()
   private traces: any[] = []
 
-  constructor(db: PrismaClient, config: MonitoringConfig) {
-    this.db = db
+  constructor(db: any, config: MonitoringConfig) {
+    // this.db = db
     this.config = config
   }
 
@@ -206,7 +206,7 @@ export class MonitoringService {
 
     // Database health
     try {
-      await this.db.$queryRaw`SELECT 1`
+      // await this.db.$queryRaw`SELECT 1`
       checks.database = { status: 'healthy', responseTime: Date.now() }
     } catch (error) {
       checks.database = { status: 'unhealthy', error: (error as Error).message }

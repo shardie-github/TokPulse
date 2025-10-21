@@ -36,7 +36,7 @@ export class TelemetryTracing {
     })
 
     this.sdk = new NodeSDK({
-      resource,
+      resource: resource as any,
       traceExporter,
       instrumentations: [
         getNodeAutoInstrumentations({
@@ -44,7 +44,7 @@ export class TelemetryTracing {
             enabled: false // Disable file system instrumentation
           }
         })
-      ]
+      ] as any
     })
 
     this.sdk.start()
