@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import React from 'react'
 
 // Error types
 export enum ErrorCode {
@@ -176,6 +177,7 @@ export class ExternalServiceError extends AppError {
 export class ShopifyApiError extends ExternalServiceError {
   constructor(message: string, context?: Record<string, any>) {
     super('Shopify', message, context)
+    // @ts-ignore - Override readonly property
     this.code = ErrorCode.SHOPIFY_API_ERROR
   }
 }
@@ -183,6 +185,7 @@ export class ShopifyApiError extends ExternalServiceError {
 export class StripeApiError extends ExternalServiceError {
   constructor(message: string, context?: Record<string, any>) {
     super('Stripe', message, context)
+    // @ts-ignore - Override readonly property
     this.code = ErrorCode.STRIPE_API_ERROR
   }
 }
@@ -310,7 +313,9 @@ export class ErrorBoundary extends React.Component<
   { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> },
   ErrorBoundaryState
 > {
-  constructor(props: any) {
+  public state: ErrorBoundaryState
+
+  constructor(props: { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> }) {
     super(props)
     this.state = { hasError: false }
   }
@@ -336,17 +341,13 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       const FallbackComponent = this.props.fallback
       if (FallbackComponent) {
-        return <FallbackComponent error={this.state.error!} />
+        return React.createElement(FallbackComponent, { error: this.state.error! })
       }
 
-      return (
-        <div style={{ padding: '2rem', textAlign: 'center' }}>
-          <h2>Something went wrong</h2>
-          <p>We're sorry, but something unexpected happened.</p>
-          <button onClick={() => window.location.reload()}>
-            Reload Page
-          </button>
-        </div>
+      return React.createElement('div', { style: { padding: '2rem', textAlign: 'center' } },
+        React.createElement('h2', null, 'Something went wrong'),
+        React.createElement('p', null, 'We\'re sorry, but something unexpected happened.'),
+        React.createElement('button', { onClick: () => window.location.reload() }, 'Reload Page')
       )
     }
 

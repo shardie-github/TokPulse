@@ -29,21 +29,21 @@ export class TelemetryTracing {
       [SemanticResourceAttributes.SERVICE_NAME]: this.config.serviceName,
       [SemanticResourceAttributes.SERVICE_VERSION]: this.config.serviceVersion || '1.0.0',
       [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: process.env.NODE_ENV || 'development'
-    })
+    } as any)
 
     const traceExporter = new OTLPTraceExporter({
       url: this.config.otlpEndpoint || process.env.OTLP_ENDPOINT || 'http://localhost:4318/v1/traces'
     })
 
     this.sdk = new NodeSDK({
-      resource,
+      resource: resource as any,
       traceExporter,
       instrumentations: [
         getNodeAutoInstrumentations({
           '@opentelemetry/instrumentation-fs': {
             enabled: false // Disable file system instrumentation
           }
-        })
+        }) as any
       ]
     })
 

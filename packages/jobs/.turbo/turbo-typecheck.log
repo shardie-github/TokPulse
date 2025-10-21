@@ -1,0 +1,84 @@
+
+> @tokpulse/jobs@0.0.0 typecheck /workspace/packages/jobs
+> tsc --noEmit
+
+../db/src/index.ts(9,12): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../db/src/index.ts(9,39): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+src/index.ts(2,15): error TS2307: Cannot find module './catalog-sync' or its corresponding type declarations.
+src/index.ts(3,15): error TS2307: Cannot find module './creative-generation' or its corresponding type declarations.
+src/webhook-processor.ts(1,24): error TS6059: File '/workspace/packages/db/src/index.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Imported via '@tokpulse/db' from file '/workspace/packages/jobs/src/webhook-processor.ts'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/health.ts'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/error-tracking.ts'
+    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/performance-monitoring.ts'
+src/webhook-processor.ts(2,27): error TS6059: File '/workspace/packages/shared/src/index.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/auth.ts(1,28): error TS2307: Cannot find module 'crypto' or its corresponding type declarations.
+../shared/src/error-tracking.ts(64,47): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(65,39): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(72,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(78,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(407,23): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(450,5): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(451,5): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(451,39): error TS7006: Parameter 'reason' implicitly has an 'any' type.
+../shared/src/error-tracking.ts(463,18): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/error-tracking.ts(464,14): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(65,24): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(91,24): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(110,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(112,27): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(113,28): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(235,16): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/health.ts(236,20): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/index.ts(8,15): error TS6059: File '/workspace/packages/shared/src/validation.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(11,15): error TS6059: File '/workspace/packages/shared/src/feature-flags.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(14,15): error TS6059: File '/workspace/packages/shared/src/auth.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(17,15): error TS6059: File '/workspace/packages/shared/src/telemetry.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(20,15): error TS6059: File '/workspace/packages/shared/src/health.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(23,15): error TS6059: File '/workspace/packages/shared/src/error-tracking.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(26,15): error TS6059: File '/workspace/packages/shared/src/performance-monitoring.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(29,15): error TS6059: File '/workspace/packages/shared/src/security-hardening.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(32,15): error TS6059: File '/workspace/packages/shared/src/security.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/index.ts(35,77): error TS6059: File '/workspace/packages/shared/src/performance.ts' is not under 'rootDir' '/workspace/packages/jobs/src'. 'rootDir' is expected to contain all source files.
+../shared/src/performance-monitoring.ts(51,47): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(52,39): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(272,22): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(293,22): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(312,18): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(320,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(588,18): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance-monitoring.ts(589,14): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance.ts(125,12): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/performance.ts(133,12): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(2,71): error TS2307: Cannot find module 'crypto' or its corresponding type declarations.
+../shared/src/security-hardening.ts(244,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(250,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(256,17): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(266,17): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(295,16): error TS2580: Cannot find name 'Buffer'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(450,23): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(470,18): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(484,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(516,21): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(517,24): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(531,14): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(542,16): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(626,13): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security-hardening.ts(627,13): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(108,16): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(118,13): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(119,13): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(129,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(134,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(139,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(144,17): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(149,17): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(154,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(164,20): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(166,16): error TS2580: Cannot find name 'Buffer'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(167,21): error TS2580: Cannot find name 'Buffer'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(212,11): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(213,16): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+../shared/src/security.ts(214,13): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+ ELIFECYCLE  Command failed with exit code 1.

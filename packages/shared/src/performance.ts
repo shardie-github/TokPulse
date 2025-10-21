@@ -1,4 +1,5 @@
 import { LRUCache } from 'lru-cache'
+import React from 'react'
 
 // Performance monitoring utilities
 export class PerformanceMonitor {
@@ -374,10 +375,9 @@ export class LazyLoader {
   ): React.ComponentType {
     const LazyComponent = React.lazy(importFn)
     
-    return (props: any) => (
-      <React.Suspense fallback={fallback ? <fallback /> : <div>Loading...</div>}>
-        <LazyComponent {...props} />
-      </React.Suspense>
+    return (props: any) => React.createElement(React.Suspense, 
+      { fallback: fallback ? React.createElement(fallback) : React.createElement('div', null, 'Loading...') },
+      React.createElement(LazyComponent, props)
     )
   }
 
@@ -418,24 +418,24 @@ export class LazyLoader {
     }, [src])
 
     return (
-      <img
-        ref={imgRef}
-        alt={alt}
-        className={options.className}
-        src={loaded ? src : options.placeholder}
-        onLoad={() => {
+      React.createElement('img', {
+        ref: imgRef,
+        alt: alt,
+        className: options.className,
+        src: loaded ? src : options.placeholder,
+        onLoad: () => {
           setLoaded(true)
           options.onLoad?.()
-        }}
-        onError={() => {
+        },
+        onError: () => {
           setError(true)
           options.onError?.()
-        }}
-        style={{
+        },
+        style: {
           opacity: loaded ? 1 : 0.5,
           transition: 'opacity 0.3s ease',
-        }}
-      />
+        }
+      })
     )
   }
 }

@@ -1,0 +1,4 @@
+
+> @tokpulse/partner-app@0.0.0 typecheck /workspace/apps/partner-app
+> tsc --noEmit
+

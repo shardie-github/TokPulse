@@ -31,5 +31,5 @@ export * from './security-hardening'
 // Security utilities
 export * from './security'
 
-// Performance utilities
-export * from './performance'
+// Performance utilities (excluding duplicates)
+export { QueryOptimizer, BundleOptimizer, ImageOptimizer, LazyLoader } from './performance'

@@ -11,6 +11,8 @@ export interface ErrorContext {
   method?: string
   body?: any
   headers?: Record<string, string>
+  duration?: number
+  operation?: string
   stack?: string
   timestamp: string
   environment: string

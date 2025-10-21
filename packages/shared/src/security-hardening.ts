@@ -284,20 +284,16 @@ export class SecurityHardening {
     let encrypted = cipher.update(data, 'utf8', 'hex')
     encrypted += cipher.final('hex')
     
-    const authTag = cipher.getAuthTag()
-    return iv.toString('hex') + ':' + authTag.toString('hex') + ':' + encrypted
+    return iv.toString('hex') + ':' + encrypted
   }
 
   // Decrypt data
   decrypt(encryptedData: string, key?: string): string {
     const encryptionKey = key || this.config.auth.jwtSecret
-    const [ivHex, authTagHex, encrypted] = encryptedData.split(':')
+    const [ivHex, encrypted] = encryptedData.split(':')
     
     const iv = Buffer.from(ivHex, 'hex')
-    const authTag = Buffer.from(authTagHex, 'hex')
     const decipher = createDecipher(this.config.encryption.algorithm, encryptionKey)
-    
-    decipher.setAuthTag(authTag)
     
     let decrypted = decipher.update(encrypted, 'hex', 'utf8')
     decrypted += decipher.final('utf8')
