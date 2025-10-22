@@ -1,12 +1,12 @@
 /* TokPulse — © Hardonia. MIT. */
+import crypto from 'node:crypto';
 import http from 'node:http';
 import url from 'node:url';
-import crypto from 'node:crypto';
-import { log } from './lib/logger.js';
 import { fingerprint, seen, remember } from './lib/idempotency.js';
+import { log } from './lib/logger.js';
 
 const VERIFY_TOKEN = process.env.META_WEBHOOK_VERIFY_TOKEN || '';
-const APP_SECRET   = process.env.META_APP_SECRET || '';
+const APP_SECRET = process.env.META_APP_SECRET || '';
 
 function verifySignature(req, raw) {
   if (!APP_SECRET) return false;
@@ -37,30 +37,45 @@ const server = http.createServer(async (req, res) => {
   // Receive events
   if (req.method === 'POST' && parsed.pathname === '/webhook') {
     let raw = '';
-    req.on('data', c => { raw += c; if (raw.length > 5_000_000) req.destroy(); });
+    req.on('data', (c) => {
+      raw += c;
+      if (raw.length > 5_000_000) req.destroy();
+    });
     req.on('end', () => {
       const fp = fingerprint(raw);
       if (!verifySignature(req, raw)) {
         log('meta.bad_signature', { fp });
-        res.writeHead(401); return res.end('Invalid signature');
+        res.writeHead(401);
+        return res.end('Invalid signature');
       }
       if (seen(fp)) {
         log('meta.duplicate', { fp });
-        res.writeHead(200); return res.end('OK (duplicate)');
+        res.writeHead(200);
+        return res.end('OK (duplicate)');
       }
       remember(fp);
 
       let json = null;
-      try { json = JSON.parse(raw); } catch { json = { _raw: raw.slice(0, 2048) }; }
-      log('meta.event', { fp, length: raw.length, summary: (json?.entry?.[0]?.changes?.[0]?.field) ?? 'n/a' });
+      try {
+        json = JSON.parse(raw);
+      } catch {
+        json = { _raw: raw.slice(0, 2048) };
+      }
+      log('meta.event', {
+        fp,
+        length: raw.length,
+        summary: json?.entry?.[0]?.changes?.[0]?.field ?? 'n/a',
+      });
 
       // TODO: enqueue → process → map to TikTok parity signals (ViewContent, AddToCart, Purchase)
-      res.writeHead(200); return res.end('OK');
+      res.writeHead(200);
+      return res.end('OK');
     });
     return;
   }
 
-  res.writeHead(404); res.end('Not found');
+  res.writeHead(404);
+  res.end('Not found');
 });
 
 const PORT = process.env.PORT || 3001;

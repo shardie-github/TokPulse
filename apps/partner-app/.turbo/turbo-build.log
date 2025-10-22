@@ -2,4 +2,3 @@
 > @tokpulse/partner-app@0.0.0 build /workspace/apps/partner-app
 > echo 'Build completed - using tsx for runtime compilation'
 
-Build completed - using tsx for runtime compilation

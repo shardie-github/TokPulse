@@ -1,18 +1,16 @@
-import { PrismaClient } from '@tokpulse/db'
-import { 
-  Plan, 
-  Subscription, 
-  UsageRecord, 
-  CreateSubscriptionRequest, 
-  UpdateSubscriptionRequest, 
+import type { PrismaClient } from '@tokpulse/db';
+import { ValidationSchemas } from '@tokpulse/shared';
+import { z } from 'zod';
+import type {
+  Plan,
+  Subscription,
+  UsageRecord,
+  CreateSubscriptionRequest,
+  UpdateSubscriptionRequest,
   RecordUsageRequest,
   CheckEntitlementRequest,
-  PlanTier,
-  SubscriptionStatus,
-  UsageMetric
-} from './types'
-import { SecurityUtils, ValidationSchemas } from '@tokpulse/shared'
-import { z } from 'zod'
+  UsageMetric,
+} from './types';
 
 export class BillingService {
   constructor(private db: PrismaClient) {}
@@ -20,12 +18,12 @@ export class BillingService {
   // Input validation
   private validateInput<T>(schema: z.ZodSchema<T>, data: unknown): T {
     try {
-      return schema.parse(data)
+      return schema.parse(data);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        throw new Error(`Validation error: ${error.errors.map(e => e.message).join(', ')}`)
+        throw new Error(`Validation error: ${error.errors.map((e) => e.message).join(', ')}`);
       }
-      throw error
+      throw error;
     }
   }
 
@@ -35,7 +33,7 @@ export class BillingService {
     resource: string,
     resourceId: string,
     userId?: string,
-    changes?: Record<string, any>
+    changes?: Record<string, any>,
   ): Promise<void> {
     try {
       await this.db.auditLog.create({
@@ -46,9 +44,9 @@ export class BillingService {
           userId,
           changes: changes ? JSON.stringify(changes) : null,
         },
-      })
+      });
     } catch (error) {
-      console.error('Failed to log audit event:', error)
+      console.error('Failed to log audit event:', error);
     }
   }
 
@@ -57,67 +55,70 @@ export class BillingService {
     try {
       const plans = await this.db.plan.findMany({
         where: { isActive: true },
-        orderBy: { price: 'asc' }
-      })
-      
-      return plans.map(plan => ({
+        orderBy: { price: 'asc' },
+      });
+
+      return plans.map((plan) => ({
         ...plan,
         features: JSON.parse(plan.features),
         limits: plan.limits ? JSON.parse(plan.limits) : {},
-      }))
+      }));
     } catch (error) {
-      console.error('Failed to get plans:', error)
-      throw new Error('Failed to retrieve plans')
+      console.error('Failed to get plans:', error);
+      throw new Error('Failed to retrieve plans');
     }
   }
 
   async getPlanByKey(key: string): Promise<Plan | null> {
     return this.db.plan.findUnique({
-      where: { key }
-    })
+      where: { key },
+    });
   }
 
   async createPlan(data: {
-    key: string
-    name: string
-    description?: string
-    price: number
-    currency?: string
-    interval?: 'month' | 'year'
-    features: string[]
-    limits?: Record<string, number>
+    key: string;
+    name: string;
+    description?: string;
+    price: number;
+    currency?: string;
+    interval?: 'month' | 'year';
+    features: string[];
+    limits?: Record<string, number>;
   }): Promise<Plan> {
     try {
       // Validate input
-      const validatedData = this.validateInput(z.object({
-        key: z.string().min(1).max(50),
-        name: z.string().min(1).max(100),
-        description: z.string().max(500).optional(),
-        price: z.number().min(0),
-        currency: z.string().length(3).optional(),
-        interval: z.enum(['month', 'year']).optional(),
-        features: z.array(z.string()),
-        limits: z.record(z.number()).optional(),
-      }), data)
+      const validatedData = this.validateInput(
+        z.object({
+          key: z.string().min(1).max(50),
+          name: z.string().min(1).max(100),
+          description: z.string().max(500).optional(),
+          price: z.number().min(0),
+          currency: z.string().length(3).optional(),
+          interval: z.enum(['month', 'year']).optional(),
+          features: z.array(z.string()),
+          limits: z.record(z.number()).optional(),
+        }),
+        data,
+      );
 
       const plan = await this.db.plan.create({
         data: {
           ...validatedData,
           features: JSON.stringify(validatedData.features),
-          limits: validatedData.limits ? JSON.stringify(validatedData.limits) : null
-        }
-      })
+          limits: validatedData.limits ? JSON.stringify(validatedData.limits) : null,
+        },
+      });
 
-      await this.logAuditEvent('CREATE', 'plan', plan.id, undefined, validatedData)
+      await this.logAuditEvent('CREATE', 'plan', plan.id, undefined, validatedData);
 
       return {
         ...plan,
         features: JSON.parse(plan.features),
         limits: plan.limits ? JSON.parse(plan.limits) : {},
-      }
+      };
     } catch (error) {
-      console.error('Failed to create plan:', error)
-      throw new Error('Failed to create plan')
+      console.error('Failed to create plan:', error);
+      throw new Error('Failed to create plan');
     }
   }
 
@@ -126,11 +127,11 @@ export class BillingService {
     try {
       const subscription = await this.db.subscription.findUnique({
         where: { organizationId },
-        include: { plan: true }
-      })
+        include: { plan: true },
+      });
 
       if (!subscription) {
-        return null
+        return null;
       }
 
       return {
@@ -139,36 +140,39 @@ export class BillingService {
           ...subscription.plan,
           features: JSON.parse(subscription.plan.features),
           limits: subscription.plan.limits ? JSON.parse(subscription.plan.limits) : {},
-        }
-      }
+        },
+      };
     } catch (error) {
-      console.error('Failed to get subscription:', error)
-      throw new Error('Failed to retrieve subscription')
+      console.error('Failed to get subscription:', error);
+      throw new Error('Failed to retrieve subscription');
     }
   }
 
   async createSubscription(data: CreateSubscriptionRequest): Promise<Subscription> {
     try {
       // Validate input
-      const validatedData = this.validateInput(ValidationSchemas.planKey, data.planKey)
-      const organizationId = this.validateInput(ValidationSchemas.organizationId, data.organizationId)
+      const validatedData = this.validateInput(ValidationSchemas.planKey, data.planKey);
+      const organizationId = this.validateInput(
+        ValidationSchemas.organizationId,
+        data.organizationId,
+      );
 
-      const plan = await this.getPlanByKey(validatedData)
+      const plan = await this.getPlanByKey(validatedData);
       if (!plan) {
-        throw new Error(`Plan ${validatedData} not found`)
+        throw new Error(`Plan ${validatedData} not found`);
       }
 
       // Check if organization already has a subscription
       const existingSubscription = await this.db.subscription.findUnique({
-        where: { organizationId }
-      })
+        where: { organizationId },
+      });
 
       if (existingSubscription) {
-        throw new Error('Organization already has a subscription')
+        throw new Error('Organization already has a subscription');
       }
 
-      const trialEndsAt = new Date()
-      trialEndsAt.setDate(trialEndsAt.getDate() + (data.trialDays || 14))
+      const trialEndsAt = new Date();
+      trialEndsAt.setDate(trialEndsAt.getDate() + (data.trialDays || 14));
 
       const subscription = await this.db.subscription.create({
         data: {
@@ -178,16 +182,16 @@ export class BillingService {
           status: 'TRIAL',
           trialEndsAt,
           currentPeriodStart: new Date(),
-          currentPeriodEnd: trialEndsAt
+          currentPeriodEnd: trialEndsAt,
         },
-        include: { plan: true }
-      })
+        include: { plan: true },
+      });
 
       await this.logAuditEvent('CREATE', 'subscription', subscription.id, undefined, {
         organizationId,
         planKey: validatedData,
-        trialDays: data.trialDays || 14
-      })
+        trialDays: data.trialDays || 14,
+      });
 
       return {
         ...subscription,
@@ -195,33 +199,33 @@ export class BillingService {
           ...subscription.plan,
           features: JSON.parse(subscription.plan.features),
           limits: subscription.plan.limits ? JSON.parse(subscription.plan.limits) : {},
-        }
-      }
+        },
+      };
     } catch (error) {
-      console.error('Failed to create subscription:', error)
-      throw error instanceof Error ? error : new Error('Failed to create subscription')
+      console.error('Failed to create subscription:', error);
+      throw error instanceof Error ? error : new Error('Failed to create subscription');
     }
   }
 
   async updateSubscription(
-    organizationId: string, 
-    data: UpdateSubscriptionRequest
+    organizationId: string,
+    data: UpdateSubscriptionRequest,
   ): Promise<Subscription> {
-    const updateData: any = { ...data }
-    
+    const updateData: any = { ...data };
+
     if (data.planKey) {
-      const plan = await this.getPlanByKey(data.planKey)
+      const plan = await this.getPlanByKey(data.planKey);
       if (!plan) {
-        throw new Error(`Plan ${data.planKey} not found`)
+        throw new Error(`Plan ${data.planKey} not found`);
       }
-      updateData.planId = plan.id
+      updateData.planId = plan.id;
     }
 
     return this.db.subscription.update({
       where: { organizationId },
       data: updateData,
-      include: { plan: true }
-    })
+      include: { plan: true },
+    });
   }
 
   async cancelSubscription(organizationId: string): Promise<Subscription> {
@@ -230,10 +234,10 @@ export class BillingService {
       data: {
         status: 'CANCELLED',
         cancelledAt: new Date(),
-        cancelAtPeriodEnd: true
+        cancelAtPeriodEnd: true,
       },
-      include: { plan: true }
-    })
+      include: { plan: true },
+    });
   }
 
   // Usage Tracking
@@ -241,54 +245,57 @@ export class BillingService {
     return this.db.usageRecord.create({
       data: {
         ...data,
-        metadata: data.metadata ? JSON.stringify(data.metadata) : null
-      }
-    })
+        metadata: data.metadata ? JSON.stringify(data.metadata) : null,
+      },
+    });
   }
 
   async getUsage(
-    subscriptionId: string, 
+    subscriptionId: string,
     metric: UsageMetric,
     startDate?: Date,
-    endDate?: Date
+    endDate?: Date,
   ): Promise<UsageRecord[]> {
     const where: any = {
       subscriptionId,
-      metric
-    }
+      metric,
+    };
 
     if (startDate || endDate) {
-      where.timestamp = {}
-      if (startDate) where.timestamp.gte = startDate
-      if (endDate) where.timestamp.lte = endDate
+      where.timestamp = {};
+      if (startDate) where.timestamp.gte = startDate;
+      if (endDate) where.timestamp.lte = endDate;
     }
 
     return this.db.usageRecord.findMany({
       where,
-      orderBy: { timestamp: 'desc' }
-    })
+      orderBy: { timestamp: 'desc' },
+    });
   }
 
-  async getUsageSummary(subscriptionId: string, period: 'current' | 'last' = 'current'): Promise<Record<UsageMetric, number>> {
+  async getUsageSummary(
+    subscriptionId: string,
+    period: 'current' | 'last' = 'current',
+  ): Promise<Record<UsageMetric, number>> {
     const subscription = await this.db.subscription.findUnique({
-      where: { id: subscriptionId }
-    })
+      where: { id: subscriptionId },
+    });
 
     if (!subscription) {
-      throw new Error('Subscription not found')
+      throw new Error('Subscription not found');
     }
 
-    const now = new Date()
-    let startDate: Date
-    let endDate: Date
+    const now = new Date();
+    let startDate: Date;
+    let endDate: Date;
 
     if (period === 'current') {
-      startDate = subscription.currentPeriodStart || now
-      endDate = subscription.currentPeriodEnd || now
+      startDate = subscription.currentPeriodStart || now;
+      endDate = subscription.currentPeriodEnd || now;
     } else {
       // Last period - approximate 30 days back
-      endDate = subscription.currentPeriodStart || now
-      startDate = new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000)
+      endDate = subscription.currentPeriodStart || now;
+      startDate = new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000);
     }
 
     const usage = await this.db.usageRecord.groupBy({
@@ -297,160 +304,160 @@ export class BillingService {
         subscriptionId,
         timestamp: {
           gte: startDate,
-          lte: endDate
-        }
+          lte: endDate,
+        },
       },
       _sum: {
-        quantity: true
-      }
-    })
+        quantity: true,
+      },
+    });
 
     const summary: Record<UsageMetric, number> = {
       API_CALLS: 0,
       WIDGET_VIEWS: 0,
       STORES: 0,
-      USERS: 0
-    }
+      USERS: 0,
+    };
 
-    usage.forEach(record => {
-      summary[record.metric as UsageMetric] = record._sum.quantity || 0
-    })
+    usage.forEach((record) => {
+      summary[record.metric as UsageMetric] = record._sum.quantity || 0;
+    });
 
-    return summary
+    return summary;
   }
 
   // Entitlement Checking
   async checkEntitlement(request: CheckEntitlementRequest): Promise<boolean> {
-    const subscription = await this.getSubscription(request.organizationId)
-    
+    const subscription = await this.getSubscription(request.organizationId);
+
     if (!subscription) {
-      return false
+      return false;
     }
 
     // Check if subscription is active
     if (subscription.status !== 'ACTIVE' && subscription.status !== 'TRIAL') {
-      return false
+      return false;
     }
 
     // Check trial expiration
     if (subscription.status === 'TRIAL' && subscription.trialEndsAt) {
       if (new Date() > subscription.trialEndsAt) {
-        return false
+        return false;
       }
     }
 
     // Check plan features
     const plan = await this.db.plan.findUnique({
-      where: { id: subscription.planId }
-    })
+      where: { id: subscription.planId },
+    });
 
     if (!plan) {
-      return false
+      return false;
     }
 
-    const features = JSON.parse(plan.features) as string[]
-    return features.includes(request.feature)
+    const features = JSON.parse(plan.features) as string[];
+    return features.includes(request.feature);
   }
 
   async checkUsageLimit(
-    organizationId: string, 
-    metric: UsageMetric, 
-    limit: number
+    organizationId: string,
+    metric: UsageMetric,
+    limit: number,
   ): Promise<{ withinLimit: boolean; currentUsage: number; limit: number }> {
-    const subscription = await this.getSubscription(organizationId)
-    
+    const subscription = await this.getSubscription(organizationId);
+
     if (!subscription) {
-      return { withinLimit: false, currentUsage: 0, limit }
+      return { withinLimit: false, currentUsage: 0, limit };
     }
 
-    const usage = await this.getUsageSummary(subscription.id)
-    const currentUsage = usage[metric] || 0
+    const usage = await this.getUsageSummary(subscription.id);
+    const currentUsage = usage[metric] || 0;
 
     return {
       withinLimit: currentUsage < limit,
       currentUsage,
-      limit
-    }
+      limit,
+    };
   }
 
   // Billing Webhooks
   async processWebhook(
     source: 'shopify' | 'stripe',
     eventType: string,
-    payload: any
+    payload: any,
   ): Promise<void> {
     // Store webhook for processing
     await this.db.billingWebhook.create({
       data: {
         source,
         eventType,
-        payload: JSON.stringify(payload)
-      }
-    })
+        payload: JSON.stringify(payload),
+      },
+    });
 
     // Process based on event type
     switch (source) {
       case 'shopify':
-        await this.processShopifyWebhook(eventType, payload)
-        break
+        await this.processShopifyWebhook(eventType, payload);
+        break;
       case 'stripe':
-        await this.processStripeWebhook(eventType, payload)
-        break
+        await this.processStripeWebhook(eventType, payload);
+        break;
     }
   }
 
   private async processShopifyWebhook(eventType: string, payload: any): Promise<void> {
     switch (eventType) {
       case 'app_subscriptions/create':
-        await this.handleShopifySubscriptionCreated(payload)
-        break
+        await this.handleShopifySubscriptionCreated(payload);
+        break;
       case 'app_subscriptions/update':
-        await this.handleShopifySubscriptionUpdated(payload)
-        break
+        await this.handleShopifySubscriptionUpdated(payload);
+        break;
       case 'app_subscriptions/cancel':
-        await this.handleShopifySubscriptionCancelled(payload)
-        break
+        await this.handleShopifySubscriptionCancelled(payload);
+        break;
     }
   }
 
   private async processStripeWebhook(eventType: string, payload: any): Promise<void> {
     switch (eventType) {
       case 'customer.subscription.created':
-        await this.handleStripeSubscriptionCreated(payload)
-        break
+        await this.handleStripeSubscriptionCreated(payload);
+        break;
       case 'customer.subscription.updated':
-        await this.handleStripeSubscriptionUpdated(payload)
-        break
+        await this.handleStripeSubscriptionUpdated(payload);
+        break;
       case 'customer.subscription.deleted':
-        await this.handleStripeSubscriptionCancelled(payload)
-        break
+        await this.handleStripeSubscriptionCancelled(payload);
+        break;
     }
   }
 
   private async handleShopifySubscriptionCreated(payload: any): Promise<void> {
-    const { id, name, price, status, trial_ends_on, created_at, shop_domain } = payload
+    const { id, name, price, status, trial_ends_on, created_at, shop_domain } = payload;
 
     // Find organization by shop domain
     const store = await this.db.store.findUnique({
       where: { shopDomain: shop_domain },
-      include: { organization: true }
-    })
+      include: { organization: true },
+    });
 
     if (!store) {
-      console.error('Store not found for shop domain:', shop_domain)
-      return
+      console.error('Store not found for shop domain:', shop_domain);
+      return;
     }
 
     // Create subscription
-    const plan = await this.getPlanByKey(this.getPlanKeyFromName(name))
+    const plan = await this.getPlanByKey(this.getPlanKeyFromName(name));
     if (!plan) {
-      console.error('Plan not found for name:', name)
-      return
+      console.error('Plan not found for name:', name);
+      return;
     }
 
-    const trialEndsAt = trial_ends_on ? new Date(trial_ends_on) : null
-    const currentPeriodStart = new Date(created_at)
-    const currentPeriodEnd = trialEndsAt || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days from now
+    const trialEndsAt = trial_ends_on ? new Date(trial_ends_on) : null;
+    const currentPeriodStart = new Date(created_at);
+    const currentPeriodEnd = trialEndsAt || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
 
     await this.db.subscription.upsert({
       where: { organizationId: store.organizationId },
@@ -460,7 +467,7 @@ export class BillingService {
         status: status === 'active' ? 'ACTIVE' : 'TRIAL',
         trialEndsAt,
         currentPeriodStart,
-        currentPeriodEnd
+        currentPeriodEnd,
       },
       create: {
         organizationId: store.organizationId,
@@ -469,56 +476,56 @@ export class BillingService {
         status: status === 'active' ? 'ACTIVE' : 'TRIAL',
         trialEndsAt,
         currentPeriodStart,
-        currentPeriodEnd
-      }
-    })
+        currentPeriodEnd,
+      },
+    });
 
-    console.log('Shopify subscription created:', { id, organizationId: store.organizationId })
+    console.log('Shopify subscription created:', { id, organizationId: store.organizationId });
   }
 
   private async handleShopifySubscriptionUpdated(payload: any): Promise<void> {
-    const { id, status, trial_ends_on } = payload
+    const { id, status, trial_ends_on } = payload;
 
     const subscription = await this.db.subscription.findFirst({
-      where: { shopifyBillingId: id.toString() }
-    })
+      where: { shopifyBillingId: id.toString() },
+    });
 
     if (!subscription) {
-      console.error('Subscription not found for Shopify billing ID:', id)
-      return
+      console.error('Subscription not found for Shopify billing ID:', id);
+      return;
     }
 
-    const updateData: any = {}
-    
+    const updateData: any = {};
+
     if (status === 'active') {
-      updateData.status = 'ACTIVE'
+      updateData.status = 'ACTIVE';
     } else if (status === 'cancelled') {
-      updateData.status = 'CANCELLED'
-      updateData.cancelledAt = new Date()
+      updateData.status = 'CANCELLED';
+      updateData.cancelledAt = new Date();
     }
 
     if (trial_ends_on) {
-      updateData.trialEndsAt = new Date(trial_ends_on)
+      updateData.trialEndsAt = new Date(trial_ends_on);
     }
 
     await this.db.subscription.update({
       where: { id: subscription.id },
-      data: updateData
-    })
+      data: updateData,
+    });
 
-    console.log('Shopify subscription updated:', { id, status })
+    console.log('Shopify subscription updated:', { id, status });
   }
 
   private async handleShopifySubscriptionCancelled(payload: any): Promise<void> {
-    const { id } = payload
+    const { id } = payload;
 
     const subscription = await this.db.subscription.findFirst({
-      where: { shopifyBillingId: id.toString() }
-    })
+      where: { shopifyBillingId: id.toString() },
+    });
 
     if (!subscription) {
-      console.error('Subscription not found for Shopify billing ID:', id)
-      return
+      console.error('Subscription not found for Shopify billing ID:', id);
+      return;
     }
 
     await this.db.subscription.update({
@@ -526,109 +533,109 @@ export class BillingService {
       data: {
         status: 'CANCELLED',
         cancelledAt: new Date(),
-        cancelAtPeriodEnd: true
-      }
-    })
+        cancelAtPeriodEnd: true,
+      },
+    });
 
-    console.log('Shopify subscription cancelled:', { id })
+    console.log('Shopify subscription cancelled:', { id });
   }
 
   private async handleStripeSubscriptionCreated(payload: any): Promise<void> {
-    const { id, customer, status, trial_end, current_period_start, current_period_end } = payload
+    const { id, customer, status, trial_end, current_period_start, current_period_end } = payload;
 
     // Find organization by Stripe customer ID
     const subscription = await this.db.subscription.findFirst({
-      where: { stripeCustomerId: customer }
-    })
+      where: { stripeCustomerId: customer },
+    });
 
     if (!subscription) {
-      console.error('Subscription not found for Stripe customer ID:', customer)
-      return
+      console.error('Subscription not found for Stripe customer ID:', customer);
+      return;
     }
 
     const updateData: any = {
-      stripeCustomerId: customer
-    }
+      stripeCustomerId: customer,
+    };
 
     if (status === 'active') {
-      updateData.status = 'ACTIVE'
+      updateData.status = 'ACTIVE';
     } else if (status === 'trialing') {
-      updateData.status = 'TRIAL'
+      updateData.status = 'TRIAL';
     }
 
     if (trial_end) {
-      updateData.trialEndsAt = new Date(trial_end * 1000)
+      updateData.trialEndsAt = new Date(trial_end * 1000);
     }
 
     if (current_period_start) {
-      updateData.currentPeriodStart = new Date(current_period_start * 1000)
+      updateData.currentPeriodStart = new Date(current_period_start * 1000);
     }
 
     if (current_period_end) {
-      updateData.currentPeriodEnd = new Date(current_period_end * 1000)
+      updateData.currentPeriodEnd = new Date(current_period_end * 1000);
     }
 
     await this.db.subscription.update({
       where: { id: subscription.id },
-      data: updateData
-    })
+      data: updateData,
+    });
 
-    console.log('Stripe subscription created:', { id, customer })
+    console.log('Stripe subscription created:', { id, customer });
   }
 
   private async handleStripeSubscriptionUpdated(payload: any): Promise<void> {
-    const { id, status, trial_end, current_period_start, current_period_end } = payload
+    const { id, status, trial_end, current_period_start, current_period_end } = payload;
 
     const subscription = await this.db.subscription.findFirst({
-      where: { stripeCustomerId: payload.customer }
-    })
+      where: { stripeCustomerId: payload.customer },
+    });
 
     if (!subscription) {
-      console.error('Subscription not found for Stripe customer ID:', payload.customer)
-      return
+      console.error('Subscription not found for Stripe customer ID:', payload.customer);
+      return;
     }
 
-    const updateData: any = {}
-    
+    const updateData: any = {};
+
     if (status === 'active') {
-      updateData.status = 'ACTIVE'
+      updateData.status = 'ACTIVE';
     } else if (status === 'past_due') {
-      updateData.status = 'PAST_DUE'
+      updateData.status = 'PAST_DUE';
     } else if (status === 'cancelled' || status === 'unpaid') {
-      updateData.status = 'CANCELLED'
-      updateData.cancelledAt = new Date()
+      updateData.status = 'CANCELLED';
+      updateData.cancelledAt = new Date();
     }
 
     if (trial_end) {
-      updateData.trialEndsAt = new Date(trial_end * 1000)
+      updateData.trialEndsAt = new Date(trial_end * 1000);
     }
 
     if (current_period_start) {
-      updateData.currentPeriodStart = new Date(current_period_start * 1000)
+      updateData.currentPeriodStart = new Date(current_period_start * 1000);
     }
 
     if (current_period_end) {
-      updateData.currentPeriodEnd = new Date(current_period_end * 1000)
+      updateData.currentPeriodEnd = new Date(current_period_end * 1000);
     }
 
     await this.db.subscription.update({
       where: { id: subscription.id },
-      data: updateData
-    })
+      data: updateData,
+    });
 
-    console.log('Stripe subscription updated:', { id, status })
+    console.log('Stripe subscription updated:', { id, status });
   }
 
   private async handleStripeSubscriptionCancelled(payload: any): Promise<void> {
-    const { id, customer } = payload
+    const { id, customer } = payload;
 
     const subscription = await this.db.subscription.findFirst({
-      where: { stripeCustomerId: customer }
-    })
+      where: { stripeCustomerId: customer },
+    });
 
     if (!subscription) {
-      console.error('Subscription not found for Stripe customer ID:', customer)
-      return
+      console.error('Subscription not found for Stripe customer ID:', customer);
+      return;
     }
 
     await this.db.subscription.update({
@@ -636,20 +643,20 @@ export class BillingService {
       data: {
         status: 'CANCELLED',
         cancelledAt: new Date(),
-        cancelAtPeriodEnd: true
-      }
-    })
+        cancelAtPeriodEnd: true,
+      },
+    });
 
-    console.log('Stripe subscription cancelled:', { id, customer })
+    console.log('Stripe subscription cancelled:', { id, customer });
   }
 
   private getPlanKeyFromName(name: string): string {
     const planMapping: Record<string, string> = {
       'Starter Plan': 'STARTER',
       'Growth Plan': 'GROWTH',
-      'Enterprise Plan': 'ENTERPRISE'
-    }
+      'Enterprise Plan': 'ENTERPRISE',
+    };
 
-    return planMapping[name] || 'STARTER'
+    return planMapping[name] || 'STARTER';
   }
 }

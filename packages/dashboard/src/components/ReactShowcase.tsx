@@ -1,39 +1,19 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { 
-  Zap, 
-  Code, 
-  Layers, 
-  BarChart3, 
-  Settings, 
-  Palette, 
-  Shield, 
-  Loader2,
-  ChevronRight,
-  Star,
-  Heart,
-  ThumbsUp,
-  MessageCircle,
-  Share2,
-  Bookmark,
-  Download,
-  Upload,
-  Trash2,
-  Edit3,
-  Eye,
-  EyeOff
-} from 'lucide-react';
+import { Zap, Code, Layers, BarChart3, Settings, Palette, Shield } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
 
-import { useDebounce } from '../hooks/useDebounce';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import { useAsync } from '../hooks/useAsync';
-import { usePerformance } from '../hooks/usePerformance';
-import { useTheme } from '../contexts/ThemeContext';
+import type { Column } from './AdvancedDataTable';
+import { AdvancedDataTable } from './AdvancedDataTable';
 import { AdvancedErrorBoundary } from './AdvancedErrorBoundary';
+import type { FormField } from './AdvancedForm';
+import { AdvancedForm } from './AdvancedForm';
 import { LoadingSpinner, Skeleton, SkeletonCard, SkeletonTable } from './AdvancedLoading';
 import { VirtualList, InfiniteScroll } from './VirtualList';
-import { AdvancedDataTable, Column } from './AdvancedDataTable';
-import { AdvancedForm, FormField } from './AdvancedForm';
+import { useTheme } from '../contexts/ThemeContext';
+import { useAsync } from '../hooks/useAsync';
+import { useDebounce } from '../hooks/useDebounce';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { usePerformance } from '../hooks/usePerformance';
 
 // Sample data for demonstrations
 const sampleUsers = Array.from({ length: 1000 }, (_, i) => ({
@@ -72,16 +52,20 @@ export function ReactShowcase() {
   const performance = usePerformance('ReactShowcase');
 
   // Async data fetching simulation
-  const { data: asyncData, loading: asyncLoading, execute: fetchData } = useAsync(
+  const {
+    data: asyncData,
+    loading: asyncLoading,
+    execute: fetchData,
+  } = useAsync(
     async () => {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       return { message: 'Data loaded successfully!', timestamp: new Date().toISOString() };
     },
-    { immediate: false }
+    { immediate: false },
   );
 
   // Table columns configuration
-  const userColumns: Column<typeof sampleUsers[0]>[] = [
+  const userColumns: Column<(typeof sampleUsers)[0]>[] = [
     {
       key: 'id',
       title: 'ID',
@@ -116,13 +100,15 @@ export function ReactShowcase() {
       sortable: true,
       filterable: true,
       render: (value) => (
-        <span className={`px-2 py-1 text-xs rounded-full ${
-          value === 'Admin' 
-            ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
-            : value === 'Moderator'
-            ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
-            : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-        }`}>
+        <span
+          className={`px-2 py-1 text-xs rounded-full ${
+            value === 'Admin'
+              ? 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+              : value === 'Moderator'
+                ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+          }`}
+        >
           {value}
         </span>
       ),
@@ -133,16 +119,24 @@ export function ReactShowcase() {
       sortable: true,
       filterable: true,
       render: (value) => (
-        <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full ${
-          value === 'Active'
-            ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-            : value === 'Inactive'
-            ? 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
-            : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
-        }`}>
-          <div className={`w-2 h-2 rounded-full ${
-            value === 'Active' ? 'bg-green-500' : value === 'Inactive' ? 'bg-gray-500' : 'bg-yellow-500'
-          }`} />
+        <span
+          className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full ${
+            value === 'Active'
+              ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+              : value === 'Inactive'
+                ? 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
+                : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+          }`}
+        >
+          <div
+            className={`w-2 h-2 rounded-full ${
+              value === 'Active'
+                ? 'bg-green-500'
+                : value === 'Inactive'
+                  ? 'bg-gray-500'
+                  : 'bg-yellow-500'
+            }`}
+          />
           {value}
         </span>
       ),
@@ -214,26 +208,26 @@ export function ReactShowcase() {
   // Infinite scroll handler
   const handleLoadMore = useCallback(async () => {
     if (loading) return;
-    
+
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     const currentLength = infiniteData.length;
     const newData = samplePosts.slice(currentLength, currentLength + 10);
-    
+
     if (newData.length === 0) {
       setHasMore(false);
     } else {
-      setInfiniteData(prev => [...prev, ...newData]);
+      setInfiniteData((prev) => [...prev, ...newData]);
     }
-    
+
     setLoading(false);
   }, [infiniteData.length, loading]);
 
   // Form submission handler
   const handleFormSubmit = useCallback(async (data: any) => {
     console.log('Form submitted:', data);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     alert('Form submitted successfully!');
   }, []);
 
@@ -256,7 +250,8 @@ export function ReactShowcase() {
             React Advanced Features Showcase
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Demonstrating modern React patterns, performance optimizations, and advanced UI components
+            Demonstrating modern React patterns, performance optimizations, and advanced UI
+            components
           </p>
         </div>
 
@@ -273,11 +268,9 @@ export function ReactShowcase() {
               <option value="dark">Dark</option>
               <option value="system">System</option>
             </select>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              Current: {actualTheme}
-            </span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Current: {actualTheme}</span>
           </div>
-          
+
           <div className="text-sm text-gray-500 dark:text-gray-400">
             Render time: {performance.lastRenderTime.toFixed(2)}ms
           </div>
@@ -286,7 +279,7 @@ export function ReactShowcase() {
         {/* Navigation Tabs */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-2">
-            {tabs.map(tab => (
+            {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
@@ -309,7 +302,7 @@ export function ReactShowcase() {
           {activeTab === 'hooks' && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Custom Hooks</h2>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Debounced Search */}
                 <div className="card p-6">
@@ -333,7 +326,7 @@ export function ReactShowcase() {
                   <div className="space-y-2">
                     <div className="flex gap-2">
                       <button
-                        onClick={() => setFavorites(prev => [...prev, `Item ${Date.now()}`])}
+                        onClick={() => setFavorites((prev) => [...prev, `Item ${Date.now()}`])}
                         className="px-3 py-1 bg-brand-600 text-white rounded text-sm"
                       >
                         Add Favorite
@@ -385,7 +378,7 @@ export function ReactShowcase() {
                     >
                       {asyncLoading ? 'Loading...' : 'Fetch Data'}
                     </button>
-                    
+
                     {asyncData && (
                       <div className="p-3 bg-green-100 dark:bg-green-900/20 rounded">
                         <div className="text-sm text-green-800 dark:text-green-400">
@@ -405,8 +398,10 @@ export function ReactShowcase() {
           {/* Performance Tab */}
           {activeTab === 'performance' && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Performance Monitoring</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Performance Monitoring
+              </h2>
+
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="card p-6">
                   <h3 className="text-lg font-semibold mb-4">Render Metrics</h3>
@@ -442,8 +437,10 @@ export function ReactShowcase() {
           {/* Advanced Components Tab */}
           {activeTab === 'components' && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Advanced Components</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Advanced Components
+              </h2>
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="card p-6">
                   <h3 className="text-lg font-semibold mb-4">Loading States</h3>
@@ -476,7 +473,7 @@ export function ReactShowcase() {
           {activeTab === 'forms' && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Advanced Forms</h2>
-              
+
               <div className="max-w-2xl">
                 <AdvancedForm
                   fields={formFields}
@@ -491,8 +488,10 @@ export function ReactShowcase() {
           {/* Data Tables Tab */}
           {activeTab === 'tables' && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Advanced Data Tables</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Advanced Data Tables
+              </h2>
+
               <AdvancedDataTable
                 data={sampleUsers}
                 columns={userColumns}
@@ -505,12 +504,14 @@ export function ReactShowcase() {
                 onSelectionChange={setSelectedUsers}
                 onRowClick={(item) => console.log('Row clicked:', item)}
               />
-              
+
               {selectedUsers.length > 0 && (
                 <div className="card p-4">
-                  <h3 className="text-lg font-semibold mb-2">Selected Users ({selectedUsers.length})</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Selected Users ({selectedUsers.length})
+                  </h3>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
-                    {selectedUsers.map(user => user.name).join(', ')}
+                    {selectedUsers.map((user) => user.name).join(', ')}
                   </div>
                 </div>
               )}
@@ -520,8 +521,10 @@ export function ReactShowcase() {
           {/* Virtual Scrolling Tab */}
           {activeTab === 'virtual' && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Virtual Scrolling</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Virtual Scrolling
+              </h2>
+
               <div className="card p-6">
                 <h3 className="text-lg font-semibold mb-4">Virtual List (1000 items)</h3>
                 <VirtualList
@@ -538,7 +541,9 @@ export function ReactShowcase() {
                         </div>
                         <div>
                           <div className="font-medium">{user.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {user.email}
+                          </div>
                         </div>
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -552,16 +557,17 @@ export function ReactShowcase() {
               <div className="card p-6">
                 <h3 className="text-lg font-semibold mb-4">Infinite Scroll</h3>
                 <div className="h-96 overflow-y-auto border border-gray-200 dark:border-gray-700 rounded">
-                  <InfiniteScroll
-                    hasMore={hasMore}
-                    loading={loading}
-                    onLoadMore={handleLoadMore}
-                  >
+                  <InfiniteScroll hasMore={hasMore} loading={loading} onLoadMore={handleLoadMore}>
                     <div className="space-y-4 p-4">
                       {infiniteData.map((post, index) => (
-                        <div key={post.id} className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div
+                          key={post.id}
+                          className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                        >
                           <h4 className="font-semibold mb-2">{post.title}</h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{post.content}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                            {post.content}
+                          </p>
                           <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                             <span>By {post.author}</span>
                             <span>{post.likes} likes</span>
@@ -581,7 +587,7 @@ export function ReactShowcase() {
           {activeTab === 'error' && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Error Handling</h2>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="card p-6">
                   <h3 className="text-lg font-semibold mb-4">Error Boundary Demo</h3>
@@ -592,7 +598,7 @@ export function ReactShowcase() {
                     >
                       {showError ? 'Hide Error' : 'Trigger Error'}
                     </button>
-                    
+
                     <AdvancedErrorBoundary>
                       {showError ? (
                         <div>
@@ -623,14 +629,14 @@ export function ReactShowcase() {
                         Error: Something went wrong
                       </div>
                     </div>
-                    
+
                     <div className="p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded">
                       <div className="flex items-center gap-2 text-yellow-800 dark:text-yellow-400">
                         <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
                         Warning: Please check your input
                       </div>
                     </div>
-                    
+
                     <div className="p-3 bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded">
                       <div className="flex items-center gap-2 text-green-800 dark:text-green-400">
                         <div className="w-4 h-4 bg-green-500 rounded-full"></div>

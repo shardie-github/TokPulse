@@ -1,14 +1,14 @@
+import { ApolloProvider } from '@apollo/client';
+import { AppProvider } from '@shopify/polaris';
 import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppProvider } from '@shopify/polaris';
-import { ApolloProvider } from '@apollo/client';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { ThemeProvider } from '@/lib/theme';
-import { apolloClient } from '@/lib/apollo';
-import { Dashboard } from '@/pages/Dashboard';
-import { Analytics } from '@/pages/Analytics';
-import { Settings } from '@/pages/Settings';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { apolloClient } from '@/lib/apollo';
+import { ThemeProvider } from '@/lib/theme';
+import { Analytics } from '@/pages/Analytics';
+import { Dashboard } from '@/pages/Dashboard';
+import { Settings } from '@/pages/Settings';
 import '@shopify/polaris/build/esm/styles.css';
 import './index.css';
 

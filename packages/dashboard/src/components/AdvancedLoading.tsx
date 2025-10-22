@@ -1,5 +1,5 @@
-import React from 'react';
 import { Loader2, RefreshCw } from 'lucide-react';
+import React from 'react';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -7,11 +7,7 @@ interface LoadingSpinnerProps {
   text?: string;
 }
 
-export function LoadingSpinner({ 
-  size = 'md', 
-  className = '', 
-  text 
-}: LoadingSpinnerProps) {
+export function LoadingSpinner({ size = 'md', className = '', text }: LoadingSpinnerProps) {
   const sizeClasses = {
     sm: 'w-4 h-4',
     md: 'w-6 h-6',
@@ -23,9 +19,7 @@ export function LoadingSpinner({
     <div className={`flex items-center justify-center ${className}`}>
       <div className="flex flex-col items-center gap-2">
         <Loader2 className={`${sizeClasses[size]} animate-spin text-brand-600`} />
-        {text && (
-          <p className="text-sm text-gray-600 dark:text-gray-400">{text}</p>
-        )}
+        {text && <p className="text-sm text-gray-600 dark:text-gray-400">{text}</p>}
       </div>
     </div>
   );
@@ -39,12 +33,12 @@ interface SkeletonProps {
   rounded?: boolean;
 }
 
-export function Skeleton({ 
-  className = '', 
-  lines = 1, 
-  width = '100%', 
+export function Skeleton({
+  className = '',
+  lines = 1,
+  width = '100%',
   height = '1rem',
-  rounded = true 
+  rounded = true,
 }: SkeletonProps) {
   const skeletonClasses = `
     bg-gray-200 dark:bg-gray-700 animate-pulse
@@ -53,12 +47,7 @@ export function Skeleton({
   `.trim();
 
   if (lines === 1) {
-    return (
-      <div 
-        className={skeletonClasses}
-        style={{ width, height }}
-      />
-    );
+    return <div className={skeletonClasses} style={{ width, height }} />;
   }
 
   return (
@@ -67,9 +56,9 @@ export function Skeleton({
         <div
           key={index}
           className={skeletonClasses}
-          style={{ 
-            width: index === lines - 1 ? '75%' : width, 
-            height 
+          style={{
+            width: index === lines - 1 ? '75%' : width,
+            height,
           }}
         />
       ))}
@@ -83,26 +72,19 @@ interface SkeletonCardProps {
   lines?: number;
 }
 
-export function SkeletonCard({ 
-  showImage = false, 
-  showActions = false, 
-  lines = 3 
+export function SkeletonCard({
+  showImage = false,
+  showActions = false,
+  lines = 3,
 }: SkeletonCardProps) {
   return (
     <div className="card p-4">
-      {showImage && (
-        <Skeleton 
-          className="mb-4" 
-          height="200px" 
-          width="100%" 
-          rounded={true}
-        />
-      )}
-      
+      {showImage && <Skeleton className="mb-4" height="200px" width="100%" rounded={true} />}
+
       <div className="space-y-3">
         <Skeleton height="1.5rem" width="60%" />
         <Skeleton lines={lines} height="0.875rem" />
-        
+
         {showActions && (
           <div className="flex gap-2 pt-2">
             <Skeleton height="2rem" width="80px" />
@@ -120,11 +102,7 @@ interface SkeletonTableProps {
   showHeader?: boolean;
 }
 
-export function SkeletonTable({ 
-  rows = 5, 
-  columns = 4, 
-  showHeader = true 
-}: SkeletonTableProps) {
+export function SkeletonTable({ rows = 5, columns = 4, showHeader = true }: SkeletonTableProps) {
   return (
     <div className="card overflow-hidden">
       <div className="overflow-x-auto">
@@ -243,7 +221,7 @@ export function ProgressiveLoading({ stages, onComplete }: ProgressiveLoadingPro
     }
 
     const timer = setTimeout(() => {
-      setCurrentStage(prev => prev + 1);
+      setCurrentStage((prev) => prev + 1);
     }, stages[currentStage].duration);
 
     return () => clearTimeout(timer);

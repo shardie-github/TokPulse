@@ -1,5 +1,6 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
 import { Banner, Button, Card, Text } from '@shopify/polaris';
+import type { ErrorInfo, ReactNode } from 'react';
+import { Component } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -44,32 +45,32 @@ export class ErrorBoundary extends Component<Props, State> {
                   We're sorry, but something unexpected happened. Please try refreshing the page.
                 </Text>
               </div>
-              
+
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <div style={{ marginTop: '2rem', textAlign: 'left' }}>
                   <Banner tone="critical" title="Error Details">
-                    <pre style={{ 
-                      background: '#f6f6f7', 
-                      padding: '1rem', 
-                      borderRadius: '4px',
-                      overflow: 'auto',
-                      fontSize: '12px'
-                    }}>
+                    <pre
+                      style={{
+                        background: '#f6f6f7',
+                        padding: '1rem',
+                        borderRadius: '4px',
+                        overflow: 'auto',
+                        fontSize: '12px',
+                      }}
+                    >
                       {this.state.error.toString()}
                       {this.state.errorInfo?.componentStack}
                     </pre>
                   </Banner>
                 </div>
               )}
-              
+
               <div style={{ marginTop: '2rem' }}>
                 <Button onClick={this.handleReset} variant="primary">
                   Try Again
                 </Button>
                 <div style={{ marginLeft: '1rem', display: 'inline-block' }}>
-                  <Button onClick={() => window.location.reload()}>
-                    Refresh Page
-                  </Button>
+                  <Button onClick={() => window.location.reload()}>Refresh Page</Button>
                 </div>
               </div>
             </div>

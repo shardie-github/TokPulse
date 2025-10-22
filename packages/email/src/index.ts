@@ -1,21 +1,21 @@
-import { PrismaClient } from '@tokpulse/db'
+import type { PrismaClient } from '@tokpulse/db';
 
 export interface EmailConfig {
-  fromEmail: string
-  fromName: string
-  mailerUrl: string
+  fromEmail: string;
+  fromName: string;
+  mailerUrl: string;
 }
 
 export interface EmailTemplate {
-  subject: string
-  html: string
-  text: string
+  subject: string;
+  html: string;
+  text: string;
 }
 
 export class EmailService {
   constructor(
     private db: PrismaClient,
-    private config: EmailConfig
+    private config: EmailConfig,
   ) {}
 
   async sendEmail(to: string, template: EmailTemplate): Promise<void> {
@@ -23,22 +23,22 @@ export class EmailService {
       const response = await fetch(`${this.config.mailerUrl}/api/mailer/send`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           to,
           subject: template.subject,
           html: template.html,
-          text: template.text
-        })
-      })
+          text: template.text,
+        }),
+      });
 
       if (!response.ok) {
-        throw new Error(`Failed to send email: ${response.statusText}`)
+        throw new Error(`Failed to send email: ${response.statusText}`);
       }
     } catch (error) {
-      console.error('Email sending failed:', error)
-      throw error
+      console.error('Email sending failed:', error);
+      throw error;
     }
   }
 
@@ -48,19 +48,19 @@ export class EmailService {
       include: {
         users: {
           where: { role: 'OWNER' },
-          take: 1
-        }
-      }
-    })
+          take: 1,
+        },
+      },
+    });
 
     if (!organization || !organization.users.length) {
-      return
+      return;
     }
 
-    const user = organization.users[0]
-    const template = this.getTrialEndingTemplate(daysLeft)
+    const user = organization.users[0];
+    const template = this.getTrialEndingTemplate(daysLeft);
 
-    await this.sendEmail(user.email, template)
+    await this.sendEmail(user.email, template);
   }
 
   async sendTrialEndedNotification(organizationId: string): Promise<void> {
@@ -69,19 +69,19 @@ export class EmailService {
       include: {
         users: {
           where: { role: 'OWNER' },
-          take: 1
-        }
-      }
-    })
+          take: 1,
+        },
+      },
+    });
 
     if (!organization || !organization.users.length) {
-      return
+      return;
     }
 
-    const user = organization.users[0]
-    const template = this.getTrialEndedTemplate()
+    const user = organization.users[0];
+    const template = this.getTrialEndedTemplate();
 
-    await this.sendEmail(user.email, template)
+    await this.sendEmail(user.email, template);
   }
 
   async sendPaymentFailedNotification(organizationId: string): Promise<void> {
@@ -90,19 +90,19 @@ export class EmailService {
       include: {
         users: {
           where: { role: 'OWNER' },
-          take: 1
-        }
-      }
-    })
+          take: 1,
+        },
+      },
+    });
 
     if (!organization || !organization.users.length) {
-      return
+      return;
     }
 
-    const user = organization.users[0]
-    const template = this.getPaymentFailedTemplate()
+    const user = organization.users[0];
+    const template = this.getPaymentFailedTemplate();
 
-    await this.sendEmail(user.email, template)
+    await this.sendEmail(user.email, template);
   }
 
   async sendSubscriptionCancelledNotification(organizationId: string): Promise<void> {
@@ -111,24 +111,24 @@ export class EmailService {
       include: {
         users: {
           where: { role: 'OWNER' },
-          take: 1
-        }
-      }
-    })
+          take: 1,
+        },
+      },
+    });
 
     if (!organization || !organization.users.length) {
-      return
+      return;
     }
 
-    const user = organization.users[0]
-    const template = this.getSubscriptionCancelledTemplate()
+    const user = organization.users[0];
+    const template = this.getSubscriptionCancelledTemplate();
 
-    await this.sendEmail(user.email, template)
+    await this.sendEmail(user.email, template);
   }
 
   private getTrialEndingTemplate(daysLeft: number): EmailTemplate {
-    const subject = `Your TokPulse trial ends in ${daysLeft} day${daysLeft === 1 ? '' : 's'}`
-    
+    const subject = `Your TokPulse trial ends in ${daysLeft} day${daysLeft === 1 ? '' : 's'}`;
+
     const html = `
       <!DOCTYPE html>
       <html>
@@ -180,7 +180,7 @@ export class EmailService {
         </div>
       </body>
       </html>
-    `
+    `;
 
     const text = `
 Your TokPulse trial ends in ${daysLeft} day${daysLeft === 1 ? '' : 's'}
@@ -207,14 +207,14 @@ Questions? Reply to this email and we'll help you out!
 
 © 2024 TokPulse. All rights reserved.
 You received this email because you have an active TokPulse trial.
-    `
+    `;
 
-    return { subject, html, text }
+    return { subject, html, text };
   }
 
   private getTrialEndedTemplate(): EmailTemplate {
-    const subject = 'Your TokPulse trial has ended'
-    
+    const subject = 'Your TokPulse trial has ended';
+
     const html = `
       <!DOCTYPE html>
       <html>
@@ -268,7 +268,7 @@ You received this email because you have an active TokPulse trial.
         </div>
       </body>
       </html>
-    `
+    `;
 
     const text = `
 Your TokPulse trial has ended
@@ -297,14 +297,14 @@ Your data is safe and will be restored when you upgrade. Questions? Reply to thi
 
 © 2024 TokPulse. All rights reserved.
 You received this email because your TokPulse trial has ended.
-    `
+    `;
 
-    return { subject, html, text }
+    return { subject, html, text };
   }
 
   private getPaymentFailedTemplate(): EmailTemplate {
-    const subject = 'Payment failed - Action required'
-    
+    const subject = 'Payment failed - Action required';
+
     const html = `
       <!DOCTYPE html>
       <html>
@@ -350,7 +350,7 @@ You received this email because your TokPulse trial has ended.
         </div>
       </body>
       </html>
-    `
+    `;
 
     const text = `
 Payment Failed - Action Required
@@ -372,14 +372,14 @@ Need help? Reply to this email and we'll assist you with updating your payment i
 
 © 2024 TokPulse. All rights reserved.
 You received this email because your payment failed.
-    `
+    `;
 
-    return { subject, html, text }
+    return { subject, html, text };
   }
 
   private getSubscriptionCancelledTemplate(): EmailTemplate {
-    const subject = 'Your TokPulse subscription has been cancelled'
-    
+    const subject = 'Your TokPulse subscription has been cancelled';
+
     const html = `
       <!DOCTYPE html>
       <html>
@@ -426,7 +426,7 @@ You received this email because your payment failed.
         </div>
       </body>
       </html>
-    `
+    `;
 
     const text = `
 Your TokPulse subscription has been cancelled
@@ -450,8 +450,8 @@ Questions or feedback? Reply to this email - we'd love to hear from you!
 
 © 2024 TokPulse. All rights reserved.
 You received this email because your subscription was cancelled.
-    `
+    `;
 
-    return { subject, html, text }
+    return { subject, html, text };
   }
 }

@@ -1,26 +1,34 @@
-import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Page, Layout, Card, Text, Spinner, Banner } from '@shopify/polaris';
-import { GET_SHOP_INFO, GET_PRODUCTS, GET_ORDERS } from '@/lib/graphql/queries';
-import { KPIsGrid } from '@/components/KPIsGrid';
-import { ChannelShareChart } from '@/components/ChannelShareChart';
-import { FunnelChart } from '@/components/FunnelChart';
+import { useState, useEffect } from 'react';
 import { ActivityFeed } from '@/components/ActivityFeed';
-import { Leaderboard } from '@/components/Leaderboard';
-import { Topbar } from '@/components/Topbar';
-import { Sidebar } from '@/components/Sidebar';
+import { ChannelShareChart } from '@/components/ChannelShareChart';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { FunnelChart } from '@/components/FunnelChart';
+import { KPIsGrid } from '@/components/KPIsGrid';
+import { Leaderboard } from '@/components/Leaderboard';
+import { Sidebar } from '@/components/Sidebar';
+import { Topbar } from '@/components/Topbar';
+import { GET_SHOP_INFO, GET_PRODUCTS, GET_ORDERS } from '@/lib/graphql/queries';
 
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
 
   // GraphQL queries
   const { data: shopData, loading: shopLoading, error: shopError } = useQuery(GET_SHOP_INFO);
-  const { data: productsData, loading: productsLoading, error: productsError } = useQuery(GET_PRODUCTS, {
-    variables: { first: 10 }
+  const {
+    data: productsData,
+    loading: productsLoading,
+    error: productsError,
+  } = useQuery(GET_PRODUCTS, {
+    variables: { first: 10 },
   });
-  const { data: ordersData, loading: ordersLoading, error: ordersError } = useQuery(GET_ORDERS, {
-    variables: { first: 10 }
+  const {
+    data: ordersData,
+    loading: ordersLoading,
+    error: ordersError,
+  } = useQuery(GET_ORDERS, {
+    variables: { first: 10 },
   });
 
   useEffect(() => {

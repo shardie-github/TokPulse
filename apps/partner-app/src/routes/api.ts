@@ -1,16 +1,15 @@
-import { Router } from 'express'
-import { Request, Response } from 'express'
-import { Shopify } from '@shopify/shopify-api'
-import { prisma } from '@tokpulse/db'
-import { telemetry } from '@tokpulse/shared'
+import type { Shopify } from '@shopify/shopify-api';
+import { prisma } from '@tokpulse/db';
+import { telemetry } from '@tokpulse/shared';
+import type { Request, Response, Router } from 'express';
 
 export function createApiHandler(shopify: Shopify) {
-  const router = Router()
+  const router = Router();
 
   // Get store info
   router.get('/stores/:shopDomain', async (req: Request, res: Response) => {
     try {
-      const { shopDomain } = req.params
+      const { shopDomain } = req.params;
 
       const store = await prisma.store.findUnique({
         where: { shopDomain },
@@ -24,10 +23,10 @@ export function createApiHandler(shopify: Shopify) {
             },
           },
         },
-      })
+      });
 
       if (!store) {
-        return res.status(404).json({ error: 'Store not found' })
+        return res.status(404).json({ error: 'Store not found' });
       }
 
       res.json({
@@ -43,29 +42,29 @@ export function createApiHandler(shopify: Shopify) {
           createdAt: store.createdAt,
           updatedAt: store.updatedAt,
         },
-      })
+      });
     } catch (error) {
-      telemetry.error(error as Error, { endpoint: 'GET /stores/:shopDomain' })
-      res.status(500).json({ error: 'Failed to fetch store info' })
+      telemetry.error(error as Error, { endpoint: 'GET /stores/:shopDomain' });
+      res.status(500).json({ error: 'Failed to fetch store info' });
     }
-  })
+  });
 
   // Get catalog items
   router.get('/stores/:shopDomain/catalog', async (req: Request, res: Response) => {
     try {
-      const { shopDomain } = req.params
-      const { page = '1', limit = '20', search } = req.query
+      const { shopDomain } = req.params;
+      const { page = '1', limit = '20', search } = req.query;
 
       const store = await prisma.store.findUnique({
         where: { shopDomain },
-      })
+      });
 
       if (!store) {
-        return res.status(404).json({ error: 'Store not found' })
+        return res.status(404).json({ error: 'Store not found' });
       }
 
-      const skip = (parseInt(page as string) - 1) * parseInt(limit as string)
-      const take = parseInt(limit as string)
+      const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
+      const take = parseInt(limit as string);
 
       const where = {
         storeId: store.id,
@@ -76,7 +75,7 @@ export function createApiHandler(shopify: Shopify) {
             { vendor: { contains: search as string, mode: 'insensitive' as const } },
           ],
         }),
-      }
+      };
 
       const [items, total] = await Promise.all([
         prisma.catalogItem.findMany({
@@ -86,7 +85,7 @@ export function createApiHandler(shopify: Shopify) {
           orderBy: { createdAt: 'desc' },
         }),
         prisma.catalogItem.count({ where }),
-      ])
+      ]);
 
       res.json({
         success: true,
@@ -97,34 +96,34 @@ export function createApiHandler(shopify: Shopify) {
           total,
           pages: Math.ceil(total / parseInt(limit as string)),
         },
-      })
+      });
     } catch (error) {
-      telemetry.error(error as Error, { endpoint: 'GET /stores/:shopDomain/catalog' })
-      res.status(500).json({ error: 'Failed to fetch catalog items' })
+      telemetry.error(error as Error, { endpoint: 'GET /stores/:shopDomain/catalog' });
+      res.status(500).json({ error: 'Failed to fetch catalog items' });
     }
-  })
+  });
 
   // Get webhook events
   router.get('/stores/:shopDomain/webhooks', async (req: Request, res: Response) => {
     try {
-      const { shopDomain } = req.params
-      const { page = '1', limit = '20', topic } = req.query
+      const { shopDomain } = req.params;
+      const { page = '1', limit = '20', topic } = req.query;
 
       const store = await prisma.store.findUnique({
         where: { shopDomain },
-      })
+      });
 
       if (!store) {
-        return res.status(404).json({ error: 'Store not found' })
+        return res.status(404).json({ error: 'Store not found' });
       }
 
-      const skip = (parseInt(page as string) - 1) * parseInt(limit as string)
-      const take = parseInt(limit as string)
+      const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
+      const take = parseInt(limit as string);
 
       const where = {
         storeId: store.id,
         ...(topic && { topic: topic as string }),
-      }
+      };
 
       const [events, total] = await Promise.all([
         prisma.webhookEvent.findMany({
@@ -134,7 +133,7 @@ export function createApiHandler(shopify: Shopify) {
           orderBy: { createdAt: 'desc' },
         }),
         prisma.webhookEvent.count({ where }),
-      ])
+      ]);
 
       res.json({
         success: true,
@@ -145,12 +144,12 @@ export function createApiHandler(shopify: Shopify) {
           total,
           pages: Math.ceil(total / parseInt(limit as string)),
         },
-      })
+      });
     } catch (error) {
-      telemetry.error(error as Error, { endpoint: 'GET /stores/:shopDomain/webhooks' })
-      res.status(500).json({ error: 'Failed to fetch webhook events' })
+      telemetry.error(error as Error, { endpoint: 'GET /stores/:shopDomain/webhooks' });
+      res.status(500).json({ error: 'Failed to fetch webhook events' });
     }
-  })
+  });
 
-  return router
+  return router;
 }

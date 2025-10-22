@@ -1,13 +1,12 @@
-
-const http = require('http');
 const fs = require('fs');
+const http = require('http');
 const path = require('path');
 
 const dist = path.join(__dirname, 'dist');
 const port = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(dist, req.url === '/' ? 'index.html' : req.url);
+  const filePath = path.join(dist, req.url === '/' ? 'index.html' : req.url);
   const ext = path.extname(filePath).toLowerCase();
   const type = ext === '.js' ? 'application/javascript' : 'text/html';
 

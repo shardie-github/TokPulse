@@ -1,4 +1,4 @@
-import { PrismaClient } from '@tokpulse/db'
+import type { PrismaClient } from '@tokpulse/db';
 
 export async function seedBillingData(db: PrismaClient) {
   // Create default plans
@@ -16,14 +16,14 @@ export async function seedBillingData(db: PrismaClient) {
         'Email support (48h)',
         '1 store',
         '1,000 API calls/month',
-        '10,000 widget views/month'
+        '10,000 widget views/month',
       ],
       limits: {
         stores: 1,
         api_calls: 1000,
         widget_views: 10000,
-        users: 1
-      }
+        users: 1,
+      },
     },
     {
       key: 'GROWTH',
@@ -40,14 +40,14 @@ export async function seedBillingData(db: PrismaClient) {
         '3 stores',
         '10,000 API calls/month',
         '100,000 widget views/month',
-        'Team collaboration'
+        'Team collaboration',
       ],
       limits: {
         stores: 3,
         api_calls: 10000,
         widget_views: 100000,
-        users: 5
-      }
+        users: 5,
+      },
     },
     {
       key: 'ENTERPRISE',
@@ -64,16 +64,16 @@ export async function seedBillingData(db: PrismaClient) {
         'SLA support (4h)',
         'Webhooks & API access',
         'Custom integrations',
-        'Dedicated account manager'
+        'Dedicated account manager',
       ],
       limits: {
         stores: -1, // -1 means unlimited
         api_calls: -1,
         widget_views: -1,
-        users: -1
-      }
-    }
-  ]
+        users: -1,
+      },
+    },
+  ];
 
   for (const planData of plans) {
     await db.plan.upsert({
@@ -82,10 +82,10 @@ export async function seedBillingData(db: PrismaClient) {
       create: {
         ...planData,
         features: JSON.stringify(planData.features),
-        limits: JSON.stringify(planData.limits)
-      }
-    })
+        limits: JSON.stringify(planData.limits),
+      },
+    });
   }
 
-  console.log('✅ Billing plans seeded')
+  console.log('✅ Billing plans seeded');
 }

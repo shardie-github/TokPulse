@@ -1,20 +1,20 @@
-import pino from 'pino'
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'crypto';
+import pino from 'pino';
 
 export interface LogContext {
-  requestId?: string
-  storeId?: string
-  orgId?: string
-  userId?: string
-  experimentId?: string
-  variantId?: string
-  [key: string]: any
+  requestId?: string;
+  storeId?: string;
+  orgId?: string;
+  userId?: string;
+  experimentId?: string;
+  variantId?: string;
+  [key: string]: any;
 }
 
 export interface PinoConfig {
-  level?: string
-  pretty?: boolean
-  redactPII?: boolean
+  level?: string;
+  pretty?: boolean;
+  redactPII?: boolean;
 }
 
 const PII_FIELDS = [
@@ -31,112 +31,123 @@ const PII_FIELDS = [
   'password',
   'ssn',
   'creditCard',
-  'paymentMethod'
-]
+  'paymentMethod',
+];
 
 const redactPII = (obj: any): any => {
   if (typeof obj !== 'object' || obj === null) {
-    return obj
+    return obj;
   }
 
   if (Array.isArray(obj)) {
-    return obj.map(redactPII)
+    return obj.map(redactPII);
   }
 
-  const redacted = { ...obj }
+  const redacted = { ...obj };
   for (const [key, value] of Object.entries(redacted)) {
-    if (PII_FIELDS.some(field => key.toLowerCase().includes(field.toLowerCase()))) {
-      redacted[key] = '[REDACTED]'
+    if (PII_FIELDS.some((field) => key.toLowerCase().includes(field.toLowerCase()))) {
+      redacted[key] = '[REDACTED]';
     } else if (typeof value === 'object' && value !== null) {
-      redacted[key] = redactPII(value)
+      redacted[key] = redactPII(value);
     }
   }
-  return redacted
-}
+  return redacted;
+};
 
 export class TelemetryLogger {
-  private logger: pino.Logger
-  private redactPII: boolean
+  private logger: pino.Logger;
+  private redactPII: boolean;
 
   constructor(config: PinoConfig = {}) {
-    this.redactPII = config.redactPII ?? true
-    
+    this.redactPII = config.redactPII ?? true;
+
     const baseConfig = {
       level: config.level || 'info',
       timestamp: pino.stdTimeFunctions.isoTime,
       formatters: {
-        level: (label: string) => ({ level: label })
+        level: (label: string) => ({ level: label }),
       },
       serializers: {
         req: pino.stdSerializers.req,
         res: pino.stdSerializers.res,
-        err: pino.stdSerializers.err
-      }
-    }
+        err: pino.stdSerializers.err,
+      },
+    };
 
     if (config.pretty) {
-      this.logger = pino(baseConfig, pino.destination({
-        dest: 1,
-        sync: false
-      }))
+      this.logger = pino(
+        baseConfig,
+        pino.destination({
+          dest: 1,
+          sync: false,
+        }),
+      );
     } else {
-      this.logger = pino(baseConfig)
+      this.logger = pino(baseConfig);
     }
   }
 
   private processContext(context: LogContext = {}): LogContext {
     if (!context.requestId) {
-      context.requestId = randomUUID()
+      context.requestId = randomUUID();
     }
-    
+
     if (this.redactPII) {
-      return redactPII(context)
+      return redactPII(context);
     }
-    
-    return context
+
+    return context;
   }
 
   info(message: string, context: LogContext = {}) {
-    this.logger.info(this.processContext(context), message)
+    this.logger.info(this.processContext(context), message);
   }
 
   warn(message: string, context: LogContext = {}) {
-    this.logger.warn(this.processContext(context), message)
+    this.logger.warn(this.processContext(context), message);
   }
 
   error(message: string, error?: Error, context: LogContext = {}) {
     const errorContext = {
       ...this.processContext(context),
-      error: error ? {
-        message: error.message,
-        stack: error.stack,
-        name: error.name
-      } : undefined
-    }
-    this.logger.error(errorContext, message)
+      error: error
+        ? {
+            message: error.message,
+            stack: error.stack,
+            name: error.name,
+          }
+        : undefined,
+    };
+    this.logger.error(errorContext, message);
   }
 
   debug(message: string, context: LogContext = {}) {
-    this.logger.debug(this.processContext(context), message)
+    this.logger.debug(this.processContext(context), message);
   }
 
   // Webhook specific logging
-  webhookProcessed(topic: string, storeId: string, status: 'success' | 'error', duration?: number, context: LogContext = {}) {
+  webhookProcessed(
+    topic: string,
+    storeId: string,
+    status: 'success' | 'error',
+    duration?: number,
+    context: LogContext = {},
+  ) {
     this.info(`Webhook processed: ${topic}`, {
       ...context,
       storeId,
       topic,
       status,
-      duration
-    })
+      duration,
+    });
   }
 
   webhookError(topic: string, storeId: string, error: Error, context: LogContext = {}) {
     this.error(`Webhook processing failed: ${topic}`, error, {
       ...context,
       storeId,
-      topic
-    })
+      topic,
+    });
   }
 
   // Widget specific logging
@@ -145,28 +156,35 @@ export class TelemetryLogger {
       ...context,
       storeId,
       surface,
-      duration
-    })
+      duration,
+    });
   }
 
   widgetError(surface: string, storeId: string, error: Error, context: LogContext = {}) {
     this.error(`Widget render failed: ${surface}`, error, {
       ...context,
       storeId,
-      surface
-    })
+      surface,
+    });
   }
 
   // API specific logging
-  apiRequest(method: string, route: string, statusCode: number, duration: number, storeId?: string, context: LogContext = {}) {
+  apiRequest(
+    method: string,
+    route: string,
+    statusCode: number,
+    duration: number,
+    storeId?: string,
+    context: LogContext = {},
+  ) {
     this.info(`API request: ${method} ${route}`, {
       ...context,
       storeId,
       method,
       route,
       statusCode,
-      duration
-    })
+      duration,
+    });
   }
 
   // Job specific logging
@@ -174,8 +192,8 @@ export class TelemetryLogger {
     this.info(`Job started: ${jobType}`, {
       ...context,
       storeId,
-      jobType
-    })
+      jobType,
+    });
   }
 
   jobCompleted(jobType: string, storeId: string, duration: number, context: LogContext = {}) {
@@ -183,37 +201,49 @@ export class TelemetryLogger {
       ...context,
       storeId,
       jobType,
-      duration
-    })
+      duration,
+    });
   }
 
   jobFailed(jobType: string, storeId: string, error: Error, context: LogContext = {}) {
     this.error(`Job failed: ${jobType}`, error, {
       ...context,
       storeId,
-      jobType
-    })
+      jobType,
+    });
   }
 
   // Experiment specific logging
-  experimentAssignment(experimentId: string, variantId: string, storeId: string, subjectKey: string, context: LogContext = {}) {
+  experimentAssignment(
+    experimentId: string,
+    variantId: string,
+    storeId: string,
+    subjectKey: string,
+    context: LogContext = {},
+  ) {
     this.info(`Experiment assignment`, {
       ...context,
       experimentId,
       variantId,
       storeId,
-      subjectKey
-    })
+      subjectKey,
+    });
   }
 
-  experimentExposure(experimentId: string, variantId: string, surface: string, storeId: string, context: LogContext = {}) {
+  experimentExposure(
+    experimentId: string,
+    variantId: string,
+    surface: string,
+    storeId: string,
+    context: LogContext = {},
+  ) {
     this.info(`Experiment exposure`, {
       ...context,
       experimentId,
       variantId,
       surface,
-      storeId
-    })
+      storeId,
+    });
   }
 }
 
@@ -221,5 +251,5 @@ export class TelemetryLogger {
 export const logger = new TelemetryLogger({
   level: process.env.LOG_LEVEL || 'info',
   pretty: process.env.NODE_ENV === 'development',
-  redactPII: process.env.REDACT_PII !== 'false'
-})
+  redactPII: process.env.REDACT_PII !== 'false',
+});

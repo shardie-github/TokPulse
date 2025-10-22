@@ -1,24 +1,24 @@
-import { experimentEngine, AssignmentRequest, ExposureRequest } from './engine'
+import { experimentEngine } from './engine';
 
 export interface VanillaExperimentOptions {
-  orgId: string
-  storeId?: string
-  subjectKey: string
-  baseUrl?: string
+  orgId: string;
+  storeId?: string;
+  subjectKey: string;
+  baseUrl?: string;
 }
 
 export class VanillaExperimentClient {
-  private orgId: string
-  private storeId?: string
-  private subjectKey: string
-  private baseUrl: string
-  private assignments: Map<string, any> = new Map()
+  private orgId: string;
+  private storeId?: string;
+  private subjectKey: string;
+  private baseUrl: string;
+  private assignments: Map<string, any> = new Map();
 
   constructor(options: VanillaExperimentOptions) {
-    this.orgId = options.orgId
-    this.storeId = options.storeId
-    this.subjectKey = options.subjectKey
-    this.baseUrl = options.baseUrl || ''
+    this.orgId = options.orgId;
+    this.storeId = options.storeId;
+    this.subjectKey = options.subjectKey;
+    this.baseUrl = options.baseUrl || '';
   }
 
   /**
@@ -27,7 +27,7 @@ export class VanillaExperimentClient {
   async getAssignment(experimentKey: string): Promise<any> {
     // Check cache first
     if (this.assignments.has(experimentKey)) {
-      return this.assignments.get(experimentKey)
+      return this.assignments.get(experimentKey);
     }
 
     try {
@@ -35,17 +35,17 @@ export class VanillaExperimentClient {
         orgId: this.orgId,
         storeId: this.storeId,
         subjectKey: this.subjectKey,
-        experimentKey
-      })
+        experimentKey,
+      });
 
       if (assignment) {
-        this.assignments.set(experimentKey, assignment)
+        this.assignments.set(experimentKey, assignment);
       }
 
-      return assignment
+      return assignment;
     } catch (error) {
-      console.error('Failed to get experiment assignment:', error)
-      return null
+      console.error('Failed to get experiment assignment:', error);
+      return null;
     }
   }
 
@@ -59,13 +59,13 @@ export class VanillaExperimentClient {
         storeId: this.storeId!,
         subjectKey: this.subjectKey,
         experimentKey,
-        surface
-      })
+        surface,
+      });
 
-      return result?.recorded || false
+      return result?.recorded || false;
     } catch (error) {
-      console.error('Failed to record experiment exposure:', error)
-      return false
+      console.error('Failed to record experiment exposure:', error);
+      return false;
     }
   }
 
@@ -73,73 +73,73 @@ export class VanillaExperimentClient {
    * Get experiment configuration with automatic exposure recording
    */
   async getExperimentConfig(experimentKey: string, surface: string = 'vanilla'): Promise<any> {
-    const assignment = await this.getAssignment(experimentKey)
-    
+    const assignment = await this.getAssignment(experimentKey);
+
     if (assignment) {
       // Record exposure asynchronously
-      this.recordExposure(experimentKey, surface).catch(console.error)
+      this.recordExposure(experimentKey, surface).catch(console.error);
     }
 
-    return assignment?.config || null
+    return assignment?.config || null;
   }
 
   /**
    * Check if subject is in a specific variant
    */
   async isInVariant(experimentKey: string, variantKey: string): Promise<boolean> {
-    const assignment = await this.getAssignment(experimentKey)
-    return assignment?.variantKey === variantKey
+    const assignment = await this.getAssignment(experimentKey);
+    return assignment?.variantKey === variantKey;
   }
 
   /**
    * Get all active experiments for the organization
    */
   async getActiveExperiments(): Promise<any[]> {
-    return experimentEngine.getActiveExperiments(this.orgId, this.storeId)
+    return experimentEngine.getActiveExperiments(this.orgId, this.storeId);
   }
 
   /**
    * Clear local cache
    */
   clearCache() {
-    this.assignments.clear()
+    this.assignments.clear();
   }
 }
 
 // Global instance for easy access
-let globalClient: VanillaExperimentClient | null = null
+let globalClient: VanillaExperimentClient | null = null;
 
 export function initExperiments(options: VanillaExperimentOptions) {
-  globalClient = new VanillaExperimentClient(options)
-  return globalClient
+  globalClient = new VanillaExperimentClient(options);
+  return globalClient;
 }
 
 export function getExperiments(): VanillaExperimentClient {
   if (!globalClient) {
-    throw new Error('Experiments not initialized. Call initExperiments() first.')
+    throw new Error('Experiments not initialized. Call initExperiments() first.');
   }
-  return globalClient
+  return globalClient;
 }
 
 // Convenience functions for global client
 export async function getAssignment(experimentKey: string) {
-  return getExperiments().getAssignment(experimentKey)
+  return getExperiments().getAssignment(experimentKey);
 }
 
 export async function recordExposure(experimentKey: string, surface: string = 'vanilla') {
-  return getExperiments().recordExposure(experimentKey, surface)
+  return getExperiments().recordExposure(experimentKey, surface);
 }
 
 export async function getExperimentConfig(experimentKey: string, surface: string = 'vanilla') {
-  return getExperiments().getExperimentConfig(experimentKey, surface)
+  return getExperiments().getExperimentConfig(experimentKey, surface);
 }
 
 export async function isInVariant(experimentKey: string, variantKey: string) {
-  return getExperiments().isInVariant(experimentKey, variantKey)
+  return getExperiments().isInVariant(experimentKey, variantKey);
 }
 
 export async function getActiveExperiments() {
-  return getExperiments().getActiveExperiments()
+  return getExperiments().getActiveExperiments();
 }
 
 // Theme Extension bootstrap helper
@@ -206,5 +206,5 @@ export function createThemeBootstrapScript(options: VanillaExperimentOptions): s
         }
       };
     })();
-  `
+  `;
 }

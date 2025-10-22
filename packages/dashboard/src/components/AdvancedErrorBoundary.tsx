@@ -1,5 +1,6 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw, Bug, Home, ArrowLeft } from 'lucide-react';
+import type { ErrorInfo, ReactNode } from 'react';
+import React, { Component } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -39,12 +40,12 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('AdvancedErrorBoundary caught an error:', error, errorInfo);
-    
+
     this.setState({ errorInfo });
-    
+
     // Call custom error handler
     this.props.onError?.(error, errorInfo);
-    
+
     // Log to external service in production
     if (process.env.NODE_ENV === 'production') {
       this.logErrorToService(error, errorInfo);
@@ -56,8 +57,8 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
     const { hasError, retryCount } = this.state;
 
     if (hasError && resetOnPropsChange && resetKeys) {
-      const hasResetKeyChanged = resetKeys.some((key, index) => 
-        key !== prevProps.resetKeys?.[index]
+      const hasResetKeyChanged = resetKeys.some(
+        (key, index) => key !== prevProps.resetKeys?.[index],
       );
 
       if (hasResetKeyChanged) {
@@ -96,7 +97,7 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       hasError: false,
       error: undefined,
       errorInfo: undefined,
@@ -144,7 +145,8 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
               </h1>
 
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                We're sorry, but something unexpected happened. Our team has been notified and we're working to fix it.
+                We're sorry, but something unexpected happened. Our team has been notified and we're
+                working to fix it.
               </p>
 
               {this.state.errorId && (
@@ -214,7 +216,7 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
 // Higher-order component for easy error boundary wrapping
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  errorBoundaryProps?: Omit<Props, 'children'>
+  errorBoundaryProps?: Omit<Props, 'children'>,
 ) {
   const WrappedComponent = (props: P) => (
     <AdvancedErrorBoundary {...errorBoundaryProps}>
@@ -223,6 +225,6 @@ export function withErrorBoundary<P extends object>(
   );
 
   WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
-  
+
   return WrappedComponent;
 }

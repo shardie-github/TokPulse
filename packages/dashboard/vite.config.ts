@@ -1,7 +1,7 @@
 /* TokPulse — © Hardonia. MIT. */
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
@@ -11,8 +11,8 @@ export default defineConfig(({ mode }) => ({
       '@/components': resolve(__dirname, './src/components'),
       '@/lib': resolve(__dirname, './src/lib'),
       '@/state': resolve(__dirname, './src/state'),
-      '@/pages': resolve(__dirname, './src/pages')
-    }
+      '@/pages': resolve(__dirname, './src/pages'),
+    },
   },
   build: {
     target: 'es2020',
@@ -26,18 +26,18 @@ export default defineConfig(({ mode }) => ({
           motion: ['framer-motion'],
           state: ['zustand'],
           icons: ['lucide-react'],
-          utils: ['axios', 'clsx', 'dayjs']
-        }
-      }
-    }
+          utils: ['axios', 'clsx', 'dayjs'],
+        },
+      },
+    },
   },
-  server: { 
+  server: {
     port: 5173,
-    host: true
+    host: true,
   },
   preview: {
     port: 4173,
-    host: true
+    host: true,
   },
   test: {
     globals: true,
@@ -46,21 +46,15 @@ export default defineConfig(({ mode }) => ({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/test/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '**/index.ts'
-      ],
+      exclude: ['node_modules/', 'src/test/', '**/*.d.ts', '**/*.config.*', '**/index.ts'],
       thresholds: {
         global: {
           branches: 80,
           functions: 80,
           lines: 80,
-          statements: 80
-        }
-      }
-    }
-  }
-}))
+          statements: 80,
+        },
+      },
+    },
+  },
+}));

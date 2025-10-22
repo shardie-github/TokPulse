@@ -1,7 +1,7 @@
 /* TokPulse — © Hardonia. MIT. */
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import crypto from 'node:crypto';
 
 const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), 'var', 'data');
 const FILE = path.join(DATA_DIR, 'meta-ids.jsonl');
@@ -19,8 +19,12 @@ export function seen(fp) {
   ensureStore();
   // quick contains: scan tail; for MVP we just append and accept O(n) read (low volume)
   const last = fs.readFileSync(FILE, 'utf-8').trim().split('\n').slice(-5000);
-  return last.some(line => {
-    try { return JSON.parse(line).fp === fp; } catch { return false; }
+  return last.some((line) => {
+    try {
+      return JSON.parse(line).fp === fp;
+    } catch {
+      return false;
+    }
   });
 }
 

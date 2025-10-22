@@ -2,4 +2,3 @@
 > @tokpulse/theme-ext@0.0.0 build /workspace/packages/theme-ext
 > echo 'Theme extension build - no build step needed'
 
-Theme extension build - no build step needed

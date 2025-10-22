@@ -1,48 +1,49 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react'
-import { AlertTriangle, RefreshCw, Home, Bug } from 'lucide-react'
+import { AlertTriangle, RefreshCw, Home, Bug } from 'lucide-react';
+import type { ErrorInfo, ReactNode } from 'react';
+import React, { Component } from 'react';
 
 interface Props {
-  children: ReactNode
-  fallback?: ReactNode
-  onError?: (error: Error, errorInfo: ErrorInfo) => void
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
 interface State {
-  hasError: boolean
-  error: Error | null
-  errorInfo: ErrorInfo | null
-  retryCount: number
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
+  retryCount: number;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  private maxRetries = 3
+  private maxRetries = 3;
 
   constructor(props: Props) {
-    super(props)
+    super(props);
     this.state = {
       hasError: false,
       error: null,
       errorInfo: null,
       retryCount: 0,
-    }
+    };
   }
 
   static getDerivedStateFromError(error: Error): Partial<State> {
     return {
       hasError: true,
       error,
-    }
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error,
       errorInfo,
-    })
+    });
 
     // Log error to monitoring service
     if (this.props.onError) {
-      this.props.onError(error, errorInfo)
+      this.props.onError(error, errorInfo);
     }
 
     // Send error to error tracking service
@@ -51,28 +52,28 @@ export class ErrorBoundary extends Component<Props, State> {
         component: 'ErrorBoundary',
         errorInfo: errorInfo.componentStack,
         retryCount: this.state.retryCount,
-      })
+      });
     }
   }
 
   handleRetry = () => {
     if (this.state.retryCount < this.maxRetries) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         hasError: false,
         error: null,
         errorInfo: null,
         retryCount: prevState.retryCount + 1,
-      }))
+      }));
     }
-  }
+  };
 
   handleReload = () => {
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   handleGoHome = () => {
-    window.location.href = '/'
-  }
+    window.location.href = '/';
+  };
 
   handleReportBug = () => {
     const errorDetails = {
@@ -83,20 +84,20 @@ export class ErrorBoundary extends Component<Props, State> {
       userAgent: navigator.userAgent,
       url: window.location.href,
       timestamp: new Date().toISOString(),
-    }
+    };
 
     // Open bug report with pre-filled information
     const bugReportUrl = `mailto:support@tokpulse.com?subject=Bug Report&body=${encodeURIComponent(
-      JSON.stringify(errorDetails, null, 2)
-    )}`
-    
-    window.open(bugReportUrl)
-  }
+      JSON.stringify(errorDetails, null, 2),
+    )}`;
+
+    window.open(bugReportUrl);
+  };
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback
+        return this.props.fallback;
       }
 
       return (
@@ -172,56 +173,56 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
           </div>
         </div>
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }
 
 // Hook for functional components
 export function useErrorHandler() {
-  const [error, setError] = React.useState<Error | null>(null)
+  const [error, setError] = React.useState<Error | null>(null);
 
   const resetError = React.useCallback(() => {
-    setError(null)
-  }, [])
+    setError(null);
+  }, []);
 
   const captureError = React.useCallback((error: Error) => {
-    setError(error)
-    
+    setError(error);
+
     // Send to error tracking service
     if (typeof window !== 'undefined' && (window as any).errorTracker) {
       (window as any).errorTracker.captureError(error, {
         component: 'useErrorHandler',
         hook: true,
-      })
+      });
     }
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     if (error) {
-      throw error
+      throw error;
     }
-  }, [error])
+  }, [error]);
 
-  return { captureError, resetError }
+  return { captureError, resetError };
 }
 
 // Higher-order component for error boundaries
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  errorBoundaryProps?: Omit<Props, 'children'>
+  errorBoundaryProps?: Omit<Props, 'children'>,
 ) {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary {...errorBoundaryProps}>
       <Component {...props} />
     </ErrorBoundary>
-  )
+  );
 
-  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`
+  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
 
-  return WrappedComponent
+  return WrappedComponent;
 }
 
-export default ErrorBoundary
+export default ErrorBoundary;

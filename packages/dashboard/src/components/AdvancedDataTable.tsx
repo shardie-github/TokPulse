@@ -1,5 +1,5 @@
+import { ChevronUp, ChevronDown, Search, Filter, Download } from 'lucide-react';
 import React, { useState, useMemo, useCallback } from 'react';
-import { ChevronUp, ChevronDown, Search, Filter, Download, MoreHorizontal } from 'lucide-react';
 
 export interface Column<T> {
   key: keyof T | string;
@@ -69,17 +69,17 @@ export function AdvancedDataTable<T extends Record<string, any>>({
 
     // Apply search
     if (searchTerm) {
-      result = result.filter(item =>
-        columns.some(column => {
+      result = result.filter((item) =>
+        columns.some((column) => {
           const value = getNestedValue(item, column.key as string);
           return String(value).toLowerCase().includes(searchTerm.toLowerCase());
-        })
+        }),
       );
     }
 
     // Apply filters
-    filters.forEach(filter => {
-      result = result.filter(item => {
+    filters.forEach((filter) => {
+      result = result.filter((item) => {
         const value = getNestedValue(item, filter.key);
         const filterValue = filter.value.toLowerCase();
         const itemValue = String(value).toLowerCase();
@@ -140,70 +140,84 @@ export function AdvancedDataTable<T extends Record<string, any>>({
   };
 
   // Handle sorting
-  const handleSort = useCallback((key: string) => {
-    if (!sortable) return;
+  const handleSort = useCallback(
+    (key: string) => {
+      if (!sortable) return;
 
-    setSortConfig(prev => {
-      if (prev?.key === key) {
-        return {
-          key,
-          direction: prev.direction === 'asc' ? 'desc' : 'asc',
-        };
-      }
-      return { key, direction: 'asc' };
-    });
-  }, [sortable]);
+      setSortConfig((prev) => {
+        if (prev?.key === key) {
+          return {
+            key,
+            direction: prev.direction === 'asc' ? 'desc' : 'asc',
+          };
+        }
+        return { key, direction: 'asc' };
+      });
+    },
+    [sortable],
+  );
 
   // Handle filtering
-  const handleFilter = useCallback((key: string, value: string, operator: FilterConfig['operator'] = 'contains') => {
-    setFilters(prev => {
-      const existing = prev.find(f => f.key === key);
-      if (existing) {
-        if (!value) {
-          return prev.filter(f => f.key !== key);
+  const handleFilter = useCallback(
+    (key: string, value: string, operator: FilterConfig['operator'] = 'contains') => {
+      setFilters((prev) => {
+        const existing = prev.find((f) => f.key === key);
+        if (existing) {
+          if (!value) {
+            return prev.filter((f) => f.key !== key);
+          }
+          return prev.map((f) => (f.key === key ? { ...f, value, operator } : f));
         }
-        return prev.map(f => f.key === key ? { ...f, value, operator } : f);
-      }
-      if (value) {
-        return [...prev, { key, value, operator }];
-      }
-      return prev;
-    });
-  }, []);
+        if (value) {
+          return [...prev, { key, value, operator }];
+        }
+        return prev;
+      });
+    },
+    [],
+  );
 
   // Handle selection
-  const handleSelectAll = useCallback((checked: boolean) => {
-    if (checked) {
-      setSelectedItems(paginatedData);
-      onSelectionChange?.(paginatedData);
-    } else {
-      setSelectedItems([]);
-      onSelectionChange?.([]);
-    }
-  }, [paginatedData, onSelectionChange]);
+  const handleSelectAll = useCallback(
+    (checked: boolean) => {
+      if (checked) {
+        setSelectedItems(paginatedData);
+        onSelectionChange?.(paginatedData);
+      } else {
+        setSelectedItems([]);
+        onSelectionChange?.([]);
+      }
+    },
+    [paginatedData, onSelectionChange],
+  );
 
-  const handleSelectItem = useCallback((item: T, checked: boolean) => {
-    if (checked) {
-      const newSelection = [...selectedItems, item];
-      setSelectedItems(newSelection);
-      onSelectionChange?.(newSelection);
-    } else {
-      const newSelection = selectedItems.filter(selected => selected !== item);
-      setSelectedItems(newSelection);
-      onSelectionChange?.(newSelection);
-    }
-  }, [selectedItems, onSelectionChange]);
+  const handleSelectItem = useCallback(
+    (item: T, checked: boolean) => {
+      if (checked) {
+        const newSelection = [...selectedItems, item];
+        setSelectedItems(newSelection);
+        onSelectionChange?.(newSelection);
+      } else {
+        const newSelection = selectedItems.filter((selected) => selected !== item);
+        setSelectedItems(newSelection);
+        onSelectionChange?.(newSelection);
+      }
+    },
+    [selectedItems, onSelectionChange],
+  );
 
   // Export data
   const handleExport = useCallback(() => {
     const csvContent = [
-      columns.map(col => col.title).join(','),
-      ...paginatedData.map(item =>
-        columns.map(col => {
-          const value = getNestedValue(item, col.key as string);
-          return `"${String(value).replace(/"/g, '""')}"`;
-        }).join(',')
-      )
+      columns.map((col) => col.title).join(','),
+      ...paginatedData.map((item) =>
+        columns
+          .map((col) => {
+            const value = getNestedValue(item, col.key as string);
+            return `"${String(value).replace(/"/g, '""')}"`;
+          })
+          .join(','),
+      ),
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -275,8 +289,8 @@ export function AdvancedDataTable<T extends Record<string, any>>({
           <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {columns
-                .filter(col => col.filterable)
-                .map(column => (
+                .filter((col) => col.filterable)
+                .map((column) => (
                   <div key={String(column.key)}>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       {column.title}
@@ -284,7 +298,7 @@ export function AdvancedDataTable<T extends Record<string, any>>({
                     <input
                       type="text"
                       placeholder={`Filter by ${column.title.toLowerCase()}...`}
-                      value={filters.find(f => f.key === column.key)?.value || ''}
+                      value={filters.find((f) => f.key === column.key)?.value || ''}
                       onChange={(e) => handleFilter(String(column.key), e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     />
@@ -304,13 +318,15 @@ export function AdvancedDataTable<T extends Record<string, any>>({
                 <th className="px-4 py-3 text-left">
                   <input
                     type="checkbox"
-                    checked={selectedItems.length === paginatedData.length && paginatedData.length > 0}
+                    checked={
+                      selectedItems.length === paginatedData.length && paginatedData.length > 0
+                    }
                     onChange={(e) => handleSelectAll(e.target.checked)}
                     className="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
                   />
                 </th>
               )}
-              {columns.map(column => (
+              {columns.map((column) => (
                 <th
                   key={String(column.key)}
                   className={`px-4 py-3 text-${column.align || 'left'} ${column.className || ''}`}
@@ -373,7 +389,7 @@ export function AdvancedDataTable<T extends Record<string, any>>({
                       />
                     </td>
                   )}
-                  {columns.map(column => (
+                  {columns.map((column) => (
                     <td
                       key={String(column.key)}
                       className={`px-4 py-3 text-${column.align || 'left'} ${column.className || ''}`}
@@ -396,11 +412,12 @@ export function AdvancedDataTable<T extends Record<string, any>>({
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-700 dark:text-gray-300">
               Showing {Math.min((currentPage - 1) * pageSize + 1, filteredData.length)} to{' '}
-              {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} results
+              {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length}{' '}
+              results
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
                 className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -425,7 +442,7 @@ export function AdvancedDataTable<T extends Record<string, any>>({
                 })}
               </div>
               <button
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
                 className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
               >

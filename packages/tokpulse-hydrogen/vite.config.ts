@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
 import { shopify } from '@shopify/hydrogen/vite';
 import { react } from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [

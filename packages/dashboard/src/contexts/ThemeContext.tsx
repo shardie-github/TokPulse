@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { applyTheme, currentTheme } from '../lib/theme';
+import type { ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { applyTheme } from '../lib/theme';
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -18,10 +19,10 @@ interface ThemeProviderProps {
   storageKey?: string;
 }
 
-export function ThemeProvider({ 
-  children, 
+export function ThemeProvider({
+  children,
   defaultTheme = 'system',
-  storageKey = 'tp_theme'
+  storageKey = 'tp_theme',
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window === 'undefined') return defaultTheme;
@@ -30,14 +31,14 @@ export function ThemeProvider({
 
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') return 'light';
-    
+
     const stored = localStorage.getItem(storageKey) as Theme;
     const resolvedTheme = stored || defaultTheme;
-    
+
     if (resolvedTheme === 'system') {
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    
+
     return resolvedTheme;
   });
 
@@ -54,7 +55,7 @@ export function ThemeProvider({
     if (theme !== 'system') return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setActualTheme(e.matches ? 'dark' : 'light');
     };
@@ -84,11 +85,7 @@ export function ThemeProvider({
     isSystemTheme,
   };
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme(): ThemeContextType {
@@ -101,7 +98,7 @@ export function useTheme(): ThemeContextType {
 
 // Higher-order component for theme-aware components
 export function withTheme<P extends object>(
-  Component: React.ComponentType<P & { theme: ThemeContextType }>
+  Component: React.ComponentType<P & { theme: ThemeContextType }>,
 ) {
   return function ThemedComponent(props: P) {
     const theme = useTheme();

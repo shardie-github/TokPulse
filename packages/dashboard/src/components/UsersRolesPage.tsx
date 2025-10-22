@@ -1,118 +1,118 @@
-import React, { useState, useEffect } from 'react'
-import { 
-  Card, 
-  Button, 
-  Badge, 
-  Modal, 
-  TextField, 
-  Select, 
-  DataTable, 
+import {
+  Card,
+  Button,
+  Badge,
+  Modal,
+  TextField,
+  Select,
+  DataTable,
   ButtonGroup,
   Toast,
   Spinner,
-  EmptyState
-} from '@shopify/polaris'
+  EmptyState,
+} from '@shopify/polaris';
+import React, { useState, useEffect } from 'react';
 
 interface User {
-  id: string
-  email: string
-  name: string
-  role: string
-  createdAt: string
-  updatedAt: string
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Store {
-  id: string
-  shopDomain: string
-  status: string
-  region: string
-  createdAt: string
+  id: string;
+  shopDomain: string;
+  status: string;
+  region: string;
+  createdAt: string;
 }
 
 interface AuditLog {
-  id: string
-  action: string
-  resource: string
-  resourceId?: string
-  changes?: any
-  userId: string
-  storeId?: string
-  createdAt: string
+  id: string;
+  action: string;
+  resource: string;
+  resourceId?: string;
+  changes?: any;
+  userId: string;
+  storeId?: string;
+  createdAt: string;
 }
 
 export default function UsersRolesPage() {
-  const [users, setUsers] = useState<User[]>([])
-  const [stores, setStores] = useState<Store[]>([])
-  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [toast, setToast] = useState<{ content: string; isError?: boolean } | null>(null)
-  
+  const [users, setUsers] = useState<User[]>([]);
+  const [stores, setStores] = useState<Store[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ content: string; isError?: boolean } | null>(null);
+
   // Modal states
-  const [inviteModalOpen, setInviteModalOpen] = useState(false)
-  const [roleModalOpen, setRoleModalOpen] = useState(false)
-  const [connectStoreModalOpen, setConnectStoreModalOpen] = useState(false)
-  const [selectedUser, setSelectedUser] = useState<User | null>(null)
-  
+  const [inviteModalOpen, setInviteModalOpen] = useState(false);
+  const [roleModalOpen, setRoleModalOpen] = useState(false);
+  const [connectStoreModalOpen, setConnectStoreModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
   // Form states
-  const [inviteEmail, setInviteEmail] = useState('')
-  const [inviteRole, setInviteRole] = useState('ANALYST')
-  const [newRole, setNewRole] = useState('')
-  const [storeId, setStoreId] = useState('')
-  const [isDefaultStore, setIsDefaultStore] = useState(false)
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteRole, setInviteRole] = useState('ANALYST');
+  const [newRole, setNewRole] = useState('');
+  const [storeId, setStoreId] = useState('');
+  const [isDefaultStore, setIsDefaultStore] = useState(false);
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   const loadData = async () => {
     try {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
       const [usersRes, storesRes, auditLogsRes] = await Promise.all([
         fetch('/api/rbac/users', {
           headers: {
             'x-user-id': 'dev-user-123',
-            'x-organization-id': 'dev-org-123'
-          }
+            'x-organization-id': 'dev-org-123',
+          },
         }),
         fetch('/api/rbac/stores', {
           headers: {
             'x-user-id': 'dev-user-123',
-            'x-organization-id': 'dev-org-123'
-          }
+            'x-organization-id': 'dev-org-123',
+          },
         }),
         fetch('/api/rbac/audit-logs', {
           headers: {
             'x-user-id': 'dev-user-123',
-            'x-organization-id': 'dev-org-123'
-          }
-        })
-      ])
+            'x-organization-id': 'dev-org-123',
+          },
+        }),
+      ]);
 
       if (usersRes.ok) {
-        const usersData = await usersRes.json()
-        setUsers(usersData.users)
+        const usersData = await usersRes.json();
+        setUsers(usersData.users);
       }
 
       if (storesRes.ok) {
-        const storesData = await storesRes.json()
-        setStores(storesData.stores)
+        const storesData = await storesRes.json();
+        setStores(storesData.stores);
       }
 
       if (auditLogsRes.ok) {
-        const auditLogsData = await auditLogsRes.json()
-        setAuditLogs(auditLogsData.logs)
+        const auditLogsData = await auditLogsRes.json();
+        setAuditLogs(auditLogsData.logs);
       }
     } catch (err) {
-      setError('Failed to load data')
-      console.error('Load data error:', err)
+      setError('Failed to load data');
+      console.error('Load data error:', err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleInviteUser = async () => {
     try {
@@ -121,32 +121,32 @@ export default function UsersRolesPage() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-id': 'dev-user-123',
-          'x-organization-id': 'dev-org-123'
+          'x-organization-id': 'dev-org-123',
         },
         body: JSON.stringify({
           email: inviteEmail,
-          role: inviteRole
-        })
-      })
+          role: inviteRole,
+        }),
+      });
 
       if (response.ok) {
-        setToast({ content: 'User invited successfully' })
-        setInviteModalOpen(false)
-        setInviteEmail('')
-        setInviteRole('ANALYST')
-        await loadData()
+        setToast({ content: 'User invited successfully' });
+        setInviteModalOpen(false);
+        setInviteEmail('');
+        setInviteRole('ANALYST');
+        await loadData();
       } else {
-        const errorData = await response.json()
-        setToast({ content: errorData.error || 'Failed to invite user', isError: true })
+        const errorData = await response.json();
+        setToast({ content: errorData.error || 'Failed to invite user', isError: true });
       }
     } catch (err) {
-      setToast({ content: 'Failed to invite user', isError: true })
-      console.error('Invite user error:', err)
+      setToast({ content: 'Failed to invite user', isError: true });
+      console.error('Invite user error:', err);
     }
-  }
+  };
 
   const handleUpdateRole = async () => {
-    if (!selectedUser) return
+    if (!selectedUser) return;
 
     try {
       const response = await fetch(`/api/rbac/users/${selectedUser.id}/role`, {
@@ -154,32 +154,32 @@ export default function UsersRolesPage() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-id': 'dev-user-123',
-          'x-organization-id': 'dev-org-123'
+          'x-organization-id': 'dev-org-123',
         },
         body: JSON.stringify({
-          role: newRole
-        })
-      })
+          role: newRole,
+        }),
+      });
 
       if (response.ok) {
-        setToast({ content: 'User role updated successfully' })
-        setRoleModalOpen(false)
-        setSelectedUser(null)
-        setNewRole('')
-        await loadData()
+        setToast({ content: 'User role updated successfully' });
+        setRoleModalOpen(false);
+        setSelectedUser(null);
+        setNewRole('');
+        await loadData();
       } else {
-        const errorData = await response.json()
-        setToast({ content: errorData.error || 'Failed to update role', isError: true })
+        const errorData = await response.json();
+        setToast({ content: errorData.error || 'Failed to update role', isError: true });
       }
     } catch (err) {
-      setToast({ content: 'Failed to update role', isError: true })
-      console.error('Update role error:', err)
+      setToast({ content: 'Failed to update role', isError: true });
+      console.error('Update role error:', err);
     }
-  }
+  };
 
   const handleRemoveUser = async (userId: string) => {
     if (!confirm('Are you sure you want to remove this user?')) {
-      return
+      return;
     }
 
     try {
@@ -187,22 +187,22 @@ export default function UsersRolesPage() {
         method: 'DELETE',
         headers: {
           'x-user-id': 'dev-user-123',
-          'x-organization-id': 'dev-org-123'
-        }
-      })
+          'x-organization-id': 'dev-org-123',
+        },
+      });
 
       if (response.ok) {
-        setToast({ content: 'User removed successfully' })
-        await loadData()
+        setToast({ content: 'User removed successfully' });
+        await loadData();
       } else {
-        const errorData = await response.json()
-        setToast({ content: errorData.error || 'Failed to remove user', isError: true })
+        const errorData = await response.json();
+        setToast({ content: errorData.error || 'Failed to remove user', isError: true });
       }
     } catch (err) {
-      setToast({ content: 'Failed to remove user', isError: true })
-      console.error('Remove user error:', err)
+      setToast({ content: 'Failed to remove user', isError: true });
+      console.error('Remove user error:', err);
     }
-  }
+  };
 
   const handleConnectStore = async () => {
     try {
@@ -211,83 +211,81 @@ export default function UsersRolesPage() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-id': 'dev-user-123',
-          'x-organization-id': 'dev-org-123'
+          'x-organization-id': 'dev-org-123',
         },
         body: JSON.stringify({
           storeId,
-          isDefault: isDefaultStore
-        })
-      })
+          isDefault: isDefaultStore,
+        }),
+      });
 
       if (response.ok) {
-        setToast({ content: 'Store connected successfully' })
-        setConnectStoreModalOpen(false)
-        setStoreId('')
-        setIsDefaultStore(false)
-        await loadData()
+        setToast({ content: 'Store connected successfully' });
+        setConnectStoreModalOpen(false);
+        setStoreId('');
+        setIsDefaultStore(false);
+        await loadData();
       } else {
-        const errorData = await response.json()
-        setToast({ content: errorData.error || 'Failed to connect store', isError: true })
+        const errorData = await response.json();
+        setToast({ content: errorData.error || 'Failed to connect store', isError: true });
       }
     } catch (err) {
-      setToast({ content: 'Failed to connect store', isError: true })
-      console.error('Connect store error:', err)
+      setToast({ content: 'Failed to connect store', isError: true });
+      console.error('Connect store error:', err);
     }
-  }
+  };
 
   const getRoleBadge = (role: string) => {
     const roleMap = {
       OWNER: { status: 'success' as const, children: 'Owner' },
       ADMIN: { status: 'info' as const, children: 'Admin' },
       ANALYST: { status: 'warning' as const, children: 'Analyst' },
-      VIEWER: { status: 'attention' as const, children: 'Viewer' }
-    }
-    return roleMap[role as keyof typeof roleMap] || { status: 'info' as const, children: role }
-  }
+      VIEWER: { status: 'attention' as const, children: 'Viewer' },
+    };
+    return roleMap[role as keyof typeof roleMap] || { status: 'info' as const, children: role };
+  };
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
       ACTIVE: { status: 'success' as const, children: 'Active' },
       SUSPENDED: { status: 'warning' as const, children: 'Suspended' },
-      UNINSTALLED: { status: 'critical' as const, children: 'Uninstalled' }
-    }
-    return statusMap[status as keyof typeof statusMap] || { status: 'info' as const, children: status }
-  }
+      UNINSTALLED: { status: 'critical' as const, children: 'Uninstalled' },
+    };
+    return (
+      statusMap[status as keyof typeof statusMap] || { status: 'info' as const, children: status }
+    );
+  };
 
-  const usersTableRows = users.map(user => [
+  const usersTableRows = users.map((user) => [
     user.email,
     user.name || 'No name',
     <Badge key={user.id} {...getRoleBadge(user.role)} />,
     new Date(user.createdAt).toLocaleDateString(),
     <ButtonGroup key={`actions-${user.id}`}>
-      <Button 
-        size="slim" 
+      <Button
+        size="slim"
         onClick={() => {
-          setSelectedUser(user)
-          setNewRole(user.role)
-          setRoleModalOpen(true)
+          setSelectedUser(user);
+          setNewRole(user.role);
+          setRoleModalOpen(true);
         }}
       >
         Change Role
       </Button>
-      <Button 
-        size="slim" 
-        destructive
-        onClick={() => handleRemoveUser(user.id)}
-      >
+      <Button size="slim" destructive onClick={() => handleRemoveUser(user.id)}>
         Remove
       </Button>
-    </ButtonGroup>
-  ])
+    </ButtonGroup>,
+  ]);
 
-  const storesTableRows = stores.map(store => [
+  const storesTableRows = stores.map((store) => [
     store.shopDomain,
     <Badge key={store.id} {...getStatusBadge(store.status)} />,
     store.region,
     new Date(store.createdAt).toLocaleDateString(),
-    <Button 
+    <Button
       key={`disconnect-${store.id}`}
-      size="slim" 
+      size="slim"
       destructive
       onClick={() => {
         if (confirm('Are you sure you want to disconnect this store?')) {
@@ -296,16 +294,16 @@ export default function UsersRolesPage() {
       }}
     >
       Disconnect
-    </Button>
-  ])
+    </Button>,
+  ]);
 
-  const auditLogsTableRows = auditLogs.map(log => [
+  const auditLogsTableRows = auditLogs.map((log) => [
     log.action,
     log.resource,
     log.resourceId || '-',
     log.userId,
-    new Date(log.createdAt).toLocaleString()
-  ])
+    new Date(log.createdAt).toLocaleString(),
+  ]);
 
   if (loading) {
     return (
@@ -313,7 +311,7 @@ export default function UsersRolesPage() {
         <Spinner size="large" />
         <p>Loading users and roles...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -321,16 +319,19 @@ export default function UsersRolesPage() {
       <h1>Users & Roles</h1>
 
       {toast && (
-        <Toast
-          content={toast.content}
-          error={toast.isError}
-          onDismiss={() => setToast(null)}
-        />
+        <Toast content={toast.content} error={toast.isError} onDismiss={() => setToast(null)} />
       )}
 
       {/* Users Section */}
       <Card sectioned>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1rem',
+          }}
+        >
           <h2>Team Members</h2>
           <Button primary onClick={() => setInviteModalOpen(true)}>
             Invite User
@@ -342,7 +343,7 @@ export default function UsersRolesPage() {
             heading="No team members yet"
             action={{
               content: 'Invite your first team member',
-              onAction: () => setInviteModalOpen(true)
+              onAction: () => setInviteModalOpen(true),
             }}
             image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
           />
@@ -357,11 +358,16 @@ export default function UsersRolesPage() {
 
       {/* Stores Section */}
       <Card sectioned>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1rem',
+          }}
+        >
           <h2>Connected Stores</h2>
-          <Button onClick={() => setConnectStoreModalOpen(true)}>
-            Connect Store
-          </Button>
+          <Button onClick={() => setConnectStoreModalOpen(true)}>Connect Store</Button>
         </div>
 
         {stores.length === 0 ? (
@@ -369,7 +375,7 @@ export default function UsersRolesPage() {
             heading="No stores connected"
             action={{
               content: 'Connect your first store',
-              onAction: () => setConnectStoreModalOpen(true)
+              onAction: () => setConnectStoreModalOpen(true),
             }}
             image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
           />
@@ -406,12 +412,14 @@ export default function UsersRolesPage() {
         title="Invite User"
         primaryAction={{
           content: 'Send Invite',
-          onAction: handleInviteUser
+          onAction: handleInviteUser,
         }}
-        secondaryActions={[{
-          content: 'Cancel',
-          onAction: () => setInviteModalOpen(false)
-        }]}
+        secondaryActions={[
+          {
+            content: 'Cancel',
+            onAction: () => setInviteModalOpen(false),
+          },
+        ]}
       >
         <Modal.Section>
           <TextField
@@ -427,7 +435,7 @@ export default function UsersRolesPage() {
               options={[
                 { label: 'Viewer', value: 'VIEWER' },
                 { label: 'Analyst', value: 'ANALYST' },
-                { label: 'Admin', value: 'ADMIN' }
+                { label: 'Admin', value: 'ADMIN' },
               ]}
               value={inviteRole}
               onChange={setInviteRole}
@@ -443,15 +451,19 @@ export default function UsersRolesPage() {
         title="Change User Role"
         primaryAction={{
           content: 'Update Role',
-          onAction: handleUpdateRole
+          onAction: handleUpdateRole,
         }}
-        secondaryActions={[{
-          content: 'Cancel',
-          onAction: () => setRoleModalOpen(false)
-        }]}
+        secondaryActions={[
+          {
+            content: 'Cancel',
+            onAction: () => setRoleModalOpen(false),
+          },
+        ]}
       >
         <Modal.Section>
-          <p>Changing role for: <strong>{selectedUser?.email}</strong></p>
+          <p>
+            Changing role for: <strong>{selectedUser?.email}</strong>
+          </p>
           <div style={{ marginTop: '1rem' }}>
             <Select
               label="New Role"
@@ -459,7 +471,7 @@ export default function UsersRolesPage() {
                 { label: 'Viewer', value: 'VIEWER' },
                 { label: 'Analyst', value: 'ANALYST' },
                 { label: 'Admin', value: 'ADMIN' },
-                { label: 'Owner', value: 'OWNER' }
+                { label: 'Owner', value: 'OWNER' },
               ]}
               value={newRole}
               onChange={setNewRole}
@@ -475,12 +487,14 @@ export default function UsersRolesPage() {
         title="Connect Store"
         primaryAction={{
           content: 'Connect Store',
-          onAction: handleConnectStore
+          onAction: handleConnectStore,
         }}
-        secondaryActions={[{
-          content: 'Cancel',
-          onAction: () => setConnectStoreModalOpen(false)
-        }]}
+        secondaryActions={[
+          {
+            content: 'Cancel',
+            onAction: () => setConnectStoreModalOpen(false),
+          },
+        ]}
       >
         <Modal.Section>
           <TextField
@@ -502,5 +516,5 @@ export default function UsersRolesPage() {
         </Modal.Section>
       </Modal>
     </div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import { prisma } from './index.js'
-import { seedBillingData } from '@tokpulse/billing'
+import { seedBillingData } from '@tokpulse/billing';
+import { prisma } from './index.js';
 
 async function main() {
-  console.log('🌱 Seeding database...')
+  console.log('🌱 Seeding database...');
 
   // Create a test organization
   const organization = await prisma.organization.upsert({
@@ -12,7 +12,7 @@ async function main() {
       id: 'test-org-1',
       name: 'Test Organization',
     },
-  })
+  });
 
   // Create a test user
   const user = await prisma.user.upsert({
@@ -24,7 +24,7 @@ async function main() {
       role: 'OWNER',
       organizationId: organization.id,
     },
-  })
+  });
 
   // Create a test store
   const store = await prisma.store.upsert({
@@ -38,7 +38,7 @@ async function main() {
       status: 'ACTIVE',
       organizationId: organization.id,
     },
-  })
+  });
 
   // Create some test catalog items
   await prisma.catalogItem.createMany({
@@ -69,7 +69,7 @@ async function main() {
         storeId: store.id,
       },
     ],
-  })
+  });
 
   // Create a test experiment
   await prisma.experiment.upsert({
@@ -87,15 +87,15 @@ async function main() {
       }),
       storeId: store.id,
     },
-  })
+  });
 
   // Seed billing data
-  await seedBillingData(prisma)
+  await seedBillingData(prisma);
 
   // Create a test subscription for the organization
   const starterPlan = await prisma.plan.findUnique({
-    where: { key: 'STARTER' }
-  })
+    where: { key: 'STARTER' },
+  });
 
   if (starterPlan) {
     await prisma.subscription.upsert({
@@ -107,22 +107,22 @@ async function main() {
         status: 'TRIAL',
         trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
         currentPeriodStart: new Date(),
-        currentPeriodEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
-      }
-    })
+        currentPeriodEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+      },
+    });
   }
 
-  console.log('✅ Database seeded successfully!')
-  console.log(`Organization: ${organization.name} (${organization.id})`)
-  console.log(`User: ${user.email} (${user.role})`)
-  console.log(`Store: ${store.shopDomain} (${store.status})`)
+  console.log('✅ Database seeded successfully!');
+  console.log(`Organization: ${organization.name} (${organization.id})`);
+  console.log(`User: ${user.email} (${user.role})`);
+  console.log(`Store: ${store.shopDomain} (${store.status})`);
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Seeding failed:', e)
-    process.exit(1)
+    console.error('❌ Seeding failed:', e);
+    process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect()
-  })
+    await prisma.$disconnect();
+  });

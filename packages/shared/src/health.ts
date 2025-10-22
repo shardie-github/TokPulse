@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { Request, Response } from 'express';
+import type { PrismaClient } from '@prisma/client';
+import type { Request, Response } from 'express';
 import * as fs from 'fs';
 import * as os from 'os';
 
@@ -74,7 +74,7 @@ export class HealthMonitor {
       let status: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
       if (usagePercent > 90) status = 'unhealthy';
       else if (usagePercent > 75) status = 'degraded';
-      
+
       return {
         name: 'memory',
         status,
@@ -115,7 +115,7 @@ export class HealthMonitor {
         let status: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
         if (usagePercent > 90) status = 'unhealthy';
         else if (usagePercent > 80) status = 'degraded';
-        
+
         return {
           name: 'disk',
           status,
@@ -142,7 +142,7 @@ export class HealthMonitor {
         { name: 'Shopify API', url: 'https://api.shopify.com' },
         { name: 'Stripe API', url: 'https://api.stripe.com' },
       ];
-      
+
       const results = await Promise.allSettled(
         dependencies.map(async (dep) => {
           const start = Date.now();
@@ -164,16 +164,16 @@ export class HealthMonitor {
               error: error instanceof Error ? error.message : 'Unknown error',
             };
           }
-        })
+        }),
       );
-      
+
       const healthyCount = results.filter(
-        (r) => r.status === 'fulfilled' && r.value.status === 'healthy'
+        (r) => r.status === 'fulfilled' && r.value.status === 'healthy',
       ).length;
       const totalCount = results.length;
       const overallStatus: 'healthy' | 'degraded' | 'unhealthy' =
         healthyCount === totalCount ? 'healthy' : healthyCount > 0 ? 'degraded' : 'unhealthy';
-      
+
       return {
         name: 'external_deps',
         status: overallStatus,
@@ -183,20 +183,25 @@ export class HealthMonitor {
             name: dependencies[i].name,
             status: r.status === 'fulfilled' ? r.value.status : 'unhealthy',
             responseTime: r.status === 'fulfilled' ? r.value.responseTime : 0,
-            error: r.status === 'rejected' ? (r.reason instanceof Error ? r.reason.message : 'Unknown error') : undefined,
+            error:
+              r.status === 'rejected'
+                ? r.reason instanceof Error
+                  ? r.reason.message
+                  : 'Unknown error'
+                : undefined,
           })),
         },
         lastChecked: new Date().toISOString(),
       };
     });
-    }
+  }
   registerCheck(name: string, checkFn: HealthCheckFunction): void {
     this.checks.set(name, checkFn);
   }
 
   async performHealthCheck(): Promise<HealthStatus> {
     const checkResults: HealthCheckResult[] = [];
-    
+
     // Run all registered checks
     for (const [name, checkFn] of this.checks) {
       try {
@@ -211,7 +216,7 @@ export class HealthMonitor {
         });
       }
     }
-    
+
     // Calculate summary
     const summary: HealthSummary = {
       total: checkResults.length,
@@ -219,7 +224,7 @@ export class HealthMonitor {
       unhealthy: checkResults.filter((c) => c.status === 'unhealthy').length,
       degraded: checkResults.filter((c) => c.status === 'degraded').length,
     };
-    
+
     // Determine overall status
     let overallStatus: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
     if (summary.unhealthy > 0) {
@@ -227,7 +232,7 @@ export class HealthMonitor {
     } else if (summary.degraded > 0) {
       overallStatus = 'degraded';
     }
-    
+
     return {
       status: overallStatus,
       timestamp: new Date().toISOString(),
@@ -262,11 +267,9 @@ export class HealthMonitor {
   }> {
     const healthStatus = await this.performHealthCheck();
     const criticalChecks = ['database', 'memory'];
-    const criticalCheckResults = healthStatus.checks.filter((c) =>
-      criticalChecks.includes(c.name)
-    );
+    const criticalCheckResults = healthStatus.checks.filter((c) => criticalChecks.includes(c.name));
     const failedChecks = criticalCheckResults.filter((c) => c.status === 'unhealthy');
-    
+
     return {
       status: failedChecks.length === 0 ? 'ready' : 'not_ready',
       timestamp: new Date().toISOString(),
@@ -281,8 +284,8 @@ export function createHealthEndpoints(healthMonitor: HealthMonitor) {
     health: async (req: Request, res: Response): Promise<void> => {
       try {
         const healthStatus = await healthMonitor.performHealthCheck();
-        const statusCode = healthStatus.status === 'healthy' ? 200 :
-          healthStatus.status === 'degraded' ? 200 : 503;
+        const statusCode =
+          healthStatus.status === 'healthy' ? 200 : healthStatus.status === 'degraded' ? 200 : 503;
         res.status(statusCode).json(healthStatus);
       } catch (error) {
         res.status(503).json({
@@ -329,8 +332,7 @@ export function createHealthEndpoints(healthMonitor: HealthMonitor) {
           `# HELP tokpulse_health_status Overall health status (1=healthy, 0.5=degraded, 0=unhealthy)`,
           `# TYPE tokpulse_health_status gauge`,
           `tokpulse_health_status{environment="${healthStatus.environment}"} ${
-            healthStatus.status === 'healthy' ? 1 :
-            healthStatus.status === 'degraded' ? 0.5 : 0
+            healthStatus.status === 'healthy' ? 1 : healthStatus.status === 'degraded' ? 0.5 : 0
           }`,
           `# HELP tokpulse_uptime_seconds Application uptime in seconds`,
           `# TYPE tokpulse_uptime_seconds counter`,
@@ -341,30 +343,31 @@ export function createHealthEndpoints(healthMonitor: HealthMonitor) {
           `tokpulse_health_checks_total{status="unhealthy"} ${healthStatus.summary.unhealthy}`,
           `tokpulse_health_checks_total{status="degraded"} ${healthStatus.summary.degraded}`,
         ];
-        
+
         // Add individual check metrics
         for (const check of healthStatus.checks) {
           metrics.push(
             `# HELP tokpulse_health_check_status Individual health check status`,
             `# TYPE tokpulse_health_check_status gauge`,
             `tokpulse_health_check_status{check="${check.name}",status="${check.status}"} ${
-              check.status === 'healthy' ? 1 :
-              check.status === 'degraded' ? 0.5 : 0
-            }`
+              check.status === 'healthy' ? 1 : check.status === 'degraded' ? 0.5 : 0
+            }`,
           );
           if (check.responseTime) {
             metrics.push(
               `# HELP tokpulse_health_check_duration_seconds Health check response time`,
               `# TYPE tokpulse_health_check_duration_seconds gauge`,
-              `tokpulse_health_check_duration_seconds{check="${check.name}"} ${check.responseTime / 1000}`
+              `tokpulse_health_check_duration_seconds{check="${check.name}"} ${check.responseTime / 1000}`,
             );
           }
         }
-        
+
         res.set('Content-Type', 'text/plain; version=0.0.4; charset=utf-8');
         res.send(metrics.join('\n'));
       } catch (error) {
-        res.status(500).send(`# ERROR: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        res
+          .status(500)
+          .send(`# ERROR: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
     },
   };

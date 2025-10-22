@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Page, Layout, Card, Text, Select, DatePicker, Spinner, Banner } from '@shopify/polaris';
-import { GET_ANALYTICS, GET_PRODUCTS, GET_ORDERS } from '@/lib/graphql/queries';
+import { useState, useEffect } from 'react';
 import { ChannelShareChart } from '@/components/ChannelShareChart';
-import { FunnelChart } from '@/components/FunnelChart';
-import { Topbar } from '@/components/Topbar';
-import { Sidebar } from '@/components/Sidebar';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { FunnelChart } from '@/components/FunnelChart';
+import { Sidebar } from '@/components/Sidebar';
+import { Topbar } from '@/components/Topbar';
+import { GET_ANALYTICS, GET_PRODUCTS, GET_ORDERS } from '@/lib/graphql/queries';
 
 export function Analytics() {
   const [dateRange, setDateRange] = useState({
@@ -25,11 +25,11 @@ export function Analytics() {
   });
 
   const { data: productsData, loading: productsLoading } = useQuery(GET_PRODUCTS, {
-    variables: { first: 100 }
+    variables: { first: 100 },
   });
 
   const { data: ordersData, loading: ordersLoading } = useQuery(GET_ORDERS, {
-    variables: { first: 100 }
+    variables: { first: 100 },
   });
 
   useEffect(() => {
@@ -114,7 +114,14 @@ export function Analytics() {
           <Page>
             <Layout>
               <Layout.Section>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '1rem',
+                  }}
+                >
                   <Text variant="headingLg" as="h1">
                     Analytics Dashboard
                   </Text>
@@ -130,7 +137,7 @@ export function Analytics() {
                       year={dateRange.start.getFullYear()}
                       selected={dateRange}
                       onMonthChange={(month, year) => {
-                        setDateRange(prev => ({
+                        setDateRange((prev) => ({
                           ...prev,
                           start: new Date(year, month, prev.start.getDate()),
                         }));
@@ -167,21 +174,42 @@ export function Analytics() {
                   <Text variant="headingMd" as="h2">
                     Performance Summary
                   </Text>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                      gap: '1rem',
+                      marginTop: '1rem',
+                    }}
+                  >
                     <div>
-                      <Text variant="bodyMd" as="p" tone="subdued">Total Revenue</Text>
-                      <Text variant="headingLg" as="p">${totalRevenue.toLocaleString()}</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">
+                        Total Revenue
+                      </Text>
+                      <Text variant="headingLg" as="p">
+                        ${totalRevenue.toLocaleString()}
+                      </Text>
                     </div>
                     <div>
-                      <Text variant="bodyMd" as="p" tone="subdued">Total Orders</Text>
-                      <Text variant="headingLg" as="p">{totalOrders.toLocaleString()}</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">
+                        Total Orders
+                      </Text>
+                      <Text variant="headingLg" as="p">
+                        {totalOrders.toLocaleString()}
+                      </Text>
                     </div>
                     <div>
-                      <Text variant="bodyMd" as="p" tone="subdued">Total Products</Text>
-                      <Text variant="headingLg" as="p">{totalProducts.toLocaleString()}</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">
+                        Total Products
+                      </Text>
+                      <Text variant="headingLg" as="p">
+                        {totalProducts.toLocaleString()}
+                      </Text>
                     </div>
                     <div>
-                      <Text variant="bodyMd" as="p" tone="subdued">Avg Order Value</Text>
+                      <Text variant="bodyMd" as="p" tone="subdued">
+                        Avg Order Value
+                      </Text>
                       <Text variant="headingLg" as="p">
                         ${totalOrders > 0 ? (totalRevenue / totalOrders).toFixed(2) : '0.00'}
                       </Text>

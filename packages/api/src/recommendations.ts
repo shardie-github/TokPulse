@@ -1,13 +1,12 @@
-import { prisma } from '@tokpulse/db'
-import { widgetRequestSchema, recommendationResponseSchema } from '@tokpulse/shared'
-import { telemetry } from '@tokpulse/shared'
+import { prisma } from '@tokpulse/db';
+import { widgetRequestSchema, telemetry } from '@tokpulse/shared';
 
 export interface RecommendationParams {
-  shop: string
-  productHandle?: string
-  productId?: string
-  variantId?: string
-  experimentId?: string
+  shop: string;
+  productHandle?: string;
+  productId?: string;
+  variantId?: string;
+  experimentId?: string;
 }
 
 export async function getRecommendations(params: RecommendationParams) {
@@ -18,26 +17,26 @@ export async function getRecommendations(params: RecommendationParams) {
       productId: params.productId,
       variantId: params.variantId,
       experimentId: params.experimentId,
-    })
+    });
 
     // Find store
     const store = await prisma.store.findUnique({
       where: { shopDomain: validated.store },
-    })
+    });
 
     if (!store) {
-      throw new Error('Store not found')
+      throw new Error('Store not found');
     }
 
     // Get current product
-    let currentProduct = null
+    let currentProduct = null;
     if (params.productHandle) {
       currentProduct = await prisma.catalogItem.findFirst({
         where: {
           storeId: store.id,
           handle: params.productHandle,
         },
-      })
+      });
     } else if (params.productId) {
       currentProduct = await prisma.catalogItem.findFirst({
         where: {
@@ -45,11 +44,11 @@ export async function getRecommendations(params: RecommendationParams) {
           productId: params.productId,
           variantId: params.variantId || undefined,
         },
-      })
+      });
     }
 
     if (!currentProduct) {
-      throw new Error('Product not found')
+      throw new Error('Product not found');
     }
 
     // Simple recommendation logic (in production, this would be more sophisticated)
@@ -62,7 +61,7 @@ export async function getRecommendations(params: RecommendationParams) {
       },
       take: 4,
       orderBy: { createdAt: 'desc' },
-    })
+    });
 
     // Format recommendations
     const formattedRecommendations = recommendations.map((item) => ({
@@ -72,7 +71,7 @@ export async function getRecommendations(params: RecommendationParams) {
       price: item.price.toNumber(),
       image: item.images[0] || null,
       reason: `Similar ${item.productType || 'product'}`,
-    }))
+    }));
 
     // Track recommendation request
     telemetry.log({
@@ -86,15 +85,15 @@ export async function getRecommendations(params: RecommendationParams) {
       timestamp: Date.now(),
       organizationId: store.organizationId,
       storeId: store.id,
-    })
+    });
 
-    return formattedRecommendations
+    return formattedRecommendations;
   } catch (error) {
     telemetry.error(error as Error, {
       shop: params.shop,
       productHandle: params.productHandle,
       productId: params.productId,
-    })
-    throw error
+    });
+    throw error;
   }
 }

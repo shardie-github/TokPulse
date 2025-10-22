@@ -1,10 +1,10 @@
-import React from 'react'
-import { Loader2, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react'
+import { Loader2, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
+import React from 'react';
 
 interface LoadingSpinnerProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl'
-  className?: string
-  text?: string
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
+  text?: string;
 }
 
 export function LoadingSpinner({ size = 'md', className = '', text }: LoadingSpinnerProps) {
@@ -13,22 +13,20 @@ export function LoadingSpinner({ size = 'md', className = '', text }: LoadingSpi
     md: 'w-6 h-6',
     lg: 'w-8 h-8',
     xl: 'w-12 h-12',
-  }
+  };
 
   return (
     <div className={`flex flex-col items-center justify-center ${className}`}>
       <Loader2 className={`animate-spin ${sizeClasses[size]} text-blue-600`} />
-      {text && (
-        <p className="mt-2 text-sm text-gray-600 animate-pulse">{text}</p>
-      )}
+      {text && <p className="mt-2 text-sm text-gray-600 animate-pulse">{text}</p>}
     </div>
-  )
+  );
 }
 
 interface LoadingCardProps {
-  title?: string
-  description?: string
-  className?: string
+  title?: string;
+  description?: string;
+  className?: string;
 }
 
 export function LoadingCard({ title, description, className = '' }: LoadingCardProps) {
@@ -55,13 +53,13 @@ export function LoadingCard({ title, description, className = '' }: LoadingCardP
         )}
       </div>
     </div>
-  )
+  );
 }
 
 interface LoadingTableProps {
-  rows?: number
-  columns?: number
-  className?: string
+  rows?: number;
+  columns?: number;
+  className?: string;
 }
 
 export function LoadingTable({ rows = 5, columns = 4, className = '' }: LoadingTableProps) {
@@ -76,7 +74,7 @@ export function LoadingTable({ rows = 5, columns = 4, className = '' }: LoadingT
             ))}
           </div>
         </div>
-        
+
         {/* Rows */}
         {Array.from({ length: rows }).map((_, rowIndex) => (
           <div key={rowIndex} className="px-6 py-4 border-b border-gray-200 last:border-b-0">
@@ -89,11 +87,11 @@ export function LoadingTable({ rows = 5, columns = 4, className = '' }: LoadingT
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 interface LoadingChartProps {
-  className?: string
+  className?: string;
 }
 
 export function LoadingChart({ className = '' }: LoadingChartProps) {
@@ -108,21 +106,21 @@ export function LoadingChart({ className = '' }: LoadingChartProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 interface LoadingButtonProps {
-  loading?: boolean
-  children: React.ReactNode
-  className?: string
-  disabled?: boolean
+  loading?: boolean;
+  children: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
 }
 
-export function LoadingButton({ 
-  loading = false, 
-  children, 
-  className = '', 
-  disabled = false 
+export function LoadingButton({
+  loading = false,
+  children,
+  className = '',
+  disabled = false,
 }: LoadingButtonProps) {
   return (
     <button
@@ -132,21 +130,21 @@ export function LoadingButton({
       {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
       {children}
     </button>
-  )
+  );
 }
 
 interface LoadingOverlayProps {
-  loading?: boolean
-  children: React.ReactNode
-  text?: string
-  className?: string
+  loading?: boolean;
+  children: React.ReactNode;
+  text?: string;
+  className?: string;
 }
 
-export function LoadingOverlay({ 
-  loading = false, 
-  children, 
-  text = 'Loading...', 
-  className = '' 
+export function LoadingOverlay({
+  loading = false,
+  children,
+  text = 'Loading...',
+  className = '',
 }: LoadingOverlayProps) {
   return (
     <div className={`relative ${className}`}>
@@ -160,13 +158,13 @@ export function LoadingOverlay({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 interface StatusIndicatorProps {
-  status: 'loading' | 'success' | 'error' | 'idle'
-  text?: string
-  className?: string
+  status: 'loading' | 'success' | 'error' | 'idle';
+  text?: string;
+  className?: string;
 }
 
 export function StatusIndicator({ status, text, className = '' }: StatusIndicatorProps) {
@@ -195,26 +193,24 @@ export function StatusIndicator({ status, text, className = '' }: StatusIndicato
       bgColor: 'bg-gray-100',
       animate: '',
     },
-  }
+  };
 
-  const config = statusConfig[status]
-  const Icon = config.icon
+  const config = statusConfig[status];
+  const Icon = config.icon;
 
   return (
     <div className={`inline-flex items-center ${className}`}>
       <div className={`p-2 rounded-full ${config.bgColor}`}>
         <Icon className={`w-4 h-4 ${config.color} ${config.animate}`} />
       </div>
-      {text && (
-        <span className="ml-2 text-sm text-gray-700">{text}</span>
-      )}
+      {text && <span className="ml-2 text-sm text-gray-700">{text}</span>}
     </div>
-  )
+  );
 }
 
 interface SkeletonProps {
-  className?: string
-  lines?: number
+  className?: string;
+  lines?: number;
 }
 
 export function Skeleton({ className = '', lines = 1 }: SkeletonProps) {
@@ -229,34 +225,36 @@ export function Skeleton({ className = '', lines = 1 }: SkeletonProps) {
         />
       ))}
     </div>
-  )
+  );
 }
 
 interface LoadingDotsProps {
-  className?: string
+  className?: string;
 }
 
 export function LoadingDots({ className = '' }: LoadingDotsProps) {
   return (
     <div className={`flex space-x-1 ${className}`}>
       <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
-      <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-      <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+      <div
+        className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+        style={{ animationDelay: '0.1s' }}
+      ></div>
+      <div
+        className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+        style={{ animationDelay: '0.2s' }}
+      ></div>
     </div>
-  )
+  );
 }
 
 interface ProgressBarProps {
-  progress: number
-  className?: string
-  showPercentage?: boolean
+  progress: number;
+  className?: string;
+  showPercentage?: boolean;
 }
 
-export function ProgressBar({ 
-  progress, 
-  className = '', 
-  showPercentage = true 
-}: ProgressBarProps) {
+export function ProgressBar({ progress, className = '', showPercentage = true }: ProgressBarProps) {
   return (
     <div className={`w-full ${className}`}>
       <div className="flex justify-between text-sm text-gray-600 mb-1">
@@ -270,32 +268,32 @@ export function ProgressBar({
         />
       </div>
     </div>
-  )
+  );
 }
 
 // Hook for managing loading states
 export function useLoadingState(initialState = false) {
-  const [loading, setLoading] = React.useState(initialState)
-  const [error, setError] = React.useState<string | null>(null)
+  const [loading, setLoading] = React.useState(initialState);
+  const [error, setError] = React.useState<string | null>(null);
 
   const startLoading = React.useCallback(() => {
-    setLoading(true)
-    setError(null)
-  }, [])
+    setLoading(true);
+    setError(null);
+  }, []);
 
   const stopLoading = React.useCallback(() => {
-    setLoading(false)
-  }, [])
+    setLoading(false);
+  }, []);
 
   const setErrorState = React.useCallback((errorMessage: string) => {
-    setLoading(false)
-    setError(errorMessage)
-  }, [])
+    setLoading(false);
+    setError(errorMessage);
+  }, []);
 
   const reset = React.useCallback(() => {
-    setLoading(false)
-    setError(null)
-  }, [])
+    setLoading(false);
+    setError(null);
+  }, []);
 
   return {
     loading,
@@ -304,7 +302,7 @@ export function useLoadingState(initialState = false) {
     stopLoading,
     setErrorState,
     reset,
-  }
+  };
 }
 
 export default {
@@ -319,4 +317,4 @@ export default {
   LoadingDots,
   ProgressBar,
   useLoadingState,
-}
+};

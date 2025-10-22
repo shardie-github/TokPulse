@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { TopBar, Button, Popover, ActionList } from '@shopify/polaris';
+import { useState } from 'react';
 import { useTheme } from '@/lib/theme';
 
 interface TopbarProps {
@@ -29,8 +29,8 @@ export function Topbar({ shopName }: TopbarProps) {
           content: 'Sign out',
           onAction: () => console.log('Sign out clicked'),
         },
-      ]
-    }
+      ],
+    },
   ];
 
   const themeToggleActions = [

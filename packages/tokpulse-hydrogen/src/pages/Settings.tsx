@@ -1,8 +1,19 @@
+import {
+  Page,
+  Layout,
+  Card,
+  Text,
+  Button,
+  TextField,
+  Select,
+  Checkbox,
+  Banner,
+  Spinner,
+} from '@shopify/polaris';
 import { useState, useEffect } from 'react';
-import { Page, Layout, Card, Text, Button, TextField, Select, Checkbox, Banner, Spinner } from '@shopify/polaris';
-import { Topbar } from '@/components/Topbar';
-import { Sidebar } from '@/components/Sidebar';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Sidebar } from '@/components/Sidebar';
+import { Topbar } from '@/components/Topbar';
 
 export function Settings() {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,22 +72,22 @@ export function Settings() {
   }, []);
 
   const handleSettingChange = (path: string, value: any) => {
-    setSettings(prev => {
+    setSettings((prev) => {
       const newSettings = { ...prev };
       const keys = path.split('.');
       let current = newSettings;
-      
+
       for (let i = 0; i < keys.length - 1; i++) {
         current = (current as any)[keys[i]];
       }
-      
+
       (current as any)[keys[keys.length - 1]] = value;
       return newSettings;
     });
 
     // Clear error for this field
     if (errors[path]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[path];
         return newErrors;
@@ -109,7 +120,7 @@ export function Settings() {
       // Save to localStorage (in production, this would be an API call)
       localStorage.setItem('tokpulse_settings', JSON.stringify(settings));
       setSuccessMessage('Settings saved successfully!');
-      
+
       // Clear success message after 3 seconds
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
@@ -180,40 +191,62 @@ export function Settings() {
                   <Text variant="headingMd" as="h2">
                     Social Media Integrations
                   </Text>
-                  
-                  {Object.entries(settings).filter(([key]) => !['notifications', 'analytics'].includes(key)).map(([platform, config]) => (
-                    <div key={platform} style={{ marginBottom: '2rem', padding: '1rem', border: '1px solid #e1e3e5', borderRadius: '8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                        <Checkbox
-                          label={`${platform.charAt(0).toUpperCase() + platform.slice(1)} Integration`}
-                          checked={(config as any).enabled}
-                          onChange={(value) => handleSettingChange(`${platform}.enabled`, value)}
-                        />
-                      </div>
-                      
-                      {(config as any).enabled && (
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                          <TextField
-                            label="API Key"
-                            value={(config as any).apiKey}
-                            onChange={(value) => handleSettingChange(`${platform}.apiKey`, value)}
-                            error={errors[`${platform}.apiKey`]}
-                            type="password"
-                            autoComplete="off"
-                          />
-                          <TextField
-                            label={platform === 'facebook' ? 'Page ID' : 'Username'}
-                            value={platform === 'facebook' ? (config as any).pageId : (config as any).username}
-                            onChange={(value) => handleSettingChange(
-                              platform === 'facebook' ? `${platform}.pageId` : `${platform}.username`, 
-                              value
-                            )}
-                            autoComplete="off"
+
+                  {Object.entries(settings)
+                    .filter(([key]) => !['notifications', 'analytics'].includes(key))
+                    .map(([platform, config]) => (
+                      <div
+                        key={platform}
+                        style={{
+                          marginBottom: '2rem',
+                          padding: '1rem',
+                          border: '1px solid #e1e3e5',
+                          borderRadius: '8px',
+                        }}
+                      >
+                        <div
+                          style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}
+                        >
+                          <Checkbox
+                            label={`${platform.charAt(0).toUpperCase() + platform.slice(1)} Integration`}
+                            checked={(config as any).enabled}
+                            onChange={(value) => handleSettingChange(`${platform}.enabled`, value)}
                           />
                         </div>
-                      )}
-                    </div>
-                  ))}
+
+                        {(config as any).enabled && (
+                          <div
+                            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}
+                          >
+                            <TextField
+                              label="API Key"
+                              value={(config as any).apiKey}
+                              onChange={(value) => handleSettingChange(`${platform}.apiKey`, value)}
+                              error={errors[`${platform}.apiKey`]}
+                              type="password"
+                              autoComplete="off"
+                            />
+                            <TextField
+                              label={platform === 'facebook' ? 'Page ID' : 'Username'}
+                              value={
+                                platform === 'facebook'
+                                  ? (config as any).pageId
+                                  : (config as any).username
+                              }
+                              onChange={(value) =>
+                                handleSettingChange(
+                                  platform === 'facebook'
+                                    ? `${platform}.pageId`
+                                    : `${platform}.username`,
+                                  value,
+                                )
+                              }
+                              autoComplete="off"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
                 </Card>
               </Layout.Section>
 
@@ -222,8 +255,14 @@ export function Settings() {
                   <Text variant="headingMd" as="h2">
                     Notifications
                   </Text>
-                  
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                      gap: '1rem',
+                    }}
+                  >
                     <Checkbox
                       label="Email Notifications"
                       checked={settings.notifications.email}
@@ -248,7 +287,7 @@ export function Settings() {
                   <Text variant="headingMd" as="h2">
                     Analytics Settings
                   </Text>
-                  
+
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <Checkbox
                       label="Auto-sync data"

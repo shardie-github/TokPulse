@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const navigation = [
@@ -13,7 +13,7 @@ const navigation = [
       { name: 'Installation', href: '/getting-started/installation' },
       { name: 'Quick Start', href: '/getting-started/quick-start' },
       { name: 'Configuration', href: '/getting-started/configuration' },
-    ]
+    ],
   },
   {
     name: 'API Reference',
@@ -22,7 +22,7 @@ const navigation = [
       { name: 'Webhooks', href: '/api/webhooks' },
       { name: 'Experiments', href: '/api/experiments' },
       { name: 'Analytics', href: '/api/analytics' },
-    ]
+    ],
   },
   {
     name: 'Integrations',
@@ -30,7 +30,7 @@ const navigation = [
       { name: 'Shopify', href: '/integrations/shopify' },
       { name: 'Hydrogen', href: '/integrations/hydrogen' },
       { name: 'Theme Extension', href: '/integrations/theme-extension' },
-    ]
+    ],
   },
   {
     name: 'Experiments',
@@ -39,7 +39,7 @@ const navigation = [
       { name: 'A/B Testing', href: '/experiments/ab-testing' },
       { name: 'Feature Flags', href: '/experiments/feature-flags' },
       { name: 'Guardrails', href: '/experiments/guardrails' },
-    ]
+    ],
   },
   {
     name: 'Observability',
@@ -48,7 +48,7 @@ const navigation = [
       { name: 'Metrics', href: '/observability/metrics' },
       { name: 'Logging', href: '/observability/logging' },
       { name: 'Tracing', href: '/observability/tracing' },
-    ]
+    ],
   },
   {
     name: 'Runbooks',
@@ -57,7 +57,7 @@ const navigation = [
       { name: 'DLQ Drain', href: '/runbooks/dlq-drain' },
       { name: 'High Error Rate', href: '/runbooks/high-error-rate' },
       { name: 'Data Retention', href: '/runbooks/data-retention' },
-    ]
+    ],
   },
   {
     name: 'Operations',
@@ -66,19 +66,22 @@ const navigation = [
       { name: 'Monitoring', href: '/operations/monitoring' },
       { name: 'Scaling', href: '/operations/scaling' },
       { name: 'Security', href: '/operations/security' },
-    ]
-  }
-]
+    ],
+  },
+];
 
 export function Layout({ children }: LayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const router = useRouter()
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-40 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
+        <div
+          className="fixed inset-0 bg-gray-600 bg-opacity-75"
+          onClick={() => setSidebarOpen(false)}
+        />
         <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
           <div className="absolute top-0 right-0 -mr-12 pt-2">
             <button
@@ -87,8 +90,18 @@ export function Layout({ children }: LayoutProps) {
               onClick={() => setSidebarOpen(false)}
             >
               <span className="sr-only">Close sidebar</span>
-              <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -165,18 +178,21 @@ export function Layout({ children }: LayoutProps) {
           >
             <span className="sr-only">Open sidebar</span>
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>
         <main className="flex-1">
           <div className="py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
           </div>
         </main>
       </div>
     </div>
-  )
+  );
 }

@@ -27,29 +27,34 @@ This is a monorepo built with:
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd tokpulse
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Set up environment variables:
+
 ```bash
 cp .env.example .env
 # Edit .env with your configuration
 ```
 
 4. Set up the database:
+
 ```bash
 pnpm db:push
 pnpm db:seed
 ```
 
 5. Start development:
+
 ```bash
 pnpm dev
 ```
@@ -156,6 +161,7 @@ The extension provides several app blocks:
 ### Installation
 
 1. Package the extension:
+
 ```bash
 cd packages/theme-ext
 zip -r tokpulse-extension.zip .
@@ -211,26 +217,90 @@ cd packages/theme-ext
 zip -r tokpulse-extension.zip .
 ```
 
-## Testing
+## Testing & CI
+
+### Unit Testing (Vitest)
 
 ```bash
-# Run all tests
+# Run unit tests
 pnpm test
 
-# Run specific package tests
-pnpm --filter @tokpulse/db test
+# Run tests in watch mode
+pnpm test:watch
 
-# Run e2e tests
-pnpm test:e2e
+# Run tests with coverage
+pnpm test --coverage
 ```
 
-## Quality Gates
+### E2E Testing (Playwright)
 
-- TypeScript coverage ≥ 95%
-- ESLint with zero warnings
-- All tests passing
-- Lighthouse performance budgets met
-- Bundle size limits enforced
+```bash
+# Install Playwright browsers
+pnpm e2e:install
+
+# Run E2E tests locally
+pnpm e2e
+
+# Run E2E tests with UI
+pnpm e2e:ui
+
+# Run E2E against specific URL
+PREVIEW_URL=https://your-preview-url.vercel.app pnpm e2e
+```
+
+### Type Checking & Linting
+
+```bash
+# TypeScript type checking
+pnpm typecheck
+
+# ESLint linting
+pnpm lint
+
+# Prettier formatting
+pnpm format
+```
+
+### CI/CD Pipeline
+
+The project uses GitHub Actions for continuous integration:
+
+1. **CI Workflow** (`.github/workflows/ci.yml`)
+   - Runs on every push and PR
+   - TypeScript type checking
+   - ESLint linting
+   - Vitest unit tests
+   - Vite production build
+
+2. **Preview E2E Workflow** (`.github/workflows/preview-e2e.yml`)
+   - Runs on PRs only
+   - Deploys to Vercel preview
+   - Runs Playwright E2E tests
+   - Comments preview URL on PR
+
+### Required Secrets
+
+For the E2E workflow to work, set these GitHub secrets:
+
+- `VERCEL_TOKEN` - Vercel deployment token
+- `VERCEL_ORG_ID` - Vercel organization ID
+- `VERCEL_PROJECT_ID` - Vercel project ID
+
+See [VERCEL_CI_E2E_GUIDE.md](./VERCEL_CI_E2E_GUIDE.md) for detailed setup instructions.
+
+### Quality Gates
+
+- ✅ TypeScript strict mode (no errors)
+- ✅ ESLint rules (no errors)
+- ✅ Prettier formatting
+- ✅ Unit test coverage
+- ✅ E2E test suite
+- ✅ Production build success
+
+### Documentation
+
+- [Build & Test Guide](./BUILD_TEST_GUIDE.md) - Local development and testing
+- [Vercel CI E2E Guide](./VERCEL_CI_E2E_GUIDE.md) - CI/CD and deployment setup
 
 ## Contributing
 

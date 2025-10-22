@@ -1,62 +1,62 @@
-import { PrismaClient } from '@tokpulse/db'
-import { 
-  UserRole, 
-  Permission, 
-  Resource, 
-  Action, 
-  UserInvite, 
-  StoreConnection, 
+import type { PrismaClient } from '@tokpulse/db';
+import type {
+  UserRole,
+  Permission,
+  Resource,
+  Action,
+  UserInvite,
+  StoreConnection,
   AuditLog,
-  ROLE_PERMISSIONS 
-} from './types'
+} from './types';
+import { ROLE_PERMISSIONS } from './types';
 
 export interface RBACServiceConfig {
-  getCurrentUserId: (req: any) => string | null
-  getCurrentOrganizationId: (req: any) => string | null
+  getCurrentUserId: (req: any) => string | null;
+  getCurrentOrganizationId: (req: any) => string | null;
 }
 
 export class RBACService {
   constructor(
     private db: PrismaClient,
-    private config: RBACServiceConfig
+    private config: RBACServiceConfig,
   ) {}
 
   // Permission checking
   async can(userId: string, permission: Permission, resourceId?: string): Promise<boolean> {
     const user = await this.db.user.findUnique({
       where: { id: userId },
-      include: { organization: true }
-    })
+      include: { organization: true },
+    });
 
     if (!user) {
-      return false
+      return false;
     }
 
-    const userPermissions = ROLE_PERMISSIONS[user.role as UserRole] || []
-    return userPermissions.includes(permission)
+    const userPermissions = ROLE_PERMISSIONS[user.role as UserRole] || [];
+    return userPermissions.includes(permission);
   }
 
   async canAccessResource(
-    userId: string, 
-    resource: Resource, 
-    action: Action, 
-    resourceId?: string
+    userId: string,
+    resource: Resource,
+    action: Action,
+    resourceId?: string,
   ): Promise<boolean> {
     const user = await this.db.user.findUnique({
       where: { id: userId },
-      include: { organization: true }
-    })
+      include: { organization: true },
+    });
 
     if (!user) {
-      return false
+      return false;
     }
 
     // Check if user has permission for the specific resource and action
-    const permission = `${resource}:${action}` as Permission
-    const userPermissions = ROLE_PERMISSIONS[user.role as UserRole] || []
-    
+    const permission = `${resource}:${action}` as Permission;
+    const userPermissions = ROLE_PERMISSIONS[user.role as UserRole] || [];
+
     if (!userPermissions.includes(permission)) {
-      return false
+      return false;
     }
 
     // Additional resource-specific checks
@@ -64,32 +64,32 @@ export class RBACService {
       case 'store':
         if (resourceId) {
           const store = await this.db.store.findUnique({
-            where: { id: resourceId }
-          })
-          return store?.organizationId === user.organizationId
+            where: { id: resourceId },
+          });
+          return store?.organizationId === user.organizationId;
         }
-        break
-      
+        break;
+
       case 'user':
         if (resourceId) {
           const targetUser = await this.db.user.findUnique({
-            where: { id: resourceId }
-          })
-          return targetUser?.organizationId === user.organizationId
+            where: { id: resourceId },
+          });
+          return targetUser?.organizationId === user.organizationId;
         }
-        break
-      
+        break;
+
       case 'experiment':
         if (resourceId) {
           const experiment = await this.db.experiment.findUnique({
-            where: { id: resourceId }
-          })
-          return experiment?.orgId === user.organizationId
+            where: { id: resourceId },
+          });
+          return experiment?.orgId === user.organizationId;
         }
-        break
+        break;
     }
 
-    return true
+    return true;
   }
 
   // Organization management
@@ -102,20 +102,20 @@ export class RBACService {
         name: true,
         role: true,
         createdAt: true,
-        updatedAt: true
+        updatedAt: true,
       },
-      orderBy: { createdAt: 'asc' }
-    })
+      orderBy: { createdAt: 'asc' },
+    });
   }
 
   async inviteUser(invite: UserInvite): Promise<void> {
     // Check if user already exists
     const existingUser = await this.db.user.findUnique({
-      where: { email: invite.email }
-    })
+      where: { email: invite.email },
+    });
 
     if (existingUser) {
-      throw new Error('User already exists with this email')
+      throw new Error('User already exists with this email');
     }
 
     // Create invite record (in a real implementation, this would be a separate table)
@@ -125,9 +125,9 @@ export class RBACService {
         email: invite.email,
         role: invite.role,
         organizationId: invite.organizationId,
-        name: 'Pending Invitation'
-      }
-    })
+        name: 'Pending Invitation',
+      },
+    });
 
     // Log the invitation
     await this.logAuditEvent({
@@ -135,25 +135,25 @@ export class RBACService {
       resource: 'user',
       changes: { email: invite.email, role: invite.role },
       userId: invite.invitedBy,
-      organizationId: invite.organizationId
-    })
+      organizationId: invite.organizationId,
+    });
   }
 
   async updateUserRole(userId: string, newRole: UserRole, updatedBy: string): Promise<void> {
     const user = await this.db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
     if (!user) {
-      throw new Error('User not found')
+      throw new Error('User not found');
     }
 
-    const oldRole = user.role
+    const oldRole = user.role;
 
     await this.db.user.update({
       where: { id: userId },
-      data: { role: newRole }
-    })
+      data: { role: newRole },
+    });
 
     // Log the role change
     await this.logAuditEvent({
@@ -162,34 +162,34 @@ export class RBACService {
       resourceId: userId,
       changes: { role: { from: oldRole, to: newRole } },
       userId: updatedBy,
-      organizationId: user.organizationId
-    })
+      organizationId: user.organizationId,
+    });
   }
 
   async removeUser(userId: string, removedBy: string): Promise<void> {
     const user = await this.db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
     if (!user) {
-      throw new Error('User not found')
+      throw new Error('User not found');
     }
 
     // Don't allow removing the last owner
     const ownerCount = await this.db.user.count({
-      where: { 
+      where: {
         organizationId: user.organizationId,
-        role: 'OWNER'
-      }
-    })
+        role: 'OWNER',
+      },
+    });
 
     if (user.role === 'OWNER' && ownerCount <= 1) {
-      throw new Error('Cannot remove the last owner of the organization')
+      throw new Error('Cannot remove the last owner of the organization');
     }
 
     await this.db.user.delete({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
     // Log the removal
     await this.logAuditEvent({
@@ -198,8 +198,8 @@ export class RBACService {
       resourceId: userId,
       changes: { email: user.email, role: user.role },
       userId: removedBy,
-      organizationId: user.organizationId
-    })
+      organizationId: user.organizationId,
+    });
   }
 
   // Store management
@@ -212,27 +212,27 @@ export class RBACService {
         status: true,
         region: true,
         createdAt: true,
-        updatedAt: true
+        updatedAt: true,
       },
-      orderBy: { createdAt: 'asc' }
-    })
+      orderBy: { createdAt: 'asc' },
+    });
   }
 
   async connectStore(connection: StoreConnection): Promise<void> {
     // Check if store is already connected to another organization
     const existingStore = await this.db.store.findUnique({
-      where: { id: connection.storeId }
-    })
+      where: { id: connection.storeId },
+    });
 
     if (existingStore && existingStore.organizationId !== connection.organizationId) {
-      throw new Error('Store is already connected to another organization')
+      throw new Error('Store is already connected to another organization');
     }
 
     // Update or create store connection
     await this.db.store.upsert({
       where: { id: connection.storeId },
       update: {
-        organizationId: connection.organizationId
+        organizationId: connection.organizationId,
       },
       create: {
         id: connection.storeId,
@@ -240,19 +240,21 @@ export class RBACService {
         accessToken: 'pending',
         scopes: 'read_products,read_orders',
         organizationId: connection.organizationId,
-        status: 'ACTIVE'
-      }
-    })
+        status: 'ACTIVE',
+      },
+    });
 
     // If this is set as default, unset other defaults
     if (connection.isDefault) {
       await this.db.store.updateMany({
-        where: { 
+        where: {
           organizationId: connection.organizationId,
-          id: { not: connection.storeId }
+          id: { not: connection.storeId },
         },
-        data: { /* Add default store flag if needed */ }
-      })
+        data: {
+          /* Add default store flag if needed */
+        },
+      });
     }
 
     // Log the connection
@@ -263,23 +265,23 @@ export class RBACService {
       changes: { isDefault: connection.isDefault },
       userId: connection.connectedBy,
       organizationId: connection.organizationId,
-      storeId: connection.storeId
-    })
+      storeId: connection.storeId,
+    });
   }
 
   async disconnectStore(storeId: string, disconnectedBy: string): Promise<void> {
     const store = await this.db.store.findUnique({
-      where: { id: storeId }
-    })
+      where: { id: storeId },
+    });
 
     if (!store) {
-      throw new Error('Store not found')
+      throw new Error('Store not found');
     }
 
     await this.db.store.update({
       where: { id: storeId },
-      data: { status: 'UNINSTALLED' }
-    })
+      data: { status: 'UNINSTALLED' },
+    });
 
     // Log the disconnection
     await this.logAuditEvent({
@@ -289,8 +291,8 @@ export class RBACService {
       changes: { shopDomain: store.shopDomain },
       userId: disconnectedBy,
       organizationId: store.organizationId,
-      storeId
-    })
+      storeId,
+    });
   }
 
   // Audit logging
@@ -304,15 +306,15 @@ export class RBACService {
         userId: event.userId,
         organizationId: event.organizationId,
         storeId: event.storeId,
-        metadata: event.metadata ? JSON.stringify(event.metadata) : null
-      }
-    })
+        metadata: event.metadata ? JSON.stringify(event.metadata) : null,
+      },
+    });
   }
 
   async getAuditLogs(
     organizationId: string,
     limit: number = 50,
-    offset: number = 0
+    offset: number = 0,
   ): Promise<any[]> {
     return this.db.auditLog.findMany({
       where: { organizationId },
@@ -328,37 +330,37 @@ export class RBACService {
         userId: true,
         storeId: true,
         createdAt: true,
-        metadata: true
-      }
-    })
+        metadata: true,
+      },
+    });
   }
 
   // Helper methods
   async getUserPermissions(userId: string): Promise<Permission[]> {
     const user = await this.db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
     if (!user) {
-      return []
+      return [];
     }
 
-    return ROLE_PERMISSIONS[user.role as UserRole] || []
+    return ROLE_PERMISSIONS[user.role as UserRole] || [];
   }
 
   async isOwner(userId: string): Promise<boolean> {
     const user = await this.db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
-    return user?.role === 'OWNER'
+    return user?.role === 'OWNER';
   }
 
   async isAdmin(userId: string): Promise<boolean> {
     const user = await this.db.user.findUnique({
-      where: { id: userId }
-    })
+      where: { id: userId },
+    });
 
-    return user?.role === 'ADMIN' || user?.role === 'OWNER'
+    return user?.role === 'ADMIN' || user?.role === 'OWNER';
   }
 }

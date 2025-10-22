@@ -1,5 +1,5 @@
-import { z } from 'zod'
-import { ValidationSchemas } from '@tokpulse/shared'
+import { ValidationSchemas } from '@tokpulse/shared';
+import { z } from 'zod';
 
 // API Request/Response schemas
 export const ApiSchemas = {
@@ -99,7 +99,7 @@ export const ApiSchemas = {
     limit: z.number().min(1).max(50).default(10),
     algorithm: z.enum(['collaborative', 'content-based', 'hybrid']).default('hybrid'),
   }),
-}
+};
 
 // API Response schemas
 export const ApiResponseSchemas = {
@@ -125,66 +125,66 @@ export const ApiResponseSchemas = {
       totalPages: z.number(),
     }),
   }),
-}
+};
 
 // Validation middleware
 export function validateRequest<T>(schema: z.ZodSchema<T>) {
   return (req: any, res: any, next: any) => {
     try {
-      const validatedData = schema.parse(req.body)
-      req.validatedData = validatedData
-      next()
+      const validatedData = schema.parse(req.body);
+      req.validatedData = validatedData;
+      next();
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({
           success: false,
           error: 'Validation failed',
           code: 'VALIDATION_ERROR',
-          details: error.errors.map(e => ({
+          details: error.errors.map((e) => ({
             field: e.path.join('.'),
             message: e.message,
             code: e.code,
           })),
-        })
+        });
       }
-      
+
       return res.status(500).json({
         success: false,
         error: 'Internal server error',
         code: 'INTERNAL_ERROR',
-      })
+      });
     }
-  }
+  };
 }
 
 // Query parameter validation
 export function validateQuery<T>(schema: z.ZodSchema<T>) {
   return (req: any, res: any, next: any) => {
     try {
-      const validatedData = schema.parse(req.query)
-      req.validatedQuery = validatedData
-      next()
+      const validatedData = schema.parse(req.query);
+      req.validatedQuery = validatedData;
+      next();
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({
           success: false,
           error: 'Query validation failed',
           code: 'QUERY_VALIDATION_ERROR',
-          details: error.errors.map(e => ({
+          details: error.errors.map((e) => ({
             field: e.path.join('.'),
             message: e.message,
             code: e.code,
           })),
-        })
+        });
       }
-      
+
       return res.status(500).json({
         success: false,
         error: 'Internal server error',
         code: 'INTERNAL_ERROR',
-      })
+      });
     }
-  }
+  };
 }
 
 // Response helpers
@@ -193,7 +193,7 @@ export function successResponse<T>(data: T, message?: string) {
     success: true,
     data,
     message,
-  }
+  };
 }
 
 export function errorResponse(error: string, code?: string, details?: any) {
@@ -202,15 +202,10 @@ export function errorResponse(error: string, code?: string, details?: any) {
     error,
     code,
     details,
-  }
+  };
 }
 
-export function paginatedResponse<T>(
-  data: T[],
-  page: number,
-  limit: number,
-  total: number
-) {
+export function paginatedResponse<T>(data: T[], page: number, limit: number, total: number) {
   return {
     data,
     pagination: {
@@ -219,5 +214,5 @@ export function paginatedResponse<T>(
       total,
       totalPages: Math.ceil(total / limit),
     },
-  }
+  };
 }

@@ -1,1 +1,14 @@
-{ "version":"0.2","language":"en","words":["TokPulse","healthz","readyz","Prometheus","tmux"] }
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "TokPulse",
+    "healthz",
+    "readyz",
+    "Prometheus",
+    "tmux",
+    "Turborepo",
+    "Supabase",
+    "SAMEORIGIN"
+  ]
+}

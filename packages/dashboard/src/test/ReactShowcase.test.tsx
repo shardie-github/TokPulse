@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ReactShowcase } from '../components/ReactShowcase';
 import { ThemeProvider } from '../contexts/ThemeContext';
 
@@ -47,9 +47,9 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
-    
+
     expect(screen.getByText('React Advanced Features Showcase')).toBeInTheDocument();
   });
 
@@ -57,7 +57,7 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText('Custom Hooks')).toBeInTheDocument();
@@ -73,19 +73,19 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Click on Performance tab
     fireEvent.click(screen.getByText('Performance'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Performance Monitoring')).toBeInTheDocument();
     });
 
     // Click on Forms tab
     fireEvent.click(screen.getByText('Forms & Validation'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Advanced Forms')).toBeInTheDocument();
     });
@@ -95,7 +95,7 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     const themeSelect = screen.getByDisplayValue('system');
@@ -106,16 +106,16 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Switch to hooks tab
     fireEvent.click(screen.getByText('Custom Hooks'));
-    
+
     await waitFor(() => {
       const searchInput = screen.getByPlaceholderText('Type to search (300ms debounce)...');
       expect(searchInput).toBeInTheDocument();
-      
+
       fireEvent.change(searchInput, { target: { value: 'test search' } });
       expect(searchInput).toHaveValue('test search');
     });
@@ -125,12 +125,12 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Switch to performance tab
     fireEvent.click(screen.getByText('Performance'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Render Metrics')).toBeInTheDocument();
       expect(screen.getByText('Skeleton Loading')).toBeInTheDocument();
@@ -142,12 +142,12 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Switch to tables tab
     fireEvent.click(screen.getByText('Data Tables'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Advanced Data Tables')).toBeInTheDocument();
       expect(screen.getByText('ID')).toBeInTheDocument();
@@ -160,12 +160,12 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Switch to forms tab
     fireEvent.click(screen.getByText('Forms & Validation'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Advanced Forms')).toBeInTheDocument();
       expect(screen.getByLabelText('Full Name')).toBeInTheDocument();
@@ -178,12 +178,12 @@ describe('ReactShowcase', () => {
     render(
       <TestWrapper>
         <ReactShowcase />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Switch to error tab
     fireEvent.click(screen.getByText('Error Handling'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Error Handling')).toBeInTheDocument();
       expect(screen.getByText('Error Boundary Demo')).toBeInTheDocument();

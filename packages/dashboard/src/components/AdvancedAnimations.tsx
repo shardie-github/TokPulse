@@ -1,59 +1,38 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence, useAnimation, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { 
-  Star, 
-  Heart, 
-  ThumbsUp, 
-  MessageCircle, 
-  Share2, 
-  Bookmark,
-  Download,
-  Upload,
-  Trash2,
-  Edit3,
-  Eye,
-  EyeOff,
-  ChevronDown,
-  ChevronUp,
-  RotateCcw,
-  Play,
-  Pause,
-  SkipForward,
-  SkipBack
-} from 'lucide-react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import React, { useState, useRef } from 'react';
 
 // Animation variants
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -60 }
+  exit: { opacity: 0, y: -60 },
 };
 
 const fadeInLeft = {
   initial: { opacity: 0, x: -60 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: 60 }
+  exit: { opacity: 0, x: 60 },
 };
 
 const fadeInRight = {
   initial: { opacity: 0, x: 60 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -60 }
+  exit: { opacity: 0, x: -60 },
 };
 
 const scaleIn = {
   initial: { opacity: 0, scale: 0.8 },
   animate: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.8 }
+  exit: { opacity: 0, scale: 0.8 },
 };
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 // Animated Card Component
@@ -65,35 +44,39 @@ interface AnimatedCardProps {
   hover?: boolean;
 }
 
-export function AnimatedCard({ 
-  children, 
-  className = '', 
-  delay = 0, 
+export function AnimatedCard({
+  children,
+  className = '',
+  delay = 0,
   direction = 'up',
-  hover = true 
+  hover = true,
 }: AnimatedCardProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const variants = {
     up: fadeInUp,
     left: fadeInLeft,
     right: fadeInRight,
-    scale: scaleIn
+    scale: scaleIn,
   }[direction];
 
   return (
     <motion.div
       ref={ref}
       initial="initial"
-      animate={isInView ? "animate" : "initial"}
+      animate={isInView ? 'animate' : 'initial'}
       variants={variants}
-      transition={{ delay, duration: 0.6, ease: "easeOut" }}
-      whileHover={hover ? { 
-        y: -5, 
-        scale: 1.02,
-        transition: { duration: 0.2 }
-      } : {}}
+      transition={{ delay, duration: 0.6, ease: 'easeOut' }}
+      whileHover={
+        hover
+          ? {
+              y: -5,
+              scale: 1.02,
+              transition: { duration: 0.2 },
+            }
+          : {}
+      }
       className={className}
     >
       {children}
@@ -110,12 +93,12 @@ interface AnimatedCounterProps {
   suffix?: string;
 }
 
-export function AnimatedCounter({ 
-  value, 
-  duration = 2, 
+export function AnimatedCounter({
+  value,
+  duration = 2,
   className = '',
   prefix = '',
-  suffix = ''
+  suffix = '',
 }: AnimatedCounterProps) {
   const [displayValue, setDisplayValue] = useState(0);
 
@@ -126,9 +109,9 @@ export function AnimatedCounter({
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      
+
       setDisplayValue(Math.floor(progress * value));
-      
+
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
       }
@@ -145,7 +128,9 @@ export function AnimatedCounter({
 
   return (
     <span className={className}>
-      {prefix}{displayValue.toLocaleString()}{suffix}
+      {prefix}
+      {displayValue.toLocaleString()}
+      {suffix}
     </span>
   );
 }
@@ -172,21 +157,22 @@ export function AnimatedButton({
   disabled = false,
   className = '',
   icon,
-  iconPosition = 'left'
+  iconPosition = 'left',
 }: AnimatedButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
 
   const variants = {
     primary: 'bg-brand-600 hover:bg-brand-700 text-white',
-    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white',
+    secondary:
+      'bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white',
     danger: 'bg-red-600 hover:bg-red-700 text-white',
-    success: 'bg-green-600 hover:bg-green-700 text-white'
+    success: 'bg-green-600 hover:bg-green-700 text-white',
   };
 
   const sizes = {
     sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
+    lg: 'px-6 py-3 text-lg',
   };
 
   return (
@@ -210,7 +196,7 @@ export function AnimatedButton({
         {loading ? (
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             className="w-4 h-4 border-2 border-current border-t-transparent rounded-full"
           />
         ) : (
@@ -237,12 +223,12 @@ export function AnimatedToggle({
   onChange,
   label,
   disabled = false,
-  size = 'md'
+  size = 'md',
 }: AnimatedToggleProps) {
   const sizes = {
     sm: { width: 32, height: 18, thumb: 14 },
     md: { width: 44, height: 24, thumb: 20 },
-    lg: { width: 56, height: 30, thumb: 26 }
+    lg: { width: 56, height: 30, thumb: 26 },
   };
 
   const { width, height, thumb } = sizes[size];
@@ -265,13 +251,15 @@ export function AnimatedToggle({
           className="absolute top-0.5 bg-white rounded-full shadow-md"
           style={{ width: thumb, height: thumb }}
           animate={{
-            x: checked ? width - thumb - 2 : 2
+            x: checked ? width - thumb - 2 : 2,
           }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
         />
       </motion.button>
       {label && (
-        <span className={`text-sm ${disabled ? 'text-gray-400' : 'text-gray-700 dark:text-gray-300'}`}>
+        <span
+          className={`text-sm ${disabled ? 'text-gray-400' : 'text-gray-700 dark:text-gray-300'}`}
+        >
           {label}
         </span>
       )}
@@ -295,16 +283,14 @@ export function AnimatedProgress({
   color = 'bg-brand-600',
   showPercentage = true,
   animated = true,
-  className = ''
+  className = '',
 }: AnimatedProgressProps) {
   const percentage = Math.min((value / max) * 100, 100);
 
   return (
     <div className={`w-full ${className}`}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Progress
-        </span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Progress</span>
         {showPercentage && (
           <span className="text-sm text-gray-500 dark:text-gray-400">
             {Math.round(percentage)}%
@@ -316,7 +302,7 @@ export function AnimatedProgress({
           className={`h-full ${color} rounded-full`}
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
-          transition={{ duration: animated ? 1 : 0, ease: "easeOut" }}
+          transition={{ duration: animated ? 1 : 0, ease: 'easeOut' }}
         />
       </div>
     </div>
@@ -335,7 +321,7 @@ export function AnimatedAccordion({
   title,
   children,
   defaultOpen = false,
-  className = ''
+  className = '',
 }: AnimatedAccordionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -347,26 +333,21 @@ export function AnimatedAccordion({
         whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.02)' }}
       >
         <span className="font-medium text-gray-900 dark:text-white">{title}</span>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
           <ChevronDown className="w-5 h-5 text-gray-500" />
         </motion.div>
       </motion.button>
-      
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-3 text-gray-600 dark:text-gray-400">
-              {children}
-            </div>
+            <div className="px-4 pb-3 text-gray-600 dark:text-gray-400">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -417,13 +398,13 @@ export function AnimatedModal({
   onClose,
   title,
   children,
-  size = 'md'
+  size = 'md',
 }: AnimatedModalProps) {
   const sizes = {
     sm: 'max-w-md',
     md: 'max-w-lg',
     lg: 'max-w-2xl',
-    xl: 'max-w-4xl'
+    xl: 'max-w-4xl',
   };
 
   return (
@@ -440,20 +421,16 @@ export function AnimatedModal({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className={`w-full ${sizes[size]} bg-white dark:bg-gray-800 rounded-lg shadow-xl`}
             onClick={(e) => e.stopPropagation()}
           >
             {title && (
               <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {title}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
               </div>
             )}
-            <div className="p-6">
-              {children}
-            </div>
+            <div className="p-6">{children}</div>
           </motion.div>
         </motion.div>
       )}
@@ -473,7 +450,7 @@ export function AnimatedNotification({
   message,
   type = 'info',
   duration = 5000,
-  onClose
+  onClose,
 }: AnimatedNotificationProps) {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -495,10 +472,13 @@ export function AnimatedNotification({
   }, [isVisible, onClose]);
 
   const colors = {
-    success: 'bg-green-100 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400',
-    error: 'bg-red-100 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400',
-    warning: 'bg-yellow-100 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-400',
-    info: 'bg-blue-100 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400'
+    success:
+      'bg-green-100 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400',
+    error:
+      'bg-red-100 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400',
+    warning:
+      'bg-yellow-100 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-400',
+    info: 'bg-blue-100 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400',
   };
 
   return (
@@ -508,7 +488,7 @@ export function AnimatedNotification({
           initial={{ opacity: 0, x: 300, scale: 0.8 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: 300, scale: 0.8 }}
-          transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg border ${colors[type]} max-w-sm`}
         >
           <div className="flex items-center justify-between">

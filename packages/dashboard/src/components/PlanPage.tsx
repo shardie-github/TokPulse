@@ -1,96 +1,110 @@
-import React, { useState, useEffect } from 'react'
-import { Card, Button, Badge, Alert, Spinner, ProgressBar, Text, Stack, InlineStack, BlockStack, Icon, Banner } from '@shopify/polaris'
-import { CheckIcon, StarIcon, AlertTriangleIcon, CreditCardIcon } from '@shopify/polaris-icons'
+import {
+  Card,
+  Button,
+  Badge,
+  Spinner,
+  ProgressBar,
+  Text,
+  Stack,
+  InlineStack,
+  BlockStack,
+  Icon,
+  Banner,
+} from '@shopify/polaris';
+import { CheckIcon, StarIcon, AlertTriangleIcon, CreditCardIcon } from '@shopify/polaris-icons';
+import React, { useState, useEffect } from 'react';
 
 interface Plan {
-  id: string
-  key: string
-  name: string
-  description?: string
-  price: number
-  currency: string
-  interval: string
-  features: string[]
-  limits: Record<string, number>
+  id: string;
+  key: string;
+  name: string;
+  description?: string;
+  price: number;
+  currency: string;
+  interval: string;
+  features: string[];
+  limits: Record<string, number>;
 }
 
 interface Subscription {
-  id: string
-  status: string
-  trialEndsAt?: string
-  currentPeriodEnd?: string
-  cancelAtPeriodEnd: boolean
-  plan: Plan
+  id: string;
+  status: string;
+  trialEndsAt?: string;
+  currentPeriodEnd?: string;
+  cancelAtPeriodEnd: boolean;
+  plan: Plan;
 }
 
 interface Usage {
-  api_calls: number
-  widget_views: number
-  stores: number
-  users: number
+  api_calls: number;
+  widget_views: number;
+  stores: number;
+  users: number;
 }
 
 export default function PlanPage() {
-  const [plans, setPlans] = useState<Plan[]>([])
-  const [subscription, setSubscription] = useState<Subscription | null>(null)
-  const [usage, setUsage] = useState<Usage | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [upgrading, setUpgrading] = useState<string | null>(null)
-  const [showBillingPortal, setShowBillingPortal] = useState(false)
+  const [plans, setPlans] = useState<Plan[]>([]);
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const [usage, setUsage] = useState<Usage | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [upgrading, setUpgrading] = useState<string | null>(null);
+  const [showBillingPortal, setShowBillingPortal] = useState(false);
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   const loadData = async () => {
     try {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
       const [plansRes, subscriptionRes, usageRes] = await Promise.all([
         fetch('/api/billing/plans'),
         fetch('/api/billing/subscription'),
-        fetch('/api/billing/usage')
-      ])
+        fetch('/api/billing/usage'),
+      ]);
 
       if (plansRes.ok) {
-        const plansData = await plansRes.json()
-        setPlans(plansData.plans.map((p: any) => ({
-          ...p,
-          features: JSON.parse(p.features),
-          limits: JSON.parse(p.limits || '{}')
-        })))
+        const plansData = await plansRes.json();
+        setPlans(
+          plansData.plans.map((p: any) => ({
+            ...p,
+            features: JSON.parse(p.features),
+            limits: JSON.parse(p.limits || '{}'),
+          })),
+        );
       }
 
       if (subscriptionRes.ok) {
-        const subData = await subscriptionRes.json()
+        const subData = await subscriptionRes.json();
         setSubscription({
           ...subData.subscription,
           plan: {
             ...subData.subscription.plan,
             features: JSON.parse(subData.subscription.plan.features),
-            limits: JSON.parse(subData.subscription.plan.limits || '{}')
-          }
-        })
+            limits: JSON.parse(subData.subscription.plan.limits || '{}'),
+          },
+        });
       }
 
       if (usageRes.ok) {
-        const usageData = await usageRes.json()
-        setUsage(usageData.usage)
+        const usageData = await usageRes.json();
+        setUsage(usageData.usage);
       }
     } catch (err) {
-      setError('Failed to load billing information')
-      console.error('Load data error:', err)
+      setError('Failed to load billing information');
+      console.error('Load data error:', err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleUpgrade = async (planKey: string) => {
     try {
-      setUpgrading(planKey)
-      setError(null)
+      setUpgrading(planKey);
+      setError(null);
 
       const response = await fetch('/api/billing/checkout', {
         method: 'POST',
@@ -98,76 +112,80 @@ export default function PlanPage() {
         body: JSON.stringify({
           planKey,
           successUrl: `${window.location.origin}/billing?success=true`,
-          cancelUrl: `${window.location.origin}/billing?canceled=true`
-        })
-      })
+          cancelUrl: `${window.location.origin}/billing?canceled=true`,
+        }),
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        window.location.href = data.url
+        const data = await response.json();
+        window.location.href = data.url;
       } else {
-        const errorData = await response.json()
-        setError(errorData.error || 'Failed to start upgrade process')
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to start upgrade process');
       }
     } catch (err) {
-      setError('Failed to start upgrade process')
-      console.error('Upgrade error:', err)
+      setError('Failed to start upgrade process');
+      console.error('Upgrade error:', err);
     } finally {
-      setUpgrading(null)
+      setUpgrading(null);
     }
-  }
+  };
 
   const handleCancel = async () => {
-    if (!confirm('Are you sure you want to cancel your subscription? You will lose access to premium features at the end of your current billing period.')) {
-      return
+    if (
+      !confirm(
+        'Are you sure you want to cancel your subscription? You will lose access to premium features at the end of your current billing period.',
+      )
+    ) {
+      return;
     }
 
     try {
-      setError(null)
+      setError(null);
       const response = await fetch('/api/billing/subscription', {
-        method: 'DELETE'
-      })
+        method: 'DELETE',
+      });
 
       if (response.ok) {
-        await loadData()
+        await loadData();
       } else {
-        const errorData = await response.json()
-        setError(errorData.error || 'Failed to cancel subscription')
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to cancel subscription');
       }
     } catch (err) {
-      setError('Failed to cancel subscription')
-      console.error('Cancel error:', err)
+      setError('Failed to cancel subscription');
+      console.error('Cancel error:', err);
     }
-  }
+  };
 
   const handleManageBilling = async () => {
     try {
-      setError(null)
+      setError(null);
       const response = await fetch('/api/billing/portal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          returnUrl: window.location.href
-        })
-      })
+          returnUrl: window.location.href,
+        }),
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        window.location.href = data.url
+        const data = await response.json();
+        window.location.href = data.url;
       } else {
-        const errorData = await response.json()
-        setError(errorData.error || 'Failed to open billing portal')
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to open billing portal');
       }
     } catch (err) {
-      setError('Failed to open billing portal')
-      console.error('Billing portal error:', err)
+      setError('Failed to open billing portal');
+      console.error('Billing portal error:', err);
     }
-  }
+  };
 
   const formatPrice = (price: number, currency: string, interval: string) => {
-    if (price === 0) return 'Free'
-    return `$${price}/${interval}`
-  }
+    if (price === 0) return 'Free';
+    return `$${price}/${interval}`;
+  };
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
@@ -175,21 +193,21 @@ export default function PlanPage() {
       ACTIVE: { status: 'success', children: 'Active' },
       PAST_DUE: { status: 'warning', children: 'Past Due' },
       CANCELLED: { status: 'critical', children: 'Cancelled' },
-      EXPIRED: { status: 'critical', children: 'Expired' }
-    }
-    return statusMap[status as keyof typeof statusMap] || { status: 'info', children: status }
-  }
+      EXPIRED: { status: 'critical', children: 'Expired' },
+    };
+    return statusMap[status as keyof typeof statusMap] || { status: 'info', children: status };
+  };
 
   const getUsagePercentage = (current: number, limit: number) => {
-    if (limit === -1) return 0 // Unlimited
-    return Math.round((current / limit) * 100)
-  }
+    if (limit === -1) return 0; // Unlimited
+    return Math.round((current / limit) * 100);
+  };
 
   const getUsageColor = (percentage: number) => {
-    if (percentage >= 90) return 'critical'
-    if (percentage >= 75) return 'warning'
-    return 'success'
-  }
+    if (percentage >= 90) return 'critical';
+    if (percentage >= 75) return 'warning';
+    return 'success';
+  };
 
   if (loading) {
     return (
@@ -197,7 +215,7 @@ export default function PlanPage() {
         <Spinner size="large" />
         <p>Loading billing information...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -247,7 +265,7 @@ export default function PlanPage() {
               {subscription.status === 'TRIAL' && subscription.trialEndsAt && (
                 <Banner tone="info" icon={StarIcon}>
                   <Text variant="bodyMd">
-                    Your trial ends on {new Date(subscription.trialEndsAt).toLocaleDateString()}. 
+                    Your trial ends on {new Date(subscription.trialEndsAt).toLocaleDateString()}.
                     Upgrade now to continue using premium features.
                   </Text>
                 </Banner>
@@ -257,7 +275,9 @@ export default function PlanPage() {
                 <Banner tone="warning" icon={AlertTriangleIcon}>
                   <Text variant="bodyMd">
                     Your subscription will be cancelled at the end of the current billing period on{' '}
-                    {subscription.currentPeriodEnd && new Date(subscription.currentPeriodEnd).toLocaleDateString()}.
+                    {subscription.currentPeriodEnd &&
+                      new Date(subscription.currentPeriodEnd).toLocaleDateString()}
+                    .
                   </Text>
                 </Banner>
               )}
@@ -272,35 +292,41 @@ export default function PlanPage() {
               <Text variant="headingMd" as="h3">
                 Current Usage
               </Text>
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-                gap: '1.5rem' 
-              }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                  gap: '1.5rem',
+                }}
+              >
                 {Object.entries(usage).map(([metric, current]) => {
-                  const limit = subscription.plan.limits[metric] || 0
-                  const percentage = getUsagePercentage(current, limit)
-                  const isUnlimited = limit === -1
+                  const limit = subscription.plan.limits[metric] || 0;
+                  const percentage = getUsagePercentage(current, limit);
+                  const isUnlimited = limit === -1;
 
                   return (
                     <Card key={metric} sectioned>
                       <BlockStack spacing="tight">
                         <InlineStack align="space-between" blockAlign="center">
                           <Text variant="bodyMd" fontWeight="medium">
-                            {metric.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                            {metric.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                           </Text>
                           <Text variant="bodyMd" color="subdued">
-                            {isUnlimited 
-                              ? `${current.toLocaleString()}` 
-                              : `${current.toLocaleString()} / ${limit.toLocaleString()}`
-                            }
+                            {isUnlimited
+                              ? `${current.toLocaleString()}`
+                              : `${current.toLocaleString()} / ${limit.toLocaleString()}`}
                           </Text>
                         </InlineStack>
                         {!isUnlimited && (
-                          <ProgressBar 
-                            progress={Math.min(percentage, 100)} 
-                            color={getUsageColor(percentage) === 'critical' ? 'critical' : 
-                                   getUsageColor(percentage) === 'warning' ? 'warning' : 'success'}
+                          <ProgressBar
+                            progress={Math.min(percentage, 100)}
+                            color={
+                              getUsageColor(percentage) === 'critical'
+                                ? 'critical'
+                                : getUsageColor(percentage) === 'warning'
+                                  ? 'warning'
+                                  : 'success'
+                            }
                           />
                         )}
                         {!isUnlimited && percentage >= 90 && (
@@ -310,7 +336,7 @@ export default function PlanPage() {
                         )}
                       </BlockStack>
                     </Card>
-                  )
+                  );
                 })}
               </div>
             </BlockStack>
@@ -323,11 +349,13 @@ export default function PlanPage() {
             <Text variant="headingMd" as="h3">
               Available Plans
             </Text>
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-              gap: '1.5rem' 
-            }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '1.5rem',
+              }}
+            >
               {plans.map((plan) => (
                 <Card key={plan.id} sectioned>
                   <BlockStack spacing="loose">
@@ -358,8 +386,8 @@ export default function PlanPage() {
                           Current Plan
                         </Button>
                       ) : (
-                        <Button 
-                          fullWidth 
+                        <Button
+                          fullWidth
                           primary={plan.key !== 'STARTER'}
                           loading={upgrading === plan.key}
                           onClick={() => handleUpgrade(plan.key)}
@@ -376,5 +404,5 @@ export default function PlanPage() {
         </Card>
       </Stack>
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Navigation, Text } from '@shopify/polaris';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export function Sidebar() {
@@ -51,22 +51,26 @@ export function Sidebar() {
   };
 
   return (
-    <div style={{ 
-      width: isCollapsed ? '60px' : '240px', 
-      minHeight: '100vh',
-      backgroundColor: '#f6f6f7',
-      borderRight: '1px solid #e1e3e5',
-      transition: 'width 0.3s ease',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
-      <div style={{ 
-        padding: '1rem',
-        borderBottom: '1px solid #e1e3e5',
+    <div
+      style={{
+        width: isCollapsed ? '60px' : '240px',
+        minHeight: '100vh',
+        backgroundColor: '#f6f6f7',
+        borderRight: '1px solid #e1e3e5',
+        transition: 'width 0.3s ease',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: isCollapsed ? 'center' : 'flex-start'
-      }}>
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        style={{
+          padding: '1rem',
+          borderBottom: '1px solid #e1e3e5',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: isCollapsed ? 'center' : 'flex-start',
+        }}
+      >
         {!isCollapsed && (
           <Text variant="headingMd" as="h1">
             TokPulse
@@ -78,21 +82,23 @@ export function Sidebar() {
           </Text>
         )}
       </div>
-      
+
       <Navigation location={location.pathname}>
         <Navigation.Section
-          items={navigationItems.map(item => ({
+          items={navigationItems.map((item) => ({
             ...item,
             onClick: () => handleNavigation(item.url),
           }))}
         />
       </Navigation>
-      
-      <div style={{ 
-        marginTop: 'auto', 
-        padding: '1rem',
-        borderTop: '1px solid #e1e3e5'
-      }}>
+
+      <div
+        style={{
+          marginTop: 'auto',
+          padding: '1rem',
+          borderTop: '1px solid #e1e3e5',
+        }}
+      >
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           style={{
@@ -105,11 +111,15 @@ export function Sidebar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.5rem'
+            gap: '0.5rem',
           }}
         >
           <span>{isCollapsed ? '→' : '←'}</span>
-          {!isCollapsed && <Text variant="bodySm" as="span">Collapse</Text>}
+          {!isCollapsed && (
+            <Text variant="bodySm" as="span">
+              Collapse
+            </Text>
+          )}
         </button>
       </div>
     </div>
