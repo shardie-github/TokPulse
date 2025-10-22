@@ -2,13 +2,13 @@ import pino from 'pino'
 import { randomUUID } from 'crypto'
 
 export interface LogContext {
-  requestId?: string
-  storeId?: string
-  orgId?: string
-  userId?: string
-  experimentId?: string
-  variantId?: string
-  [key: string]: any
+  requestId?: string | undefined
+  storeId?: string | undefined
+  orgId?: string | undefined
+  userId?: string | undefined
+  experimentId?: string | undefined
+  variantId?: string | undefined
+  [key: string]: unknown
 }
 
 export interface PinoConfig {
@@ -161,7 +161,7 @@ export class TelemetryLogger {
   apiRequest(method: string, route: string, statusCode: number, duration: number, storeId?: string, context: LogContext = {}) {
     this.info(`API request: ${method} ${route}`, {
       ...context,
-      storeId,
+      storeId: storeId ?? undefined,
       method,
       route,
       statusCode,

@@ -68,8 +68,8 @@ export function apiTelemetryMiddleware(req: TelemetryRequest, res: Response, nex
       duration,
       req.storeId,
       {
-        requestId: req.requestId,
-        orgId: req.orgId
+        requestId: req.requestId ?? undefined,
+        orgId: req.orgId ?? undefined
       }
     )
 

@@ -7,9 +7,9 @@ import { trace, context, SpanStatusCode, SpanKind } from '@opentelemetry/api'
 
 export interface TracingConfig {
   serviceName: string
-  serviceVersion?: string
-  otlpEndpoint?: string
-  enabled?: boolean
+  serviceVersion?: string | undefined
+  otlpEndpoint?: string | undefined
+  enabled?: boolean | undefined
 }
 
 export class TelemetryTracing {
@@ -152,7 +152,7 @@ export class TelemetryTracing {
 export const tracing = new TelemetryTracing({
   serviceName: 'tokpulse',
   serviceVersion: process.env.SERVICE_VERSION || '1.0.0',
-  otlpEndpoint: process.env.OTLP_ENDPOINT,
+  otlpEndpoint: process.env.OTLP_ENDPOINT ?? undefined,
   enabled: process.env.TRACING_ENABLED !== 'false'
 })
 
