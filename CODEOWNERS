@@ -1,0 +1,39 @@
+# Global owners
+* @hardoniastore
+
+# Core application files
+/apps/partner-app/ @hardoniastore
+/apps/web-hydrogen/ @hardoniastore
+/apps/edge-worker/ @hardoniastore
+
+# Package files
+/packages/api/ @hardoniastore
+/packages/billing/ @hardoniastore
+/packages/db/ @hardoniastore
+/packages/shared/ @hardoniastore
+/packages/ui/ @hardoniastore
+
+# Configuration files
+package.json @hardoniastore
+pnpm-workspace.yaml @hardoniastore
+turbo.json @hardoniastore
+tsconfig.json @hardoniastore
+eslint.config.js @hardoniastore
+
+# Documentation
+README.md @hardoniastore
+CONTRIBUTING.md @hardoniastore
+CODE_OF_CONDUCT.md @hardoniastore
+CHANGELOG.md @hardoniastore
+SECURITY.md @hardoniastore
+
+# CI/CD
+/.github/ @hardoniastore
+
+# Database
+*.prisma @hardoniastore
+/schemas/ @hardoniastore
+
+# Security
+SECURITY.md @hardoniastore
+.github/dependabot.yml @hardoniastore

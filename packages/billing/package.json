@@ -13,11 +13,11 @@
   "dependencies": {
     "@tokpulse/db": "workspace:*",
     "@tokpulse/shared": "workspace:*",
-    "zod": "^3.22.4"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "@types/node": "^20.19.23",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
   }
 }

@@ -36,7 +36,7 @@ export function createBillingApi(config: BillingApiConfig) {
     stripeWebhookSecret: config.stripeWebhookSecret,
   });
 
-  const billingMiddleware = new BillingMiddleware({
+  const _billingMiddleware = new BillingMiddleware({
     billingService,
     getOrganizationId: config.getOrganizationId,
   });
@@ -72,7 +72,7 @@ export function createBillingApi(config: BillingApiConfig) {
   );
 
   // Error handling
-  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
     console.error('Billing API error:', err);
     res.status(500).json({ error: 'Internal server error' });
   });

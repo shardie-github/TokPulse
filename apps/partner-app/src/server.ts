@@ -123,7 +123,7 @@ app.get('/performance/status', (req, res) => {
 });
 
 // Error handling with proper tracking
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   // Capture error with context
   errorTracker.captureError(err, {
     method: req.method,

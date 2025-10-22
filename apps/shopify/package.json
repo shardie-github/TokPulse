@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { 
+  "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "setup": "./setup-test-store.sh",
     "test": "node test-connection.js"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2",
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.6.1",
+    "node-fetch": "^3.3.2"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

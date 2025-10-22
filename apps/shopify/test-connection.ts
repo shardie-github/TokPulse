@@ -6,8 +6,8 @@ import fetch from 'node-fetch';
 config({ path: '.env' });
 
 const STORE_DOMAIN = 'jb4izh-tz.myshopify.com';
-const API_KEY = process.env.SHOPIFY_API_KEY;
-const API_SECRET = process.env.SHOPIFY_API_SECRET;
+const _API_KEY = process.env.SHOPIFY_API_KEY;
+const _API_SECRET = process.env.SHOPIFY_API_SECRET;
 const APP_URL = process.env.SHOPIFY_APP_URL || 'http://localhost:3004';
 
 async function testConnection() {

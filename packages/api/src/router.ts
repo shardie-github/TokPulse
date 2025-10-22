@@ -27,7 +27,7 @@ export function createApiRouter(config: ApiRouterConfig): Router {
   const router = Router();
 
   // Error handling middleware
-  router.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  router.use((error: Error, req: Request, res: Response, _next: NextFunction) => {
     console.error('API Error:', error);
 
     if (error.name === 'ValidationError') {
