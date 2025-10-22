@@ -8,3 +8,20 @@ Store: jb4izh-tz.myshopify.com
 App URL: https://your-app-domain.com
 
 1. Testing health endpoint...
+   ❌ Health check: FAIL - Unexpected token '<', "<html>
+<he"... is not valid JSON
+2. Testing install URL generation...
+   ✅ Install URL: https://your-app-domain.com/api/shopify/install?shop=jb4izh-tz.myshopify.com
+   📝 Visit this URL to test the OAuth flow
+3. Validating environment...
+   ⚠️  SHOPIFY_API_KEY: Not configured
+   ⚠️  SHOPIFY_API_SECRET: Not configured
+   ✅ SHOPIFY_APP_URL: Configured
+
+⚠️  Please configure your environment variables in .env file
+
+Next steps:
+1. Update .env with your Shopify app credentials
+2. Start the server: npm start
+3. Visit the install URL to test the OAuth flow
+4. Check the test store: https://shopify.com/store/jb4izh-tz
