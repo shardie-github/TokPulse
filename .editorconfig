@@ -39,3 +39,31 @@ indent_size = 4
 # Shell scripts
 [*.{sh,bash}]
 indent_size = 2
+
+# Python files
+[*.py]
+indent_size = 4
+
+# Go files
+[*.go]
+indent_size = 4
+
+# Rust files
+[*.rs]
+indent_size = 4
+
+# HTML files
+[*.html]
+indent_size = 2
+
+# CSS files
+[*.{css,scss,sass,less}]
+indent_size = 2
+
+# SQL files
+[*.sql]
+indent_size = 2
+
+# Configuration files
+[*.{ini,cfg,conf}]
+indent_size = 2
