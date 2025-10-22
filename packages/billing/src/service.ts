@@ -435,7 +435,7 @@ export class BillingService {
   }
 
   private async handleShopifySubscriptionCreated(payload: any): Promise<void> {
-    const { id, name, price, status, trial_ends_on, created_at, shop_domain } = payload;
+    const { id, name, _price, _status, trial_ends_on, created_at, shop_domain } = payload;
 
     // Find organization by shop domain
     const store = await this.db.store.findUnique({
@@ -464,7 +464,7 @@ export class BillingService {
       update: {
         planId: plan.id,
         shopifyBillingId: id.toString(),
-        status: status === 'active' ? 'ACTIVE' : 'TRIAL',
+        status: _status === 'active' ? 'ACTIVE' : 'TRIAL',
         trialEndsAt,
         currentPeriodStart,
         currentPeriodEnd,
@@ -473,7 +473,7 @@ export class BillingService {
         organizationId: store.organizationId,
         planId: plan.id,
         shopifyBillingId: id.toString(),
-        status: status === 'active' ? 'ACTIVE' : 'TRIAL',
+        status: _status === 'active' ? 'ACTIVE' : 'TRIAL',
         trialEndsAt,
         currentPeriodStart,
         currentPeriodEnd,

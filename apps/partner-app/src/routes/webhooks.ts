@@ -9,9 +9,9 @@ export function createWebhookHandler(shopify: Shopify) {
   // Webhook verification middleware
   router.use((req: Request, res: Response, next) => {
     try {
-      const hmac = req.get('X-Shopify-Hmac-Sha256');
+      const _hmac = req.get('X-Shopify-Hmac-Sha256');
       const body = JSON.stringify(req.body);
-      const secret = process.env.SHOPIFY_WEBHOOK_SECRET!;
+      const _secret = process.env.SHOPIFY_WEBHOOK_SECRET!;
 
       if (!shopify.webhooks.validate({ rawBody: body, rawRequest: req, rawResponse: res })) {
         return res.status(401).json({ error: 'Invalid webhook signature' });

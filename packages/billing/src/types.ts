@@ -72,10 +72,10 @@ export const CheckEntitlementRequest = z.object({
 });
 
 // Type exports
-export type PlanTier = z.infer<typeof PlanTier>;
-export type SubscriptionStatus = z.infer<typeof SubscriptionStatus>;
-export type BillingProvider = z.infer<typeof BillingProvider>;
-export type UsageMetric = z.infer<typeof UsageMetric>;
+export type PlanTierType = z.infer<typeof PlanTier>;
+export type SubscriptionStatusType = z.infer<typeof SubscriptionStatus>;
+export type BillingProviderType = z.infer<typeof BillingProvider>;
+export type UsageMetricType = z.infer<typeof UsageMetric>;
 export type Plan = z.infer<typeof PlanSchema>;
 export type Subscription = z.infer<typeof SubscriptionSchema>;
 export type UsageRecord = z.infer<typeof UsageRecordSchema>;

@@ -171,7 +171,7 @@ export class ShopifyBillingService {
   }
 
   private async handleSubscriptionCreated(payload: any): Promise<void> {
-    const { id, name, price, status, trial_ends_on, created_at } = payload;
+    const { id, name, _price, _status, trial_ends_on, created_at } = payload;
 
     // Find organization by shop domain
     // This would need to be implemented based on your store lookup logic
@@ -258,7 +258,7 @@ export class ShopifyBillingService {
     return Math.max(0, diffDays);
   }
 
-  private async findOrganizationByShopDomain(shopDomain: string): Promise<string | null> {
+  private async findOrganizationByShopDomain(_shopDomain: string): Promise<string | null> {
     // This would need to be implemented based on your store lookup logic
     // For now, return null as a placeholder
     return null;

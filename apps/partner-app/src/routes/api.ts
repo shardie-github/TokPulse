@@ -3,7 +3,7 @@ import { prisma } from '@tokpulse/db';
 import { telemetry } from '@tokpulse/shared';
 import type { Request, Response, Router } from 'express';
 
-export function createApiHandler(shopify: Shopify) {
+export function createApiHandler(_shopify: Shopify) {
   const router = Router();
 
   // Get store info
