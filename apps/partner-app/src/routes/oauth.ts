@@ -36,14 +36,14 @@ export function createOAuthHandler(shopify: Shopify) {
       const store = await prisma.store.upsert({
         where: { shopDomain: shop as string },
         update: {
-          accessToken: session.accessToken,
-          scopes: session.scope?.split(',') || [],
+          accessToken: (session as any).accessToken,
+          scopes: (session as any).scope?.split(',') || [],
           status: 'ACTIVE',
         },
         create: {
           shopDomain: shop as string,
-          accessToken: session.accessToken,
-          scopes: session.scope?.split(',') || [],
+          accessToken: (session as any).accessToken,
+          scopes: (session as any).scope?.split(',') || [],
           region: 'us', // Default region
           status: 'ACTIVE',
           organizationId: 'default-org', // In production, derive from user context
@@ -54,7 +54,7 @@ export function createOAuthHandler(shopify: Shopify) {
         event: 'store_connected',
         properties: {
           shopDomain: shop,
-          scopes: session.scope?.split(',') || [],
+          scopes: (session as any).scope?.split(',') || [],
         },
         timestamp: Date.now(),
         organizationId: store.organizationId,

@@ -67,8 +67,8 @@ app.use((req, res, next) => {
 
 // Body parsing with size limits
 app.use(express.json({ 
-  limit: security['validation'].maxBodySize,
-  verify: (req, res, buf) => {
+  limit: (security as any).validation?.maxBodySize || '10mb',
+  verify: (req: any, res, buf) => {
     req.rawBody = buf
   }
 }))
@@ -127,7 +127,6 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
   // Capture error with context
   errorTracker.captureError(err, {
     method: req.method,
-    path: req.path,
     userAgent: req.get('User-Agent'),
     ip: req.ip,
     body: security.sanitizeLogData(req.body),
@@ -145,7 +144,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
   res.status(500).json({
     success: false,
     error: 'Internal server error',
-    requestId: req.requestId,
+    requestId: (req as any).requestId || 'unknown',
   })
 })
 

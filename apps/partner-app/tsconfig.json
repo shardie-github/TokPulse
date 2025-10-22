@@ -1,9 +1,32 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": "../../",
+    "paths": {
+      "@tokpulse/shared": ["./packages/shared/src"],
+      "@tokpulse/db": ["./packages/db/src"],
+      "@tokpulse/api": ["./packages/api/src"],
+      "@tokpulse/ui": ["./packages/ui/src"],
+      "@tokpulse/billing": ["./packages/billing/src"],
+      "@tokpulse/experiments": ["./packages/experiments/src"],
+      "@tokpulse/telemetry": ["./packages/telemetry/src"]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "../../packages"]
 }

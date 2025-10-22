@@ -2,3 +2,2415 @@
 > tokpulse-dashboard@0.1.0 test /workspace/packages/dashboard
 > vitest
 
+
+ DEV  v1.6.1 /workspace/packages/dashboard
+
+WebSocket server error: Port is already in use
+ ❯ src/test/ReactShowcase.test.tsx  (9 tests | 5 failed) 2423ms
+   ❯ src/test/ReactShowcase.test.tsx > ReactShowcase > displays all navigation tabs
+     → Found multiple elements with the text: Custom Hooks
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+[36m>[39m
+  [36m<svg[39m
+    [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+    [33mfill[39m=[32m"none"[39m
+    [33mheight[39m=[32m"24"[39m
+    [33mstroke[39m=[32m"currentColor"[39m
+    [33mstroke-linecap[39m=[32m"round"[39m
+    [33mstroke-linejoin[39m=[32m"round"[39m
+    [33mstroke-width[39m=[32m"2"[39m
+    [33mviewBox[39m=[32m"0 0 24 24"[39m
+    [33mwidth[39m=[32m"24"[39m
+    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+  [36m>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+    [36m/>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+    [36m/>[39m
+  [36m</svg>[39m
+  [0mCustom Hooks[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<h2[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-gray-900 dark:text-white"[39m
+[36m>[39m
+  [0mCustom Hooks[0m
+[36m</h2>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+          ...
+   ❯ src/test/ReactShowcase.test.tsx > ReactShowcase > displays theme selector
+     → Unable to find an element with the display value: system.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+          ...
+   ❯ src/test/ReactShowcase.test.tsx > ReactShowcase > handles search input in hooks tab
+     → Found multiple elements with the text: Custom Hooks
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+[36m>[39m
+  [36m<svg[39m
+    [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+    [33mfill[39m=[32m"none"[39m
+    [33mheight[39m=[32m"24"[39m
+    [33mstroke[39m=[32m"currentColor"[39m
+    [33mstroke-linecap[39m=[32m"round"[39m
+    [33mstroke-linejoin[39m=[32m"round"[39m
+    [33mstroke-width[39m=[32m"2"[39m
+    [33mviewBox[39m=[32m"0 0 24 24"[39m
+    [33mwidth[39m=[32m"24"[39m
+    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+  [36m>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+    [36m/>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+    [36m/>[39m
+  [36m</svg>[39m
+  [0mCustom Hooks[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<h2[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-gray-900 dark:text-white"[39m
+[36m>[39m
+  [0mCustom Hooks[0m
+[36m</h2>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+          ...
+   ❯ src/test/ReactShowcase.test.tsx > ReactShowcase > displays form in forms tab
+     → Unable to find a label with the text of: Full Name
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+          ...
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+            [36m>[39m
+              [0mReact Advanced Features Showcase[0m
+            [36m</h1>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center gap-4"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mTheme:[0m
+              [36m</span>[39m
+              [36m<select[39m
+                [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+              [36m>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"light"[39m
+                [36m>[39m
+                  [0mLight[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"dark"[39m
+                [36m>[39m
+                  [0mDark[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"system"[39m
+                [36m>[39m
+                  [0mSystem[0m
+                [36m</option>[39m
+              [36m</select>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mCurrent: [0m
+                [0mlight[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mRender time: [0m
+              [0m0.00[0m
+              [0mms[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                  [36m/>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mCustom Hooks[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mPerformance[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                  [36m/>[39m
+   ...
+   ❯ src/test/ReactShowcase.test.tsx > ReactShowcase > shows error handling in error tab
+     → Found multiple elements with the text: Error Handling
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+[36m>[39m
+  [36m<svg[39m
+    [33mclass[39m=[32m"lucide lucide-shield w-4 h-4"[39m
+    [33mfill[39m=[32m"none"[39m
+    [33mheight[39m=[32m"24"[39m
+    [33mstroke[39m=[32m"currentColor"[39m
+    [33mstroke-linecap[39m=[32m"round"[39m
+    [33mstroke-linejoin[39m=[32m"round"[39m
+    [33mstroke-width[39m=[32m"2"[39m
+    [33mviewBox[39m=[32m"0 0 24 24"[39m
+    [33mwidth[39m=[32m"24"[39m
+    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+  [36m>[39m
+    [36m<path[39m
+      [33md[39m=[32m"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"[39m
+    [36m/>[39m
+  [36m</svg>[39m
+  [0mError Handling[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<h2[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-gray-900 dark:text-white"[39m
+[36m>[39m
+  [0mError Handling[0m
+[36m</h2>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover...
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+            [36m>[39m
+              [0mReact Advanced Features Showcase[0m
+            [36m</h1>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center gap-4"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mTheme:[0m
+              [36m</span>[39m
+              [36m<select[39m
+                [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+              [36m>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"light"[39m
+                [36m>[39m
+                  [0mLight[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"dark"[39m
+                [36m>[39m
+                  [0mDark[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"system"[39m
+                [36m>[39m
+                  [0mSystem[0m
+                [36m</option>[39m
+              [36m</select>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mCurrent: [0m
+                [0mlight[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mRender time: [0m
+              [0m0.00[0m
+              [0mms[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                  [36m/>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mCustom Hooks[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mPerformance[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                  [36m/>[39m
+   ...
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/ReactShowcase.test.tsx > ReactShowcase > displays all navigation tabs
+TestingLibraryElementError: Found multiple elements with the text: Custom Hooks
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+[36m>[39m
+  [36m<svg[39m
+    [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+    [33mfill[39m=[32m"none"[39m
+    [33mheight[39m=[32m"24"[39m
+    [33mstroke[39m=[32m"currentColor"[39m
+    [33mstroke-linecap[39m=[32m"round"[39m
+    [33mstroke-linejoin[39m=[32m"round"[39m
+    [33mstroke-width[39m=[32m"2"[39m
+    [33mviewBox[39m=[32m"0 0 24 24"[39m
+    [33mwidth[39m=[32m"24"[39m
+    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+  [36m>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+    [36m/>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+    [36m/>[39m
+  [36m</svg>[39m
+  [0mCustom Hooks[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<h2[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-gray-900 dark:text-white"[39m
+[36m>[39m
+  [0mCustom Hooks[0m
+[36m</h2>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+          ...
+ ❯ Object.getElementError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/ReactShowcase.test.tsx:63:19
+     61|     );
+     62| 
+     63|     expect(screen.getByText('Custom Hooks')).toBeInTheDocument();
+       |                   ^
+     64|     expect(screen.getByText('Performance')).toBeInTheDocument();
+     65|     expect(screen.getByText('Advanced Components')).toBeInTheDocument(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  src/test/ReactShowcase.test.tsx > ReactShowcase > displays theme selector
+TestingLibraryElementError: Unable to find an element with the display value: system.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+          ...
+ ❯ Object.getElementError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/ReactShowcase.test.tsx:101:32
+     99|     );
+    100| 
+    101|     const themeSelect = screen.getByDisplayValue('system');
+       |                                ^
+    102|     expect(themeSelect).toBeInTheDocument();
+    103|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  src/test/ReactShowcase.test.tsx > ReactShowcase > handles search input in hooks tab
+TestingLibraryElementError: Found multiple elements with the text: Custom Hooks
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+[36m>[39m
+  [36m<svg[39m
+    [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+    [33mfill[39m=[32m"none"[39m
+    [33mheight[39m=[32m"24"[39m
+    [33mstroke[39m=[32m"currentColor"[39m
+    [33mstroke-linecap[39m=[32m"round"[39m
+    [33mstroke-linejoin[39m=[32m"round"[39m
+    [33mstroke-width[39m=[32m"2"[39m
+    [33mviewBox[39m=[32m"0 0 24 24"[39m
+    [33mwidth[39m=[32m"24"[39m
+    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+  [36m>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+    [36m/>[39m
+    [36m<polyline[39m
+      [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+    [36m/>[39m
+  [36m</svg>[39m
+  [0mCustom Hooks[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<h2[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-gray-900 dark:text-white"[39m
+[36m>[39m
+  [0mCustom Hooks[0m
+[36m</h2>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+          ...
+ ❯ Object.getElementError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/ReactShowcase.test.tsx:113:28
+    111| 
+    112|     // Switch to hooks tab
+    113|     fireEvent.click(screen.getByText('Custom Hooks'));
+       |                            ^
+    114|     
+    115|     await waitFor(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  src/test/ReactShowcase.test.tsx > ReactShowcase > displays form in forms tab
+TestingLibraryElementError: Unable to find a label with the text of: Full Name
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+            [36m>[39m
+          ...
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+            [36m>[39m
+              [0mReact Advanced Features Showcase[0m
+            [36m</h1>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center gap-4"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mTheme:[0m
+              [36m</span>[39m
+              [36m<select[39m
+                [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+              [36m>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"light"[39m
+                [36m>[39m
+                  [0mLight[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"dark"[39m
+                [36m>[39m
+                  [0mDark[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"system"[39m
+                [36m>[39m
+                  [0mSystem[0m
+                [36m</option>[39m
+              [36m</select>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mCurrent: [0m
+                [0mlight[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mRender time: [0m
+              [0m0.00[0m
+              [0mms[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                  [36m/>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mCustom Hooks[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mPerformance[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                  [36m/>[39m
+   ...
+ ❯ Proxy.waitForWrapper ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ src/test/ReactShowcase.test.tsx:169:11
+    167|     fireEvent.click(screen.getByText('Forms & Validation'));
+    168|     
+    169|     await waitFor(() => {
+       |           ^
+    170|       expect(screen.getByText('Advanced Forms')).toBeInTheDocument();
+    171|       expect(screen.getByLabelText('Full Name')).toBeInTheDocument();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  src/test/ReactShowcase.test.tsx > ReactShowcase > shows error handling in error tab
+TestingLibraryElementError: Found multiple elements with the text: Error Handling
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white"[39m
+[36m>[39m
+  [36m<svg[39m
+    [33mclass[39m=[32m"lucide lucide-shield w-4 h-4"[39m
+    [33mfill[39m=[32m"none"[39m
+    [33mheight[39m=[32m"24"[39m
+    [33mstroke[39m=[32m"currentColor"[39m
+    [33mstroke-linecap[39m=[32m"round"[39m
+    [33mstroke-linejoin[39m=[32m"round"[39m
+    [33mstroke-width[39m=[32m"2"[39m
+    [33mviewBox[39m=[32m"0 0 24 24"[39m
+    [33mwidth[39m=[32m"24"[39m
+    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+  [36m>[39m
+    [36m<path[39m
+      [33md[39m=[32m"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"[39m
+    [36m/>[39m
+  [36m</svg>[39m
+  [0mError Handling[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<h2[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-gray-900 dark:text-white"[39m
+[36m>[39m
+  [0mError Handling[0m
+[36m</h2>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+          [36m>[39m
+            [0mReact Advanced Features Showcase[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-4"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mTheme:[0m
+            [36m</span>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"light"[39m
+              [36m>[39m
+                [0mLight[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"dark"[39m
+              [36m>[39m
+                [0mDark[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"system"[39m
+              [36m>[39m
+                [0mSystem[0m
+              [36m</option>[39m
+            [36m</select>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mCurrent: [0m
+              [0mlight[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+          [36m>[39m
+            [0mRender time: [0m
+            [0m0.00[0m
+            [0mms[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-8"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                [36m/>[39m
+                [36m<polyline[39m
+                  [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mCustom Hooks[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mPerformance[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                [33mfill[39m=[32m"none"[39m
+                [33mheight[39m=[32m"24"[39m
+                [33mstroke[39m=[32m"currentColor"[39m
+                [33mstroke-linecap[39m=[32m"round"[39m
+                [33mstroke-linejoin[39m=[32m"round"[39m
+                [33mstroke-width[39m=[32m"2"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [33mwidth[39m=[32m"24"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                [36m/>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [0mAdvanced Components[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover...
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"min-h-screen bg-gray-50 dark:bg-gray-900"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"max-w-7xl mx-auto p-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"text-3xl font-bold text-gray-900 dark:text-white mb-2"[39m
+            [36m>[39m
+              [0mReact Advanced Features Showcase[0m
+            [36m</h1>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-gray-600 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mDemonstrating modern React patterns, performance optimizations, and advanced UI components[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6 flex items-center justify-between"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center gap-4"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-sm text-gray-600 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mTheme:[0m
+              [36m</span>[39m
+              [36m<select[39m
+                [33mclass[39m=[32m"px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"[39m
+              [36m>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"light"[39m
+                [36m>[39m
+                  [0mLight[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"dark"[39m
+                [36m>[39m
+                  [0mDark[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"system"[39m
+                [36m>[39m
+                  [0mSystem[0m
+                [36m</option>[39m
+              [36m</select>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-xs text-gray-500 dark:text-gray-400"[39m
+              [36m>[39m
+                [0mCurrent: [0m
+                [0mlight[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-sm text-gray-500 dark:text-gray-400"[39m
+            [36m>[39m
+              [0mRender time: [0m
+              [0m0.00[0m
+              [0mms[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-8"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-code w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"16 18 22 12 16 6"[39m
+                  [36m/>[39m
+                  [36m<polyline[39m
+                    [33mpoints[39m=[32m"8 6 2 12 8 18"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mCustom Hooks[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-zap w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [0mPerformance[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mclass[39m=[32m"lucide lucide-layers w-4 h-4"[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"24"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mwidth[39m=[32m"24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"[39m
+                  [36m/>[39m
+   ...
+ ❯ Proxy.waitForWrapper ../../node_modules/.pnpm/@testing-library+dom@9.3.4/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ src/test/ReactShowcase.test.tsx:187:11
+    185|     fireEvent.click(screen.getByText('Error Handling'));
+    186|     
+    187|     await waitFor(() => {
+       |           ^
+    188|       expect(screen.getByText('Error Handling')).toBeInTheDocument();
+    189|       expect(screen.getByText('Error Boundary Demo')).toBeInTheDocumen…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 4 passed (9)
+   Start at  00:27:54
+   Duration  5.22s (transform 328ms, setup 313ms, collect 417ms, tests 2.42s, environment 763ms, prepare 539ms)
+
+
+ FAIL  Tests failed. Watching for file changes...
+       press h to show help, press q to quit

@@ -2,22 +2,26 @@
 > tokpulse-shopify@0.1.0 test /workspace/apps/shopify
 > node test-connection.js
 
-node:internal/modules/run_main:123
-    triggerUncaughtException(
-    ^
+🧪 Testing TokPulse Shopify Connection
+=====================================
+Store: jb4izh-tz.myshopify.com
+App URL: https://your-app-domain.com
 
-Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'dotenv' imported from /workspace/apps/shopify/test-connection.js
-Did you mean to import "dotenv/lib/main.js"?
-    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:266:9)
-    at packageResolve (node:internal/modules/esm/resolve:767:81)
-    at moduleResolve (node:internal/modules/esm/resolve:853:18)
-    at defaultResolve (node:internal/modules/esm/resolve:983:11)
-    at #cachedDefaultResolve (node:internal/modules/esm/loader:731:20)
-    at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)
-    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)
-    at ModuleJob._link (node:internal/modules/esm/module_job:183:49) {
-  code: 'ERR_MODULE_NOT_FOUND'
-}
+1. Testing health endpoint...
+   ❌ Health check: FAIL - Unexpected token '<', "<html>
+<he"... is not valid JSON
+2. Testing install URL generation...
+   ✅ Install URL: https://your-app-domain.com/api/shopify/install?shop=jb4izh-tz.myshopify.com
+   📝 Visit this URL to test the OAuth flow
+3. Validating environment...
+   ⚠️  SHOPIFY_API_KEY: Not configured
+   ⚠️  SHOPIFY_API_SECRET: Not configured
+   ✅ SHOPIFY_APP_URL: Configured
 
-Node.js v22.20.0
- ELIFECYCLE  Test failed. See above for more details.
+⚠️  Please configure your environment variables in .env file
+
+Next steps:
+1. Update .env with your Shopify app credentials
+2. Start the server: npm start
+3. Visit the install URL to test the OAuth flow
+4. Check the test store: https://shopify.com/store/jb4izh-tz
