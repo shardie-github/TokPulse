@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createHash, randomBytes, createCipher, createDecipher } from 'crypto'
+import { createHash, randomBytes, createCipher, createDecipher, CipherGCM, DecipherGCM } from 'crypto'
 
 // Security configuration schema
 export const SecurityHardeningSchema = z.object({
@@ -279,7 +279,7 @@ export class SecurityHardening {
   encrypt(data: string, key?: string): string {
     const encryptionKey = key || this.config.auth.jwtSecret
     const iv = randomBytes(this.config.encryption.ivLength)
-    const cipher = createCipher(this.config.encryption.algorithm, encryptionKey)
+    const cipher = createCipher(this.config.encryption.algorithm, encryptionKey) as CipherGCM
     
     let encrypted = cipher.update(data, 'utf8', 'hex')
     encrypted += cipher.final('hex')
@@ -295,7 +295,7 @@ export class SecurityHardening {
     
     const iv = Buffer.from(ivHex, 'hex')
     const authTag = Buffer.from(authTagHex, 'hex')
-    const decipher = createDecipher(this.config.encryption.algorithm, encryptionKey)
+    const decipher = createDecipher(this.config.encryption.algorithm, encryptionKey) as DecipherGCM
     
     decipher.setAuthTag(authTag)
     

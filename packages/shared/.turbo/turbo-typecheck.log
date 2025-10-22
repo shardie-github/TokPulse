@@ -2,31 +2,3 @@
 > @tokpulse/shared@0.0.0 typecheck /workspace/packages/shared
 > tsc --noEmit
 
-src/error-tracking.tsx(1,30): error TS6059: File '/workspace/packages/db/src/index.ts' is not under 'rootDir' '/workspace/packages/shared/src'. 'rootDir' is expected to contain all source files.
-  The file is in the program because:
-    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/error-tracking.tsx'
-    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/health.tsx'
-    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/performance-monitoring.tsx'
-    Imported via '@tokpulse/db' from file '/workspace/packages/shared/src/testing.tsx'
-src/error-tracking.tsx(328,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
-src/error-tracking.tsx(342,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
-src/error-tracking.tsx(373,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
-src/error-tracking.tsx(385,9): error TS2353: Object literal may only specify known properties, and 'duration' does not exist in type 'Partial<ErrorContext>'.
-src/errors.tsx(179,10): error TS2540: Cannot assign to 'code' because it is a read-only property.
-src/errors.tsx(186,10): error TS2540: Cannot assign to 'code' because it is a read-only property.
-src/errors.tsx(309,36): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(375,27): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(378,8): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(378,44): error TS2339: Property 'fallback' does not exist on type 'JSX.IntrinsicElements'.
-src/performance.tsx(380,9): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(395,33): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(396,31): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(397,20): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/performance.tsx(399,5): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
-src/security-hardening.tsx(287,28): error TS2339: Property 'getAuthTag' does not exist on type 'Cipher'.
-src/security-hardening.tsx(300,14): error TS2339: Property 'setAuthTag' does not exist on type 'Decipher'.
-src/testing.tsx(264,34): error TS2345: Argument of type '(url: string) => Promise<Response>' is not assignable to parameter of type '(input: string | URL | Request, init?: RequestInit | undefined) => Promise<Response>'.
-  Types of parameters 'url' and 'input' are incompatible.
-    Type 'string | URL | Request' is not assignable to type 'string'.
-      Type 'URL' is not assignable to type 'string'.
- ELIFECYCLE  Command failed with exit code 2.

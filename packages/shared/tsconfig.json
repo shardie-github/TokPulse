@@ -2,13 +2,13 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "../..",
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@tokpulse/db": ["../db/src"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*", "../db/src/**/*"],
+  "exclude": ["node_modules", "dist", "../db/src/seed.ts"]
 }
