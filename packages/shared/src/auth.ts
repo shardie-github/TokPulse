@@ -1,36 +1,32 @@
-import { createHmac } from 'crypto'
+import { createHmac } from 'crypto';
 
-export interface AuthContext {
-  organizationId: string
-  storeId?: string
-  userId?: string
-  role: string
+export interface SignedUrlParams {
+  [key: string]: string | number | boolean;
 }
 
 export function createSignedUrl(
   baseUrl: string,
-  params: Record<string, string>,
+  params: SignedUrlParams,
   secret: string
 ): string {
-  const url = new URL(baseUrl)
+  const url = new URL(baseUrl);
   
   // Add parameters
   Object.entries(params).forEach(([key, value]) => {
-    url.searchParams.set(key, value)
-  })
+    url.searchParams.set(key, String(value));
+  });
   
   // Add timestamp
-  const timestamp = Date.now().toString()
-  url.searchParams.set('timestamp', timestamp)
+  const timestamp = Date.now().toString();
+  url.searchParams.set('timestamp', timestamp);
   
   // Create signature
   const signature = createHmac('sha256', secret)
     .update(url.searchParams.toString())
-    .digest('hex')
+    .digest('hex');
+  url.searchParams.set('signature', signature);
   
-  url.searchParams.set('signature', signature)
-  
-  return url.toString()
+  return url.toString();
 }
 
 export function verifySignature(
@@ -41,20 +37,20 @@ export function verifySignature(
 ): boolean {
   try {
     // Check timestamp
-    const timestamp = parseInt(params.timestamp || '0')
+    const timestamp = parseInt(params.timestamp || '0');
     if (Date.now() - timestamp > maxAge) {
-      return false
+      return false;
     }
     
     // Verify signature
-    const { signature: _, ...paramsToSign } = params
-    const urlParams = new URLSearchParams(paramsToSign)
+    const { signature: _, ...paramsToSign } = params;
+    const urlParams = new URLSearchParams(paramsToSign);
     const expectedSignature = createHmac('sha256', secret)
       .update(urlParams.toString())
-      .digest('hex')
+      .digest('hex');
     
-    return signature === expectedSignature
+    return signature === expectedSignature;
   } catch {
-    return false
+    return false;
   }
 }
