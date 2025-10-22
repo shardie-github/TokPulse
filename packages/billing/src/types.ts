@@ -1,16 +1,9 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-export const PlanTier = z.enum(['STARTER', 'GROWTH', 'ENTERPRISE'])
-export type PlanTier = z.infer<typeof PlanTier>
-
-export const SubscriptionStatus = z.enum(['TRIAL', 'ACTIVE', 'PAST_DUE', 'CANCELLED', 'EXPIRED'])
-export type SubscriptionStatus = z.infer<typeof SubscriptionStatus>
-
-export const BillingProvider = z.enum(['SHOPIFY', 'STRIPE'])
-export type BillingProvider = z.infer<typeof BillingProvider>
-
-export const UsageMetric = z.enum(['API_CALLS', 'WIDGET_VIEWS', 'STORES', 'USERS'])
-export type UsageMetric = z.infer<typeof UsageMetric>
+export const PlanTier = z.enum(['STARTER', 'GROWTH', 'ENTERPRISE']);
+export const SubscriptionStatus = z.enum(['TRIAL', 'ACTIVE', 'PAST_DUE', 'CANCELLED', 'EXPIRED']);
+export const BillingProvider = z.enum(['SHOPIFY', 'STRIPE']);
+export const UsageMetric = z.enum(['API_CALLS', 'WIDGET_VIEWS', 'STORES', 'USERS']);
 
 export const PlanSchema = z.object({
   id: z.string(),
@@ -25,7 +18,7 @@ export const PlanSchema = z.object({
   isActive: z.boolean().default(true),
   createdAt: z.date(),
   updatedAt: z.date(),
-})
+});
 
 export const SubscriptionSchema = z.object({
   id: z.string(),
@@ -41,7 +34,7 @@ export const SubscriptionSchema = z.object({
   cancelledAt: z.date().optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
-})
+});
 
 export const UsageRecordSchema = z.object({
   id: z.string(),
@@ -49,39 +42,44 @@ export const UsageRecordSchema = z.object({
   metric: UsageMetric,
   quantity: z.number(),
   timestamp: z.date(),
-  metadata: z.record(z.any()).optional(),
-})
+  metadata: z.record(z.unknown()).optional(),
+});
 
 export const CreateSubscriptionRequest = z.object({
   organizationId: z.string(),
   planKey: z.string(),
   trialDays: z.number().default(14),
   shopifyBillingId: z.string().optional(),
-})
+});
 
 export const UpdateSubscriptionRequest = z.object({
   planKey: z.string().optional(),
   status: SubscriptionStatus.optional(),
   cancelAtPeriodEnd: z.boolean().optional(),
-})
+});
 
 export const RecordUsageRequest = z.object({
   subscriptionId: z.string(),
   metric: UsageMetric,
   quantity: z.number(),
-  metadata: z.record(z.any()).optional(),
-})
+  metadata: z.record(z.unknown()).optional(),
+});
 
 export const CheckEntitlementRequest = z.object({
   organizationId: z.string(),
   feature: z.string(),
   resource: z.string().optional(),
-})
+});
 
-export type Plan = z.infer<typeof PlanSchema>
-export type Subscription = z.infer<typeof SubscriptionSchema>
-export type UsageRecord = z.infer<typeof UsageRecordSchema>
-export type CreateSubscriptionRequest = z.infer<typeof CreateSubscriptionRequest>
-export type UpdateSubscriptionRequest = z.infer<typeof UpdateSubscriptionRequest>
-export type RecordUsageRequest = z.infer<typeof RecordUsageRequest>
-export type CheckEntitlementRequest = z.infer<typeof CheckEntitlementRequest>
+// Type exports
+export type PlanTier = z.infer<typeof PlanTier>;
+export type SubscriptionStatus = z.infer<typeof SubscriptionStatus>;
+export type BillingProvider = z.infer<typeof BillingProvider>;
+export type UsageMetric = z.infer<typeof UsageMetric>;
+export type Plan = z.infer<typeof PlanSchema>;
+export type Subscription = z.infer<typeof SubscriptionSchema>;
+export type UsageRecord = z.infer<typeof UsageRecordSchema>;
+export type CreateSubscriptionRequest = z.infer<typeof CreateSubscriptionRequest>;
+export type UpdateSubscriptionRequest = z.infer<typeof UpdateSubscriptionRequest>;
+export type RecordUsageRequest = z.infer<typeof RecordUsageRequest>;
+export type CheckEntitlementRequest = z.infer<typeof CheckEntitlementRequest>;

@@ -2,3 +2,21 @@
 > @tokpulse/telemetry@0.0.0 typecheck /workspace/packages/telemetry
 > tsc --noEmit
 
+src/endpoints.ts(1,10): error TS1484: 'Request' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/endpoints.ts(1,19): error TS1484: 'Response' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/logger.ts(162,50): error TS2379: Argument of type '{ storeId: string | undefined; method: string; route: string; statusCode: number; duration: number; requestId?: string; orgId?: string; userId?: string; experimentId?: string; variantId?: string; }' is not assignable to parameter of type 'LogContext' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'storeId' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/middleware.ts(1,10): error TS1484: 'Request' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/middleware.ts(1,19): error TS1484: 'Response' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/middleware.ts(1,29): error TS1484: 'NextFunction' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/middleware.ts(70,7): error TS2379: Argument of type '{ requestId: string | undefined; orgId: string | undefined; }' is not assignable to parameter of type 'LogContext' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'requestId' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/tracing.ts(152,45): error TS2379: Argument of type '{ serviceName: string; serviceVersion: string; otlpEndpoint: string | undefined; enabled: boolean; }' is not assignable to parameter of type 'TracingConfig' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'otlpEndpoint' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+ ELIFECYCLE  Command failed with exit code 2.
