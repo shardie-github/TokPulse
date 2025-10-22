@@ -15,6 +15,8 @@ export interface ErrorContext {
   timestamp: string
   environment: string
   version: string
+  duration?: number
+  operation?: string
 }
 
 export interface ErrorEvent {

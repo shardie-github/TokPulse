@@ -237,10 +237,10 @@ importers:
         specifier: ^1.1.0
         version: 1.1.8(@shopify/oxygen-workers-types@3.17.3)
       '@tokpulse/db':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../../packages/db
       '@tokpulse/shared':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../../packages/shared
       react:
         specifier: ^18.2.0

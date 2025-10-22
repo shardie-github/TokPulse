@@ -1,3 +1,4 @@
+import React from 'react'
 import { LRUCache } from 'lru-cache'
 
 // Performance monitoring utilities
@@ -375,7 +376,7 @@ export class LazyLoader {
     const LazyComponent = React.lazy(importFn)
     
     return (props: any) => (
-      <React.Suspense fallback={fallback ? <fallback /> : <div>Loading...</div>}>
+      <React.Suspense fallback={fallback ? React.createElement(fallback) : <div>Loading...</div>}>
         <LazyComponent {...props} />
       </React.Suspense>
     )

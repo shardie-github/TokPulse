@@ -7,3 +7,26 @@
    Linting and checking validity of types ...
 
  ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                             Size     First Load JS
+┌ ○ /                                     2.81 kB        85.5 kB
+├   /_app                                 0 B            80.3 kB
+├ ○ /404                                  181 B          80.4 kB
+└ ○ /experiments/creating                 2.83 kB        85.6 kB
++ First Load JS shared by all             81.4 kB
+  ├ chunks/framework-e0f347a11a70369e.js  44.8 kB
+  ├ chunks/main-d1e1a9b82a999f44.js       34.1 kB
+  └ other shared chunks (total)           2.47 kB
+
+○  (Static)  prerendered as static content
+

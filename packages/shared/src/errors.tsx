@@ -176,14 +176,14 @@ export class ExternalServiceError extends AppError {
 export class ShopifyApiError extends ExternalServiceError {
   constructor(message: string, context?: Record<string, any>) {
     super('Shopify', message, context)
-    this.code = ErrorCode.SHOPIFY_API_ERROR
+    Object.defineProperty(this, 'code', { value: ErrorCode.SHOPIFY_API_ERROR, writable: false })
   }
 }
 
 export class StripeApiError extends ExternalServiceError {
   constructor(message: string, context?: Record<string, any>) {
     super('Stripe', message, context)
-    this.code = ErrorCode.STRIPE_API_ERROR
+    Object.defineProperty(this, 'code', { value: ErrorCode.STRIPE_API_ERROR, writable: false })
   }
 }
 
@@ -305,6 +305,8 @@ export interface ErrorBoundaryState {
   error?: Error
   errorInfo?: any
 }
+
+import React from 'react'
 
 export class ErrorBoundary extends React.Component<
   { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> },
