@@ -304,17 +304,36 @@ See [VERCEL_CI_E2E_GUIDE.md](./VERCEL_CI_E2E_GUIDE.md) for detailed setup instru
 
 ## Contributing
 
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes
-4. Add tests
+4. Add tests for new functionality
 5. Run quality checks: `pnpm quality:check`
-6. Submit a pull request
+6. Commit your changes: `git commit -m 'Add amazing feature'`
+7. Push to the branch: `git push origin feature/amazing-feature`
+8. Submit a pull request
+
+### Development Workflow
+
+- Follow our [Code of Conduct](CODE_OF_CONDUCT.md)
+- Use conventional commits for commit messages
+- Ensure all tests pass before submitting
+- Update documentation for new features
+- Add appropriate type annotations
 
 ## License
 
-Private - All rights reserved
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
-For support, please contact the development team or create an issue in the repository.
+- 📧 Email: hardoniastore@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/your-org/tokpulse/issues)
+- 📖 Documentation: [docs/](docs/)
+- 🔒 Security: [SECURITY.md](SECURITY.md)
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
