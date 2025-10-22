@@ -9,5 +9,11 @@ export default defineConfig({
     globals: true,
     css: true,
     coverage: { reporter: ['text', 'lcov'] },
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/e2e/**',
+      '**/.{idea,git,cache,output,temp}/**',
+    ],
   },
 });
