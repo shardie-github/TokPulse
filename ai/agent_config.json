@@ -1,0 +1,52 @@
+{
+  "project_ref": "ghqyxhbyyirveptgwoqm",
+  "supabase_url": "https://ghqyxhbyyirveptgwoqm.supabase.co",
+  "embeddings_table": "ai_embeddings",
+  "health_metrics_table": "ai_health_metrics",
+  "models": {
+    "reasoning": "gpt-4-turbo-preview",
+    "embeddings": "text-embedding-3-small",
+    "fast": "gpt-3.5-turbo",
+    "vision": "gpt-4-vision-preview"
+  },
+  "refresh_interval_days": 7,
+  "thresholds": {
+    "deploy_failures": 3,
+    "latency_spike_percent": 20,
+    "error_rate_percent": 5,
+    "cost_deviation_percent": 20
+  },
+  "integrations": {
+    "github": {
+      "auto_issue_creation": true,
+      "pr_comments": true
+    },
+    "slack": {
+      "enabled": false,
+      "channel": "#ai-alerts"
+    },
+    "vercel": {
+      "enabled": true,
+      "metrics_collection": true
+    }
+  },
+  "features": {
+    "self_diagnosis": true,
+    "insights_agent": true,
+    "cost_tracking": true,
+    "privacy_guard": true,
+    "semantic_search": true,
+    "auto_documentation": true
+  },
+  "privacy": {
+    "pii_redaction": true,
+    "data_retention_days": 90,
+    "telemetry_opt_in": true
+  },
+  "runtime_targets": [
+    "vercel-edge",
+    "cloudflare-workers",
+    "shopify-oxygen",
+    "wasm"
+  ]
+}
