@@ -1,0 +1,104 @@
+name: Future Runtime Check
+
+on:
+  pull_request:
+    paths:
+      - '**.ts'
+      - '**.tsx'
+      - '**.js'
+      - '**.jsx'
+      - 'package.json'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  futurecheck:
+    name: Check Runtime Compatibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Future Runtime Compatibility Check
+        id: futurecheck
+        run: |
+          node --loader ts-node/esm scripts/futurecheck.ts --json > futurecheck.json
+          cat futurecheck.json
+          
+          # Extract summary
+          COMPATIBLE=$(jq -r '.summary.compatible | join(", ")' futurecheck.json)
+          INCOMPATIBLE=$(jq -r '.summary.incompatible | join(", ")' futurecheck.json)
+          ERRORS=$(jq -r '.summary.errors' futurecheck.json)
+          WARNINGS=$(jq -r '.summary.warnings' futurecheck.json)
+          
+          echo "compatible=$COMPATIBLE" >> $GITHUB_OUTPUT
+          echo "incompatible=$INCOMPATIBLE" >> $GITHUB_OUTPUT
+          echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+          echo "warnings=$WARNINGS" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Generate Report
+        run: |
+          node --loader ts-node/esm scripts/futurecheck.ts > FUTURECHECK_REPORT.md
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('FUTURECHECK_REPORT.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: futurecheck-report
+          path: |
+            futurecheck.json
+            FUTURECHECK_REPORT.md
+          retention-days: 30
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 🌍 Future Runtime Compatibility" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Results" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Compatible: ${{ steps.futurecheck.outputs.compatible }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ❌ Incompatible: ${{ steps.futurecheck.outputs.incompatible }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔴 Errors: ${{ steps.futurecheck.outputs.errors }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟡 Warnings: ${{ steps.futurecheck.outputs.warnings }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat FUTURECHECK_REPORT.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail on Errors
+        if: steps.futurecheck.outputs.errors != '0'
+        run: |
+          echo "⚠️ Runtime compatibility errors detected"
+          exit 1

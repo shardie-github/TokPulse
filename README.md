@@ -5,6 +5,39 @@ TokPulse is an enterprise, multi-store Shopify app that supports two first-class
 1. **Headless storefront** (Hydrogen/Remix) for larger merchants
 2. **Shopify Online Store 2.0** via Theme App Extensions for Shopify Basic merchants
 
+## 🤖 AI-Driven Self-Maintenance
+
+**TokPulse now features comprehensive AI automation for self-diagnosis, optimization, and future-runtime readiness.**
+
+### Key AI Features
+
+- ✅ **Self-Diagnosis**: Monitors CI logs, latency, and errors 24/7 → auto-creates GitHub Issues
+- ✅ **Cost Tracking**: Predicts monthly spend and alerts on budget deviations (>20%)
+- ✅ **Semantic Search**: Vector embeddings for docs/code with hybrid search
+- ✅ **Privacy Guard**: Automatic PII redaction (GDPR/CCPA compliant)
+- ✅ **Future-Ready**: Validated for Vercel Edge, WASM, Workers, Hydrogen/Oxygen
+- ✅ **Autonomous Watchers**: Nightly integrity checks for DB, API contracts, AI performance
+
+### Quick AI Commands
+
+```bash
+pnpm ai:diagnose      # System health check
+pnpm ai:insights      # GPT-4 powered analysis
+pnpm ai:cost          # Cost projection & alerts
+pnpm futurecheck      # Runtime compatibility check
+pnpm ai:embeddings    # Generate semantic embeddings
+pnpm watchers:all     # Run all integrity watchers
+```
+
+### Documentation
+
+- 📖 [AI Automation Architecture](docs/AI_AUTOMATION_README.md)
+- 🔒 [AI Compliance & Privacy](docs/AI_COMPLIANCE.md)
+- 🌱 [Sustainability & Cost](docs/SUSTAINABILITY.md)
+- 🚀 [Deployment Summary](AI_DEPLOYMENT_SUMMARY.md)
+
+---
+
 ## Architecture
 
 This is a monorepo built with:

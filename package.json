@@ -48,7 +48,22 @@
     "seed:all": "node scripts/seed-all.mjs",
     "e2e:full": "pnpm test && pnpm e2e",
     "obs:smoke": "node scripts/obs-smoke.mjs",
-    "ops:drill": "node scripts/ops-drill.mjs"
+    "ops:drill": "node scripts/ops-drill.mjs",
+    "ai:diagnose": "node --loader ts-node/esm ai/self_diagnose.ts",
+    "ai:insights": "node ai/insights_agent.mjs",
+    "ai:cost": "node --loader ts-node/esm ai/ai_autoscale.ts",
+    "ai:privacy": "node --loader ts-node/esm ai/privacy_guard.ts",
+    "ai:embeddings": "node scripts/generate-embeddings.mjs",
+    "ai:embeddings:refresh": "node scripts/generate-embeddings.mjs refresh",
+    "ai:onboard": "node scripts/onboard-ai.mjs",
+    "ai:release-notes": "node scripts/release-notes-ai.mjs",
+    "futurecheck": "node --loader ts-node/esm scripts/futurecheck.ts",
+    "futurecheck:json": "node --loader ts-node/esm scripts/futurecheck.ts --json",
+    "watchers:db": "node --loader ts-node/esm watchers/db_integrity.watcher.ts",
+    "watchers:api": "node --loader ts-node/esm watchers/api_contract.watcher.ts",
+    "watchers:ai": "node --loader ts-node/esm watchers/ai_performance.watcher.ts",
+    "watchers:all": "pnpm watchers:db && pnpm watchers:api && pnpm watchers:ai",
+    "lint:ai": "node --loader ts-node/esm ai/privacy_guard.ts"
   },
   "engines": {
     "node": ">=20",

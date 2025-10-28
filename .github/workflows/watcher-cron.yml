@@ -1,0 +1,163 @@
+name: Autonomous Watchers
+
+on:
+  schedule:
+    # Run nightly at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  db-integrity:
+    name: Database Integrity Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run DB Integrity Watcher
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          node --loader ts-node/esm watchers/db_integrity.watcher.ts > db-integrity.json
+          cat db-integrity.json
+        continue-on-error: true
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: db-integrity-results
+          path: db-integrity.json
+          retention-days: 30
+
+  api-contract:
+    name: API Contract Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: false # Enable when API is deployed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run API Contract Watcher
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          node --loader ts-node/esm watchers/api_contract.watcher.ts > api-contract.json
+          cat api-contract.json
+        continue-on-error: true
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-contract-results
+          path: api-contract.json
+          retention-days: 30
+
+  ai-performance:
+    name: AI Performance Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run AI Performance Watcher
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          node --loader ts-node/esm watchers/ai_performance.watcher.ts > ai-performance.json
+          cat ai-performance.json
+        continue-on-error: true
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-performance-results
+          path: ai-performance.json
+          retention-days: 30
+
+  summary:
+    name: Watcher Summary
+    runs-on: ubuntu-latest
+    needs: [db-integrity, ai-performance]
+    if: always()
+
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Generate Summary
+        run: |
+          echo "## 🔍 Autonomous Watcher Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Database Integrity" >> $GITHUB_STEP_SUMMARY
+          if [ -f db-integrity-results/db-integrity.json ]; then
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            cat db-integrity-results/db-integrity.json >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### AI Performance" >> $GITHUB_STEP_SUMMARY
+          if [ -f ai-performance-results/ai-performance.json ]; then
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            cat ai-performance-results/ai-performance.json >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
