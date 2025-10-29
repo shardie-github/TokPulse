@@ -1,4 +1,2 @@
-
-> @tokpulse/docs@0.0.0 build /workspace/apps/docs
-> next build
-
+ ERROR  Command was killed with SIGINT (User interruption with CTRL-C): pnpm add pnpm@8.15.0 --loglevel=error --allow-build=@pnpm/exe --no-dangerously-allow-all-builds --config.node-linker=hoisted --config.bin=/home/ubuntu/.local/share/pnpm/.tools/pnpm/8.15.0_tmp_1547/bin
+For help, run: pnpm help run

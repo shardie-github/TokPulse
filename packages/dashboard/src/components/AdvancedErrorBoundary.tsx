@@ -13,9 +13,9 @@ interface Props {
 
 interface State {
   hasError: boolean;
-  error?: Error;
-  errorInfo?: ErrorInfo;
-  errorId?: string;
+  error: Error | undefined;
+  errorInfo: ErrorInfo | undefined;
+  errorId: string | undefined;
   retryCount: number;
 }
 
@@ -26,6 +26,9 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
     super(props);
     this.state = {
       hasError: false,
+      error: undefined,
+      errorInfo: undefined,
+      errorId: undefined,
       retryCount: 0,
     };
   }
@@ -38,7 +41,7 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('AdvancedErrorBoundary caught an error:', error, errorInfo);
 
     this.setState({ errorInfo });
@@ -52,7 +55,7 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Props) {
+  override componentDidUpdate(prevProps: Props) {
     const { resetKeys, resetOnPropsChange } = this.props;
     const { hasError, retryCount } = this.state;
 
@@ -73,7 +76,7 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentWillUnmount() {
+  override componentWillUnmount() {
     if (this.retryTimeoutId) {
       clearTimeout(this.retryTimeoutId);
     }
@@ -124,7 +127,7 @@ export class AdvancedErrorBoundary extends Component<Props, State> {
     window.history.back();
   };
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
         return this.props.fallback;

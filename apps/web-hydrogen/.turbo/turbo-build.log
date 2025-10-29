@@ -1,6 +1,0 @@
-
-> @tokpulse/web-hydrogen@0.0.0 build /workspace/apps/web-hydrogen
-> shopify app build
-
-sh: 1: shopify: not found
- ELIFECYCLE  Command failed.
