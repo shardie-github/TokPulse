@@ -1,0 +1,25 @@
+{
+  "name": "@tokpulse/recommendations",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "TokPulse Product Recommendation Engine",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.1.12",
+    "express": "^5.1.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "@types/express": "^5.0.0",
+    "@types/cors": "^2.8.17",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
+  }
+}
